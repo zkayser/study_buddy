@@ -1,6 +1,7 @@
 defmodule StudyBuddy.Accounts.Registration do
   use Ecto.Schema
   import Ecto.Changeset
+  alias StudyBuddy.Repo
   alias StudyBuddy.Accounts.{Registration, User}
   
   embedded_schema do
@@ -9,17 +10,47 @@ defmodule StudyBuddy.Accounts.Registration do
     field :last_name, :string
     field :email, :string
     field :password, :string
+    field :password_hash, :string
   end
   
   def changeset(params) do
     %Registration{}
-    |> cast(params, [:first_name, :last_name, :email, :password])
+    |> cast(params, [:username, :first_name, :last_name, :email, :password])
     |> validate_required([:username, :email, :password])
     |> put_pass_hash()
   end
   
-  defp put_pass_hash(changeset) do
-    IO.puts "TODO"
+  def register_user(attrs \\ %{}) do
+    changeset(attrs)
+    |> to_user
+    |> User.changeset(%{})
+    |> Repo.insert()
   end
-
+  
+  def to_user(%Ecto.Changeset{valid?: true} = changeset) do
+    registration = Ecto.Changeset.apply_changes(changeset)
+    user = %User{}
+    |> Map.put(:username, registration.username)
+    |> Map.put(:email, registration.email)
+    |> Map.put(:password_hash, registration.password_hash)
+    
+    cond do
+      registration.first_name != nil && registration.last_name != nil ->
+        user = Map.put(user, :name, registration.first_name <> " " <> registration.last_name)
+      registration.first_name != nil ->
+        user = Map.put(user, :name, registration.first_name)
+      registration.last_name != nil ->
+        user = Map.put(user, :name, registration.last_name)
+      true -> user
+    end
+  end
+  
+  defp put_pass_hash(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
+        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+      _ ->
+        changeset
+    end
+  end
 end

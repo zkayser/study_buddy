@@ -6,7 +6,7 @@ defmodule StudyBuddy.Accounts do
   import Ecto.Query, warn: false
   alias StudyBuddy.Repo
 
-  alias StudyBuddy.Accounts.User
+  alias StudyBuddy.Accounts.{User, Registration}
 
   @doc """
   Returns the list of users.
@@ -53,6 +53,10 @@ defmodule StudyBuddy.Accounts do
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
+  end
+  
+  def register_user(attrs \\ %{}) do
+    Registration.register_user(attrs)
   end
 
   @doc """
