@@ -5,7 +5,6 @@ defmodule StudyBuddy.Accounts do
 
   import Ecto.Query, warn: false
   alias StudyBuddy.Repo
-
   alias StudyBuddy.Accounts.{User, Registration}
 
   @doc """
@@ -38,23 +37,16 @@ defmodule StudyBuddy.Accounts do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
-  Creates a user.
-
-  ## Examples
-
-      iex> create_user(%{field: value})
-      {:ok, %User{}}
-
-      iex> create_user(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
+    Registers a user.
+    
+    ## Examples
+    
+        iex> register_user(%{field: valid_value})
+        {:ok, %User{}}
+        
+        iex> register_user(%{field: bad_value})
+        {:error, %Ecto.Changeset{}}
   """
-  def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
-  end
-  
   def register_user(attrs \\ %{}) do
     Registration.register_user(attrs)
   end

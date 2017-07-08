@@ -7,7 +7,7 @@ use Mix.Config
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
 config :study_buddy, StudyBuddy.Web.Endpoint,
-  http: [port: 8080],
+  http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
@@ -51,8 +51,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :study_buddy, StudyBuddy.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "zkayser",
+  password: System.get_env("POSTGRES"),
   database: "study_buddy_dev",
   hostname: "localhost",
   template: "template0",

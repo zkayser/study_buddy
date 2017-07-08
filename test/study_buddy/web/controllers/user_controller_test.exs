@@ -2,68 +2,36 @@ defmodule StudyBuddy.Web.UserControllerTest do
   use StudyBuddy.Web.ConnCase
 
   alias StudyBuddy.Accounts
-  alias StudyBuddy.Accounts.User
-
-  @create_attrs %{email: "some email", name: "some name", username: "some username"}
-  @update_attrs %{email: "some updated email", name: "some updated name", username: "some updated username"}
-  @invalid_attrs %{email: nil, name: nil, username: nil}
+  # alias StudyBuddy.Accounts.User
+  # alias StudyBuddy.Accounts.Registration
+  
+  @create_attrs %{email: "email@example.com", first_name: "first", last_name: "last", username: "username", password: "password"}
+  # @update_attrs %{email: "some updated email", name: "some updated name", username: "some updated username"}
+  # @invalid_attrs %{email: nil, name: nil, username: nil}
 
   def fixture(:user) do
-    {:ok, user} = Accounts.create_user(@create_attrs)
+    {:ok, user} = Accounts.register_user(@create_attrs)
     user
   end
 
   setup %{conn: conn} do
+    fixture(:user)
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
-
-  test "lists all entries on index", %{conn: conn} do
-    conn = get conn, user_path(conn, :index)
-    assert json_response(conn, 200)["data"] == []
+  
+  test "index returns a 200 response" do
+    conn = build_conn()
+    conn = get conn, "/users"
+    assert json_response(conn, 200)
   end
-
-  test "creates user and renders user when data is valid", %{conn: conn} do
-    conn = post conn, user_path(conn, :create), user: @create_attrs
-    assert %{"id" => id} = json_response(conn, 201)["data"]
-
-    conn = get conn, user_path(conn, :show, id)
-    assert json_response(conn, 200)["data"] == %{
-      "id" => id,
-      "email" => "some email",
-      "name" => "some name",
-      "username" => "some username"}
-  end
-
-  test "does not create user and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, user_path(conn, :create), user: @invalid_attrs
-    assert json_response(conn, 422)["errors"] != %{}
-  end
-
-  test "updates chosen user and renders user when data is valid", %{conn: conn} do
-    %User{id: id} = user = fixture(:user)
-    conn = put conn, user_path(conn, :update, user), user: @update_attrs
-    assert %{"id" => ^id} = json_response(conn, 200)["data"]
-
-    conn = get conn, user_path(conn, :show, id)
-    assert json_response(conn, 200)["data"] == %{
-      "id" => id,
-      "email" => "some updated email",
-      "name" => "some updated name",
-      "username" => "some updated username"}
-  end
-
-  test "does not update chosen user and renders errors when data is invalid", %{conn: conn} do
-    user = fixture(:user)
-    conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
-    assert json_response(conn, 422)["errors"] != %{}
-  end
-
-  test "deletes chosen user", %{conn: conn} do
-    user = fixture(:user)
-    conn = delete conn, user_path(conn, :delete, user)
-    assert response(conn, 204)
-    assert_error_sent 404, fn ->
-      get conn, user_path(conn, :show, user)
-    end
+  
+  test "index should contain the correct user data" do
+    conn = build_conn()
+    conn = get conn, "/users"
+    response = json_response(conn, 200)
+    [data|_rest] = response["data"]
+    assert data["username"] == "username"
+    assert data["email"] == "email@example.com"
+    assert data["name"] == "first last"
   end
 end

@@ -9,11 +9,16 @@ defmodule StudyBuddy.Accounts.User do
     field :name, :string
     field :username, :string
     field :password_hash, :string
+    has_many :categories, StudyBuddy.Categories.Category
 
     timestamps()
   end
 
   @doc false
+  def changeset(%Ecto.Changeset{valid?: false} = changeset, _attrs) do
+    changeset
+  end
+
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:username, :email, :name, :password_hash])

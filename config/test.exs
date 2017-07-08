@@ -12,8 +12,9 @@ config :logger, level: :warn
 # Configure your database
 config :study_buddy, StudyBuddy.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "zkayser",
+  password: System.get_env("POSTGRES"),
   database: "study_buddy_test",
   hostname: "localhost",
+  template: "template0",
   pool: Ecto.Adapters.SQL.Sandbox

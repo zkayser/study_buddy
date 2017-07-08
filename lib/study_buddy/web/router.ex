@@ -20,6 +20,10 @@ defmodule StudyBuddy.Web.Router do
     resources "/users", UserController, except: [:new, :edit]
   end
 
+  scope "/users/:id/" do
+    resources "/categories", CategoryController
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", StudyBuddy.Web do
   #   pipe_through :api

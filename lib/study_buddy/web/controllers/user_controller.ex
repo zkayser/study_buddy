@@ -2,7 +2,7 @@ defmodule StudyBuddy.Web.UserController do
   use StudyBuddy.Web, :controller
 
   alias StudyBuddy.Accounts
-  alias StudyBuddy.Accounts.User
+  alias StudyBuddy.Accounts.{User, Registration}
 
   action_fallback StudyBuddy.Web.FallbackController
 
@@ -12,7 +12,7 @@ defmodule StudyBuddy.Web.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
+    with {:ok, %User{} = user} <- Accounts.register_user(user_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", user_path(conn, :show, user))

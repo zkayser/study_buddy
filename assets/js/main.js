@@ -11951,6 +11951,23 @@ var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 
+var _user$project$Other$yetAnother = A2(
+	_elm_lang$html$Html$p,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html$text('This is perfect!'),
+		_1: {ctor: '[]'}
+	});
+var _user$project$Other$other = A2(
+	_elm_lang$html$Html$p,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html$text('Some text from another file.'),
+		_1: {ctor: '[]'}
+	});
+
 var _user$project$Main$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
 	A2(
 		_elm_lang$html$Html$div,
@@ -11962,7 +11979,7 @@ var _user$project$Main$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProg
 				{ctor: '[]'},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('this is a paragraph'),
+					_0: _elm_lang$html$Html$text('Hello. I am a paragraph...'),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -11972,10 +11989,18 @@ var _user$project$Main$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProg
 					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text('and it is from Elm.'),
+						_0: _elm_lang$html$Html$text('and I am from Elm.'),
 						_1: {ctor: '[]'}
 					}),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: _user$project$Other$other,
+					_1: {
+						ctor: '::',
+						_0: _user$project$Other$yetAnother,
+						_1: {ctor: '[]'}
+					}
+				}
 			}
 		}));
 
