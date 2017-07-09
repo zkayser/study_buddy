@@ -22,6 +22,9 @@ defmodule StudyBuddy.Web.Router do
 
   scope "/users/:id/" do
     resources "/categories", CategoryController
+    scope "/categories/:id" do
+      resources "/topics", TopicController
+    end
   end
 
   # Other scopes may use custom stacks.

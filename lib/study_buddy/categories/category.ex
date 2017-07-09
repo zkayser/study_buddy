@@ -7,8 +7,8 @@ defmodule StudyBuddy.Categories.Category do
   schema "categories_categories" do
     field :name, :string
     belongs_to :user, StudyBuddy.Accounts.User
-    has_many :subcategories, StudyBuddy.Categories.Category, foreign_key: :category_id
-    belongs_to :category, StudyBuddy.Categories.Category
+    has_many :subcategories, Category, foreign_key: :category_id
+    belongs_to :category, Category
 
     timestamps()
   end
@@ -18,5 +18,13 @@ defmodule StudyBuddy.Categories.Category do
     category
     |> cast(attrs, [:name])
     |> validate_required([:name])
+  end
+
+  def build_subcategory(%Category{} = category, sub_cat_attrs) do
+    changeset = changeset(%Category{}, sub_cat_attrs)
+    case changeset do
+      %Ecto.Changeset{valid?: false} -> changeset
+      _ -> Ecto.build_assoc(category, :subcategories, sub_cat_attrs)
+    end
   end
 end
