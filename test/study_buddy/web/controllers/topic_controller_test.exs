@@ -2,7 +2,7 @@ defmodule StudyBuddy.Web.TopicControllerTest do
   use StudyBuddy.Web.ConnCase
 
   alias StudyBuddy.Categories
-  alias StudyBuddy.Categories.Topic
+  # alias StudyBuddy.Categories.Topic
 
   @create_attrs %{title: "some title"}
   # @update_attrs %{title: "some updated title"}

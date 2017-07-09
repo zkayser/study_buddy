@@ -24,6 +24,9 @@ defmodule StudyBuddy.Web.Router do
     resources "/categories", CategoryController
     scope "/categories/:id" do
       resources "/topics", TopicController
+      scope "/topics/:id" do
+        resources "/exercises", ExerciseController
+      end
     end
   end
 

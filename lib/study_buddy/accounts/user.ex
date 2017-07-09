@@ -10,6 +10,7 @@ defmodule StudyBuddy.Accounts.User do
     field :username, :string
     field :password_hash, :string
     has_many :categories, StudyBuddy.Categories.Category
+    has_many :exercises, StudyBuddy.Exercises.Exercise
 
     timestamps()
   end

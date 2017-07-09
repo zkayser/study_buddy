@@ -7,6 +7,7 @@ defmodule StudyBuddy.Categories.Topic do
   schema "categories_topics" do
     field :title, :string
     belongs_to :category, StudyBuddy.Categories.Category
+    has_many :exercises, StudyBuddy.Exercises.Exercise
 
     timestamps()
   end
