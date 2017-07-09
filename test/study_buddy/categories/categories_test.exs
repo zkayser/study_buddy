@@ -61,6 +61,15 @@ defmodule StudyBuddy.CategoriesTest do
       category = category_fixture()
       assert %Ecto.Changeset{} = Categories.change_category(category)
     end
+
+    test "associate/2 with two %Category structs creates a category/subcategory association" do
+      category = category_fixture()
+      {:ok, subcategory} = Categories.create_category(%{name: "some subcategory"})
+      {:ok, category, subcategory} = Categories.associate(category, subcategory)
+      category = Repo.preload(category, [:subcategories])
+      assert subcategory in category.subcategories
+      assert subcategory.category_id == category.id
+    end
   end
 
   describe "topics" do

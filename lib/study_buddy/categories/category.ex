@@ -20,11 +20,13 @@ defmodule StudyBuddy.Categories.Category do
     |> validate_required([:name])
   end
 
-  def build_subcategory(%Category{} = category, sub_cat_attrs) do
-    changeset = changeset(%Category{}, sub_cat_attrs)
+  def build_subcategory(%Category{} = category, %Category{} = sub_cat) do
+    changeset = changeset(sub_cat, Map.take(sub_cat, [:name]))
     case changeset do
       %Ecto.Changeset{valid?: false} -> changeset
-      _ -> Ecto.build_assoc(category, :subcategories, sub_cat_attrs)
+      _ -> Ecto.build_assoc(category, :subcategories, sub_cat)
     end
   end
+
+
 end

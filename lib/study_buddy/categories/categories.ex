@@ -102,6 +102,31 @@ defmodule StudyBuddy.Categories do
     Category.changeset(category, %{})
   end
 
+  ## TODO Complete the associate/2 implementation and provide examples in docs
+  @doc """
+    The associate/2 functions examine the type of structs passed in
+    and return {:ok, updated_struct1, updated_struct2} when the
+    association is successful and both structs are appropriately
+    updated in the database.
+
+    Associatable structs are as follows:
+    associate(%Category{} = category, %Category{} = subcategory)
+    associate(%Category{} = subcategory, %Topic{} = topic)
+    associate(%Topic{} = topic, %Category{} = subcategory)
+
+    Calls to associate/2 with any other combination of structs will return
+    {:error, unchanged_param1, unchanged_param2}. The same tuple will be
+    returned if either or both structs fail to be persisted to the database
+
+    Note that the associate(category, subcategory) call must have the params
+    in a specific order where the first param is the parent category and
+    the second param is the subcategory. The associate/2 call to link
+    a topic with a subcategory can be made with the params in either order for convenience.
+
+    ## Examples
+
+  """
+
   alias StudyBuddy.Categories.Topic
 
   @doc """

@@ -33,15 +33,24 @@ defmodule StudyBuddy.Categories.CategoryTest do
 
     test "should return an invalid changeset when building a subcategory association with invalid attributes" do
       category = category_fixture()
-      sub_cat = Category.build_subcategory(category, %{name: nil})
+      sub_cat = Category.build_subcategory(category, %Category{name: nil})
       refute sub_cat.valid?
     end
 
     test "build_subcategory should build a valid Category struct when given valid attributes" do
       sub_cat = category_fixture()
-      |> Category.build_subcategory(%{name: "Some subcategory"})
+      |> Category.build_subcategory(%Category{name: "Some subcategory"})
       assert sub_cat.name == "Some subcategory"
       assert sub_cat.category_id
+    end
+
+    test "should be able to insert a valid subcategory into the database" do
+      {:ok, sub_cat} = category_fixture()
+      |> Category.build_subcategory(%Category{name: "Some subcategory"})
+      |> StudyBuddy.Repo.insert()
+      inserted = StudyBuddy.Repo.get(Category, sub_cat.id)
+      assert inserted.id == sub_cat.id
+      assert inserted.name == sub_cat.name
     end
   end
 end

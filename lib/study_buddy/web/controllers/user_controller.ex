@@ -2,7 +2,7 @@ defmodule StudyBuddy.Web.UserController do
   use StudyBuddy.Web, :controller
 
   alias StudyBuddy.Accounts
-  alias StudyBuddy.Accounts.{User, Registration}
+  alias StudyBuddy.Accounts.{User}
 
   action_fallback StudyBuddy.Web.FallbackController
 
