@@ -16,6 +16,7 @@ defmodule StudyBuddy.Exercises.Exercise do
     field :last_review, :utc_datetime
     field :next_review, :utc_datetime, default: DateTime.utc_now()
     field :source, :string
+    field :mastered?, :boolean, default: false
     belongs_to :user, StudyBuddy.Accounts.User
     belongs_to :topic, StudyBuddy.Categories.Topic
 

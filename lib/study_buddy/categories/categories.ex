@@ -7,6 +7,8 @@ defmodule StudyBuddy.Categories do
   alias StudyBuddy.Repo
 
   alias StudyBuddy.Categories.Category
+  alias StudyBuddy.Categories.Topic
+  alias StudyBuddy.Exercises.Exercise
 
   @doc """
   Returns the list of categories.
@@ -123,11 +125,25 @@ defmodule StudyBuddy.Categories do
     the second param is the subcategory. The associate/2 call to link
     a topic with a subcategory can be made with the params in either order for convenience.
 
-    ## Examples
-
   """
 
-  alias StudyBuddy.Categories.Topic
+  def associate(%Category{} = category, %Category{} = subcategory) do
+    Category.build_relation(:subcategories, category, subcategory)
+  end
+
+  def associate(%Category{} = subcategory, %Topic{} = topic) do
+    Category.build_relation(:topics, subcategory, topic)
+  end
+
+  def associate(%Topic{} = topic, %Category{} = subcategory) do
+    Category.build_relation(:topics, subcategory, topic)
+  end
+
+  def associate(%Topic{} = topic, %Exercise{} = exercise) do
+    Topic.build_relation(:exercises, topic, exercise)
+  end
+
+  def associate(param1, param2), do: {:error, param1, param2}
 
   @doc """
   Returns the list of topics.
