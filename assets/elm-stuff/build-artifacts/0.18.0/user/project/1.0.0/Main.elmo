@@ -1,35 +1,188 @@
-var _user$project$Main$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
-	A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$p,
-				{ctor: '[]'},
-				{
+var _user$project$Main$header = function (model) {
+	return {
+		ctor: '::',
+		_0: A2(
+			_debois$elm_mdl$Material_Layout$row,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$nop,
+				_1: {
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('Hello. I am a paragraph...'),
+					_0: A2(_debois$elm_mdl$Material_Options$css, 'transition', 'height 333ms ease-in-out 0s'),
 					_1: {ctor: '[]'}
-				}),
-			_1: {
+				}
+			},
+			{
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$p,
+					_debois$elm_mdl$Material_Layout$title,
 					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text('and I am from Elm.'),
+						_0: _elm_lang$html$Html$text('Study Buddy'),
 						_1: {ctor: '[]'}
 					}),
 				_1: {
 					ctor: '::',
-					_0: _user$project$Other$other,
+					_0: _debois$elm_mdl$Material_Layout$spacer,
 					_1: {
 						ctor: '::',
-						_0: _user$project$Other$yetAnother,
+						_0: A2(
+							_debois$elm_mdl$Material_Layout$navigation,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_Layout$link,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Icon$i('photo'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_Layout$link,
+										{
+											ctor: '::',
+											_0: _debois$elm_mdl$Material_Layout$href('https://www.github.com/zkayser'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$span,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('Github'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Layout$link,
+											{
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Layout$href('https://www.elixir-lang.org'),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$span,
+													{ctor: '[]'},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Elixir'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}
+							}),
 						_1: {ctor: '[]'}
 					}
 				}
+			}),
+		_1: {ctor: '[]'}
+	};
+};
+var _user$project$Main$model = {count: 0, mdl: _debois$elm_mdl$Material$model};
+var _user$project$Main$Model = F2(
+	function (a, b) {
+		return {count: a, mdl: b};
+	});
+var _user$project$Main$Mdl = function (a) {
+	return {ctor: 'Mdl', _0: a};
+};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Increase':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{count: model.count + 1}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Reset':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{count: 0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return A3(_debois$elm_mdl$Material$update, _user$project$Main$Mdl, _p0._0, model);
+		}
+	});
+var _user$project$Main$view = function (model) {
+	return A4(
+		_debois$elm_mdl$Material_Layout$render,
+		_user$project$Main$Mdl,
+		model.mdl,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Layout$fixedHeader,
+			_1: {
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Layout$fixedTabs,
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Layout$scrolling,
+					_1: {ctor: '[]'}
+				}
 			}
-		}));
+		},
+		{
+			header: _user$project$Main$header(model),
+			drawer: {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('This is the drawer'),
+				_1: {ctor: '[]'}
+			},
+			tabs: {
+				ctor: '_Tuple2',
+				_0: {
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Some tabs'),
+					_1: {ctor: '[]'}
+				},
+				_1: {ctor: '[]'}
+			},
+			main: {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Some main content area stuff'),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Main$main = _elm_lang$html$Html$program(
+	{
+		init: {
+			ctor: '_Tuple2',
+			_0: _user$project$Main$model,
+			_1: _debois$elm_mdl$Material_Layout$sub0(_user$project$Main$Mdl)
+		},
+		view: _user$project$Main$view,
+		subscriptions: function (model) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: A2(_debois$elm_mdl$Material$subscriptions, _user$project$Main$Mdl, model),
+					_1: {ctor: '[]'}
+				});
+		},
+		update: _user$project$Main$update
+	})();
+var _user$project$Main$Reset = {ctor: 'Reset'};
+var _user$project$Main$Increase = {ctor: 'Increase'};

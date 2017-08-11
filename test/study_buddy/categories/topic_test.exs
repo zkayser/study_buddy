@@ -2,7 +2,6 @@ defmodule StudyBuddy.Categories.TopicTest do
   use StudyBuddy.DataCase
 
   alias StudyBuddy.Categories
-  alias StudyBuddy.Categories.{Topic}
 
   @valid_attrs %{title: "some title"}
   @invalid_attrs %{title: nil}
@@ -24,7 +23,7 @@ defmodule StudyBuddy.Categories.TopicTest do
     end
 
     test "should be able to associate a topic with a category" do
-      topic = topic_fixture
+      topic = topic_fixture()
       {:ok, category} = Categories.create_category(%{name: "some category"})
       {:ok, updated_category, updated_topic} = Categories.associate(category, topic)
       assert updated_topic.category_id == updated_category.id
