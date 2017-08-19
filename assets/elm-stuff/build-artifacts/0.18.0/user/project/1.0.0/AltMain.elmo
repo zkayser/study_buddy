@@ -1,0 +1,249 @@
+var _user$project$AltMain$color = function (k) {
+	return _debois$elm_mdl$Material_Color$background(
+		A3(
+			_elm_lang$core$Basics$flip,
+			_debois$elm_mdl$Material_Color$color,
+			_debois$elm_mdl$Material_Color$S100,
+			A2(
+				_elm_lang$core$Maybe$withDefault,
+				_debois$elm_mdl$Material_Color$Blue,
+				A2(
+					_elm_lang$core$Array$get,
+					A2(
+						_elm_lang$core$Basics_ops['%'],
+						k + 0,
+						_elm_lang$core$Array$length(_debois$elm_mdl$Material_Color$hues)),
+					_debois$elm_mdl$Material_Color$hues))));
+};
+var _user$project$AltMain$body = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_debois$elm_mdl$Material_Grid$grid,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_debois$elm_mdl$Material_Grid$cell,
+						{
+							ctor: '::',
+							_0: A2(_debois$elm_mdl$Material_Grid$offset, _debois$elm_mdl$Material_Grid$All, 4),
+							_1: {
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 4),
+								_1: {
+									ctor: '::',
+									_0: _user$project$AltMain$color(2),
+									_1: {
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Grid$align(_debois$elm_mdl$Material_Grid$Middle),
+										_1: {
+											ctor: '::',
+											_0: _debois$elm_mdl$Material_Typography$center,
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Grid size 4'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$AltMain$header = function (model) {
+	return {
+		ctor: '::',
+		_0: A2(
+			_debois$elm_mdl$Material_Layout$row,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$nop,
+				_1: {
+					ctor: '::',
+					_0: A2(_debois$elm_mdl$Material_Options$css, 'transition', 'height 333ms ease-in-out 0s'),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_debois$elm_mdl$Material_Layout$title,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Study Buddy'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Layout$spacer,
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_Layout$navigation,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_Layout$link,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Icon$i('photo'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_Layout$link,
+										{
+											ctor: '::',
+											_0: _debois$elm_mdl$Material_Layout$href('https://www.github.com/zkayser'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$span,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('Github'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Layout$link,
+											{
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Layout$href('https://www.elixir-lang.org'),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$span,
+													{ctor: '[]'},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Elixir'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}),
+		_1: {ctor: '[]'}
+	};
+};
+var _user$project$AltMain$model = {count: 0, mdl: _debois$elm_mdl$Material$model};
+var _user$project$AltMain$Model = F2(
+	function (a, b) {
+		return {count: a, mdl: b};
+	});
+var _user$project$AltMain$Mdl = function (a) {
+	return {ctor: 'Mdl', _0: a};
+};
+var _user$project$AltMain$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Increase':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{count: model.count + 1}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Reset':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{count: 0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return A3(_debois$elm_mdl$Material$update, _user$project$AltMain$Mdl, _p0._0, model);
+		}
+	});
+var _user$project$AltMain$view = function (model) {
+	return A4(
+		_debois$elm_mdl$Material_Layout$render,
+		_user$project$AltMain$Mdl,
+		model.mdl,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Layout$fixedHeader,
+			_1: {
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Layout$fixedTabs,
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Layout$scrolling,
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		{
+			header: _user$project$AltMain$header(model),
+			drawer: {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('This is the drawer'),
+				_1: {ctor: '[]'}
+			},
+			tabs: {
+				ctor: '_Tuple2',
+				_0: {
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Some tabs'),
+					_1: {ctor: '[]'}
+				},
+				_1: {ctor: '[]'}
+			},
+			main: {
+				ctor: '::',
+				_0: _user$project$AltMain$body(model),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$AltMain$main = _elm_lang$html$Html$program(
+	{
+		init: {
+			ctor: '_Tuple2',
+			_0: _user$project$AltMain$model,
+			_1: _debois$elm_mdl$Material_Layout$sub0(_user$project$AltMain$Mdl)
+		},
+		view: _user$project$AltMain$view,
+		subscriptions: function (model) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: A2(_debois$elm_mdl$Material$subscriptions, _user$project$AltMain$Mdl, model),
+					_1: {ctor: '[]'}
+				});
+		},
+		update: _user$project$AltMain$update
+	})();
+var _user$project$AltMain$Reset = {ctor: 'Reset'};
+var _user$project$AltMain$Increase = {ctor: 'Increase'};

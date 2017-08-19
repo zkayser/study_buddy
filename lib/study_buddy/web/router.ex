@@ -30,6 +30,12 @@ defmodule StudyBuddy.Web.Router do
     end
   end
 
+  scope "/api", StudyBuddy.Web do
+    pipe_through :api
+    get "/players", PlayerController, :index
+    get "/players/:id", PlayerController, :show
+    post "/players/:id", PlayerController, :update
+  end
   # Other scopes may use custom stacks.
   # scope "/api", StudyBuddy.Web do
   #   pipe_through :api

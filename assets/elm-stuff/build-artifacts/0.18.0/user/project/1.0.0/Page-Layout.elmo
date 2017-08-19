@@ -1,0 +1,41 @@
+var _user$project$Page_Layout$layout = function (model) {
+	return A4(
+		_debois$elm_mdl$Material_Layout$render,
+		_user$project$Msgs$Mdl,
+		model.mdl,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Layout$fixedHeader,
+			_1: {
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Layout$fixedTabs,
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Layout$scrolling,
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		{
+			header: _user$project$Page_Header$header(model),
+			drawer: {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('This is the drawer'),
+				_1: {ctor: '[]'}
+			},
+			tabs: {
+				ctor: '_Tuple2',
+				_0: {
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Some tabs'),
+					_1: {ctor: '[]'}
+				},
+				_1: {ctor: '[]'}
+			},
+			main: {
+				ctor: '::',
+				_0: _user$project$Page_Body$page(model),
+				_1: {ctor: '[]'}
+			}
+		});
+};

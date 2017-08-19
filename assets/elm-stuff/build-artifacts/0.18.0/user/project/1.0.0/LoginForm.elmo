@@ -1,0 +1,7 @@
+var _user$project$LoginForm$checkRememberMe = false;
+var _user$project$LoginForm$checkLoggedIn = false;
+var _user$project$LoginForm$initialModel = {loggedIn: _user$project$LoginForm$checkLoggedIn, username: '', password: '', rememberMe: _user$project$LoginForm$checkRememberMe, forgotPassword: false};
+var _user$project$LoginForm$Model = F5(
+	function (a, b, c, d, e) {
+		return {loggedIn: a, username: b, password: c, rememberMe: d, forgotPassword: e};
+	});

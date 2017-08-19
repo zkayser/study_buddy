@@ -1,0 +1,21 @@
+var _user$project$Page_Body$notFoundView = A2(
+	_elm_lang$html$Html$div,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html$text('Not Found'),
+		_1: {ctor: '[]'}
+	});
+var _user$project$Page_Body$page = function (model) {
+	var _p0 = model.route;
+	switch (_p0.ctor) {
+		case 'HomeRoute':
+			return _user$project$Page_Home$view(model.user);
+		case 'PlayersRoute':
+			return _user$project$Players_List$view(model.players);
+		case 'PlayerRoute':
+			return _user$project$Page_Body$notFoundView;
+		default:
+			return _user$project$Page_Body$notFoundView;
+	}
+};
