@@ -1,3 +1,3 @@
-defmodule StudyBuddy.Web.LayoutViewTest do
-  use StudyBuddy.Web.ConnCase, async: true
+defmodule StudyBuddyWeb.LayoutViewTest do
+  use StudyBuddyWeb.ConnCase, async: true
 end

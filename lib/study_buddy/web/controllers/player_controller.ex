@@ -1,5 +1,5 @@
-defmodule StudyBuddy.Web.PlayerController do
-  use StudyBuddy.Web, :controller
+defmodule StudyBuddyWeb.PlayerController do
+  use StudyBuddyWeb, :controller
   
   def index(conn, _params) do
     players = [

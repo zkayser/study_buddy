@@ -1,5 +1,5 @@
-defmodule StudyBuddy.Web.ExerciseControllerTest do
-  use StudyBuddy.Web.ConnCase
+defmodule StudyBuddyWeb.ExerciseControllerTest do
+  use StudyBuddyWeb.ConnCase
 
   alias StudyBuddy.Exercises
   # alias StudyBuddy.Exercises.Exercise

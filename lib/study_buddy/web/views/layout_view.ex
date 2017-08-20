@@ -1,3 +1,3 @@
-defmodule StudyBuddy.Web.LayoutView do
-  use StudyBuddy.Web, :view
+defmodule StudyBuddyWeb.LayoutView do
+  use StudyBuddyWeb, :view
 end

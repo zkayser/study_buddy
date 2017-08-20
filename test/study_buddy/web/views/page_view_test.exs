@@ -1,3 +1,3 @@
-defmodule StudyBuddy.Web.PageViewTest do
-  use StudyBuddy.Web.ConnCase, async: true
+defmodule StudyBuddyWeb.PageViewTest do
+  use StudyBuddyWeb.ConnCase, async: true
 end

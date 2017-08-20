@@ -11,7 +11,7 @@ defmodule StudyBuddy.Application do
       # Start the Ecto repository
       supervisor(StudyBuddy.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(StudyBuddy.Web.Endpoint, []),
+      supervisor(StudyBuddyWeb.Endpoint, []),
       # Start your own worker by calling: StudyBuddy.Worker.start_link(arg1, arg2, arg3)
       # worker(StudyBuddy.Worker, [arg1, arg2, arg3]),
     ]

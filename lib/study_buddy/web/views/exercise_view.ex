@@ -1,6 +1,6 @@
-defmodule StudyBuddy.Web.ExerciseView do
-  use StudyBuddy.Web, :view
-  alias StudyBuddy.Web.ExerciseView
+defmodule StudyBuddyWeb.ExerciseView do
+  use StudyBuddyWeb, :view
+  alias StudyBuddyWeb.ExerciseView
 
   def render("index.json", %{exercises: exercises}) do
     %{data: render_many(exercises, ExerciseView, "exercise.json")}

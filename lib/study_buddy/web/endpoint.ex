@@ -1,7 +1,7 @@
-defmodule StudyBuddy.Web.Endpoint do
+defmodule StudyBuddyWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :study_buddy
 
-  socket "/socket", StudyBuddy.Web.UserSocket
+  socket "/socket", StudyBuddyWeb.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -38,7 +38,7 @@ defmodule StudyBuddy.Web.Endpoint do
     key: "_study_buddy_key",
     signing_salt: "AUH1INFW"
 
-  plug StudyBuddy.Web.Router
+  plug StudyBuddyWeb.Router
 
   @doc """
   Dynamically loads configuration from the system environment

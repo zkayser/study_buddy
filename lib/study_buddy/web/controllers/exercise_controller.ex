@@ -1,10 +1,10 @@
-defmodule StudyBuddy.Web.ExerciseController do
-  use StudyBuddy.Web, :controller
+defmodule StudyBuddyWeb.ExerciseController do
+  use StudyBuddyWeb, :controller
 
   alias StudyBuddy.Exercises
   alias StudyBuddy.Exercises.Exercise
 
-  action_fallback StudyBuddy.Web.FallbackController
+  action_fallback StudyBuddyWeb.FallbackController
 
   def index(conn, _params) do
     exercises = Exercises.list_exercises()

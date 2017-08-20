@@ -1,10 +1,10 @@
-defmodule StudyBuddy.Web.TopicController do
-  use StudyBuddy.Web, :controller
+defmodule StudyBuddyWeb.TopicController do
+  use StudyBuddyWeb, :controller
 
   alias StudyBuddy.Categories
   alias StudyBuddy.Categories.Topic
 
-  action_fallback StudyBuddy.Web.FallbackController
+  action_fallback StudyBuddyWeb.FallbackController
 
   def index(conn, _params) do
     topics = Categories.list_topics()

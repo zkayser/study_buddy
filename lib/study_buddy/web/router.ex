@@ -1,5 +1,5 @@
-defmodule StudyBuddy.Web.Router do
-  use StudyBuddy.Web, :router
+defmodule StudyBuddyWeb.Router do
+  use StudyBuddyWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,7 +13,7 @@ defmodule StudyBuddy.Web.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", StudyBuddy.Web do
+  scope "/", StudyBuddyWeb do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
@@ -30,14 +30,15 @@ defmodule StudyBuddy.Web.Router do
     end
   end
 
-  scope "/api", StudyBuddy.Web do
+  scope "/api", StudyBuddyWeb do
     pipe_through :api
     get "/players", PlayerController, :index
     get "/players/:id", PlayerController, :show
     post "/players/:id", PlayerController, :update
+    resources "/sesssions", SessionController, only: [:delete, :create]
   end
   # Other scopes may use custom stacks.
-  # scope "/api", StudyBuddy.Web do
+  # scope "/api", StudyBuddyWeb do
   #   pipe_through :api
   # end
 end

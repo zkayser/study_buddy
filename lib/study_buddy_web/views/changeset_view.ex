@@ -1,11 +1,11 @@
-defmodule StudyBuddy.Web.ChangesetView do
-  use StudyBuddy.Web, :view
+defmodule StudyBuddyWeb.ChangesetView do
+  use StudyBuddyWeb, :view
 
   @doc """
   Traverses and translates changeset errors.
 
   See `Ecto.Changeset.traverse_errors/2` and
-  `StudyBuddy.Web.ErrorHelpers.translate_error/1` for more details.
+  `StudyBuddyWeb.ErrorHelpers.translate_error/1` for more details.
   """
   def translate_errors(changeset) do
     Ecto.Changeset.traverse_errors(changeset, &translate_error/1)

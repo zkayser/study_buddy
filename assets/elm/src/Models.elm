@@ -15,7 +15,7 @@ initialModel : Route -> Model
 initialModel route =
         { mdl = Material.model 
         , players = RemoteData.Loading
-        , user = RemoteData.Loading
+        , user = RemoteData.NotAsked
         , route = route
         }
 

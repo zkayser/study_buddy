@@ -1,5 +1,5 @@
-defmodule StudyBuddy.Web.CategoryControllerTest do
-  use StudyBuddy.Web.ConnCase
+defmodule StudyBuddyWeb.CategoryControllerTest do
+  use StudyBuddyWeb.ConnCase
 
   alias StudyBuddy.Categories
 

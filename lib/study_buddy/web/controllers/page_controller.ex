@@ -1,5 +1,5 @@
-defmodule StudyBuddy.Web.PageController do
-  use StudyBuddy.Web, :controller
+defmodule StudyBuddyWeb.PageController do
+  use StudyBuddyWeb, :controller
 
   def index(conn, _params) do
     render conn, "index.html"

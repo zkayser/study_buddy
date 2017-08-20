@@ -14,7 +14,12 @@ view user =
   case user of
     -- Should be the cases fir the WebData
     RemoteData.Loading ->
-      text "Loading..."
+      Grid.grid [ Grid.align Grid.Middle ]
+        [ Grid.cell
+          [ Grid.offset Grid.All 4, Grid.size Grid.All 4, Typography.center ]
+          [ Html.h3 [] [ text ("There are no users being loaded at the current time."
+          ++ "\nPlease come back later.") ] ]
+        ]
     RemoteData.Success user_ ->
       Grid.grid [ Grid.align Grid.Middle ]
         [ Grid.cell 

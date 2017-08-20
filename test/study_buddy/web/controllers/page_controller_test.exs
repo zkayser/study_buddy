@@ -1,5 +1,5 @@
-defmodule StudyBuddy.Web.PageControllerTest do
-  use StudyBuddy.Web.ConnCase
+defmodule StudyBuddyWeb.PageControllerTest do
+  use StudyBuddyWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

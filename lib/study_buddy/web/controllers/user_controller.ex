@@ -1,10 +1,10 @@
-defmodule StudyBuddy.Web.UserController do
-  use StudyBuddy.Web, :controller
+defmodule StudyBuddyWeb.UserController do
+  use StudyBuddyWeb, :controller
 
   alias StudyBuddy.Accounts
   alias StudyBuddy.Accounts.{User}
 
-  action_fallback StudyBuddy.Web.FallbackController
+  action_fallback StudyBuddyWeb.FallbackController
 
   def index(conn, _params) do
     users = Accounts.list_users()

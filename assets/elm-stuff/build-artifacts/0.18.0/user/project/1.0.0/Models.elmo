@@ -1,5 +1,5 @@
 var _user$project$Models$initialModel = function (route) {
-	return {mdl: _debois$elm_mdl$Material$model, players: _krisajenkins$remotedata$RemoteData$Loading, user: _krisajenkins$remotedata$RemoteData$Loading, route: route};
+	return {mdl: _debois$elm_mdl$Material$model, players: _krisajenkins$remotedata$RemoteData$Loading, user: _krisajenkins$remotedata$RemoteData$NotAsked, route: route};
 };
 var _user$project$Models$Model = F4(
 	function (a, b, c, d) {

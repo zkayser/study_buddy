@@ -20787,7 +20787,7 @@ var _user$project$Users_User$User = F8(
 	});
 
 var _user$project$Models$initialModel = function (route) {
-	return {mdl: _debois$elm_mdl$Material$model, players: _krisajenkins$remotedata$RemoteData$Loading, user: _krisajenkins$remotedata$RemoteData$Loading, route: route};
+	return {mdl: _debois$elm_mdl$Material$model, players: _krisajenkins$remotedata$RemoteData$Loading, user: _krisajenkins$remotedata$RemoteData$NotAsked, route: route};
 };
 var _user$project$Models$Model = F4(
 	function (a, b, c, d) {
@@ -21239,7 +21239,45 @@ var _user$project$Page_Home$view = function (user) {
 	var _p0 = user;
 	switch (_p0.ctor) {
 		case 'Loading':
-			return _elm_lang$html$Html$text('Loading...');
+			return A2(
+				_debois$elm_mdl$Material_Grid$grid,
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Grid$align(_debois$elm_mdl$Material_Grid$Middle),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_debois$elm_mdl$Material_Grid$cell,
+						{
+							ctor: '::',
+							_0: A2(_debois$elm_mdl$Material_Grid$offset, _debois$elm_mdl$Material_Grid$All, 4),
+							_1: {
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 4),
+								_1: {
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Typography$center,
+									_1: {ctor: '[]'}
+								}
+							}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$h3,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(
+										A2(_elm_lang$core$Basics_ops['++'], 'There are no users being loaded at the current time.', '\nPlease come back later.')),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				});
 		case 'Success':
 			return A2(
 				_debois$elm_mdl$Material_Grid$grid,

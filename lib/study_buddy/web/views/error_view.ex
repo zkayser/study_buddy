@@ -1,5 +1,5 @@
-defmodule StudyBuddy.Web.ErrorView do
-  use StudyBuddy.Web, :view
+defmodule StudyBuddyWeb.ErrorView do
+  use StudyBuddyWeb, :view
 
   def render("404.html", _assigns) do
     "Page not found"

@@ -1,12 +1,12 @@
-defmodule StudyBuddy.Web do
+defmodule StudyBuddyWeb do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use StudyBuddy.Web, :controller
-      use StudyBuddy.Web, :view
+      use StudyBuddyWeb, :controller
+      use StudyBuddyWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -18,17 +18,17 @@ defmodule StudyBuddy.Web do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: StudyBuddy.Web
+      use Phoenix.Controller, namespace: StudyBuddyWeb
       import Plug.Conn
-      import StudyBuddy.Web.Router.Helpers
-      import StudyBuddy.Web.Gettext
+      import StudyBuddyWeb.Router.Helpers
+      import StudyBuddyWeb.Gettext
     end
   end
 
   def view do
     quote do
       use Phoenix.View, root: "lib/study_buddy/web/templates",
-                        namespace: StudyBuddy.Web
+                        namespace: StudyBuddyWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_csrf_token: 0, get_flash: 2, view_module: 1]
@@ -36,9 +36,9 @@ defmodule StudyBuddy.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import StudyBuddy.Web.Router.Helpers
-      import StudyBuddy.Web.ErrorHelpers
-      import StudyBuddy.Web.Gettext
+      import StudyBuddyWeb.Router.Helpers
+      import StudyBuddyWeb.ErrorHelpers
+      import StudyBuddyWeb.Gettext
     end
   end
 
@@ -53,7 +53,7 @@ defmodule StudyBuddy.Web do
   def channel do
     quote do
       use Phoenix.Channel
-      import StudyBuddy.Web.Gettext
+      import StudyBuddyWeb.Gettext
     end
   end
 
