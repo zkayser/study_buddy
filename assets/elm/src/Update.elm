@@ -2,20 +2,21 @@ module Update exposing (..)
 
 import Msgs exposing (Msg(..))
 import Models exposing (Model)
+import Page.LoginForm as Login
 import Material
 import Routing exposing (parseLocation)
 import Commands exposing (savePlayerCmd)
-import Models exposing (Model, Player)
+import Players.Model exposing (Player)
 import RemoteData
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of 
+    case msg of
             Msgs.OnFetchPlayers response ->
                     ( { model | players = response }, Cmd.none )
             Msgs.OnLocationChange location ->
                     let
-                        newRoute = 
+                        newRoute =
                                 parseLocation location
                     in
                         ( { model | route = newRoute }, Cmd.none )
@@ -30,6 +31,12 @@ update msg model =
                     ( model, Cmd.none )
             Msgs.Mdl msg_ ->
                     Material.update Mdl msg_ model
+            Msgs.Login msg_ ->
+              let
+                ( form, cmd ) =
+                  Login.update msg_ model.loginForm
+              in
+               ( { model | loginForm = form }, cmd)
 
 updatePlayer : Model -> Player -> Model
 updatePlayer model updatedPlayer =
@@ -45,6 +52,3 @@ updatePlayer model updatedPlayer =
                     RemoteData.map updatePlayerList model.players
         in
             { model | players = updatedPlayers }
-
-
-

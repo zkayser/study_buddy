@@ -1,7 +1,7 @@
-var _user$project$Users_User$full_name = function (user) {
-	return A2(_elm_lang$core$Basics_ops['++'], user.first_name, user.last_name);
+var _user$project$Users_User$fullName = function (user) {
+	return A2(_elm_lang$core$Basics_ops['++'], user.firstName, user.lastName);
 };
 var _user$project$Users_User$User = F8(
 	function (a, b, c, d, e, f, g, h) {
-		return {id: a, username: b, email: c, first_name: d, last_name: e, remember_me: f, password: g, logged_in: h};
+		return {userId: a, username: b, email: c, firstName: d, lastName: e, rememberMe: f, password: g, loggedIn: h};
 	});

@@ -4,7 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (class, value, href)
 import Html.Events exposing (onClick)
 import Msgs exposing (Msg)
-import Models exposing (Player)
+import Players.Model exposing (Player)
 import Routing exposing (playersPath)
 
 view : Player -> Html Msg
@@ -28,10 +28,10 @@ form player =
 
 formLevel : Player -> Html Msg
 formLevel player =
-        div 
+        div
             [ class "clearfix py1" ]
             [ div [ class "col col-5" ] [ text "Level" ]
-            , div [ class "col col-7" ] 
+            , div [ class "col col-7" ]
                 [ span [ class "h2 bold" ] [ text (toString player.level) ]
                 , btnLevelDecrease player
                 , btnLevelIncrease player
@@ -40,20 +40,20 @@ formLevel player =
 
 btnLevelDecrease : Player -> Html Msg
 btnLevelDecrease player =
-        let 
+        let
             message =
                     Msgs.ChangeLevel player -1
         in
-            button [ class "btn ml1 h1", onClick message ] 
-                [ text "-" ] 
+            button [ class "btn ml1 h1", onClick message ]
+                [ text "-" ]
 
 btnLevelIncrease : Player -> Html Msg
 btnLevelIncrease player =
-        let 
+        let
             message =
                     Msgs.ChangeLevel player 1
         in
-            button [ class "btn ml1 h1", onClick message ] 
+            button [ class "btn ml1 h1", onClick message ]
             [ text "+" ]
 
 listBtn : Html Msg

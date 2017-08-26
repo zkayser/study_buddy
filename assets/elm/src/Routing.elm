@@ -1,7 +1,8 @@
 module Routing exposing (..)
 
 import Navigation exposing (Location)
-import Models exposing (PlayerId, Route(..))
+import Models exposing (Route(..))
+import Players.Model exposing (PlayerId)
 import UrlParser exposing (..)
 
 matchers : Parser (Route -> a) a
@@ -17,7 +18,7 @@ parseLocation location =
         case (UrlParser.parseHash matchers location) of
                 Just route ->
                         route
-                Nothing -> 
+                Nothing ->
                         NotFoundRoute
 
 playersPath : String

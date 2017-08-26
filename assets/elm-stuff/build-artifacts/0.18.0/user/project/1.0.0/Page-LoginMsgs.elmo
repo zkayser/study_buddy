@@ -1,0 +1,7 @@
+var _user$project$Page_LoginMsgs$SubmitCredentials = {ctor: 'SubmitCredentials'};
+var _user$project$Page_LoginMsgs$SetPassword = function (a) {
+	return {ctor: 'SetPassword', _0: a};
+};
+var _user$project$Page_LoginMsgs$SetUsername = function (a) {
+	return {ctor: 'SetUsername', _0: a};
+};

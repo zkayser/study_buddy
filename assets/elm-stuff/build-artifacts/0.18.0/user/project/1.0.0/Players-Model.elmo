@@ -1,0 +1,4 @@
+var _user$project$Players_Model$Player = F3(
+	function (a, b, c) {
+		return {id: a, name: b, level: c};
+	});

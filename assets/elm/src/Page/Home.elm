@@ -2,6 +2,7 @@ module Page.Home exposing (..)
 
 import Users.User as User exposing (..)
 import Msgs exposing (Msg(..))
+import Page.LoginForm as LoginForm
 import Html exposing (..)
 import RemoteData exposing (WebData)
 import Material
@@ -9,8 +10,8 @@ import Material.Color as Color
 import Material.Grid as Grid
 import Material.Typography as Typography
 
-view : (WebData User) -> Html Msg
-view user =
+view : (WebData User) -> LoginForm.Form -> Html Msg
+view user form_ =
   case user of
     -- Should be the cases fir the WebData
     RemoteData.Loading ->
@@ -22,9 +23,9 @@ view user =
         ]
     RemoteData.Success user_ ->
       Grid.grid [ Grid.align Grid.Middle ]
-        [ Grid.cell 
+        [ Grid.cell
           [ Grid.offset Grid.All 4, Grid.size Grid.All 4, Typography.center ]
-          [ Html.h1 [] [ text ("Welcome to Study Buddy, " ++ User.full_name user_) ] ]
+          [ Html.h1 [] [ text ("Welcome to Study Buddy, " ++ User.fullName user_) ] ]
         ]
     RemoteData.Failure err ->
       Grid.grid [ Grid.align Grid.Middle ]
@@ -35,7 +36,8 @@ view user =
     RemoteData.NotAsked ->
       Grid.grid [ Grid.align Grid.Middle ]
         [ Grid.cell
-          [ Grid.offset Grid.All 4, Grid.size Grid.All 4, Typography.center ]
-          [ Html.h1 [] [ text "Welcome to Study Buddy. You are not logged in (yet)." ] ]
+          [ Grid.size Grid.All 12, Typography.center ]
+          [ Html.h1 [] [ text "Welcome to Study Buddy." ]
+          , Html.map Msgs.Login (LoginForm.view form_ )
+          ]
         ]
-

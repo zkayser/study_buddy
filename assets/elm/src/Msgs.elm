@@ -1,6 +1,7 @@
 module Msgs exposing (..)
 
-import Models exposing (Player)
+import Players.Model exposing (Player)
+import Page.LoginMsgs exposing (LoginMsg(..))
 import Http
 import Material
 import Navigation exposing (Location)
@@ -12,6 +13,7 @@ type Msg
   | ChangeLevel Player Int
   | OnPlayerSave (Result Http.Error Player)
   | Mdl (Material.Msg Msg)
+  | Login (LoginMsg)
 
 type alias Mdl =
         Material.Model

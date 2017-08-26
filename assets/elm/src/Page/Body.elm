@@ -12,7 +12,7 @@ page : Model -> Html Msg
 page model =
   case model.route of
     Models.HomeRoute ->
-      Page.Home.view model.user
+      Page.Home.view model.user model.loginForm
     Models.PlayersRoute ->
       Players.List.view model.players
     Models.PlayerRoute playerId ->

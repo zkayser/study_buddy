@@ -10,7 +10,7 @@ var _user$project$Page_Body$page = function (model) {
 	var _p0 = model.route;
 	switch (_p0.ctor) {
 		case 'HomeRoute':
-			return _user$project$Page_Home$view(model.user);
+			return A2(_user$project$Page_Home$view, model.user, model.loginForm);
 		case 'PlayersRoute':
 			return _user$project$Players_List$view(model.players);
 		case 'PlayerRoute':

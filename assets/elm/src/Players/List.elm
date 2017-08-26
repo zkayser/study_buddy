@@ -3,7 +3,7 @@ module Players.List exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (class, href)
 import Msgs exposing (Msg)
-import Models exposing (Player)
+import Players.Model exposing (Player)
 import RemoteData exposing (WebData)
 import Routing exposing (playerPath)
 
@@ -29,7 +29,7 @@ maybeList response =
 
 list : List Player -> Html Msg
 list players =
-        div [ class "p2" ] 
+        div [ class "p2" ]
             [ table []
                 [ thead []
                     [ tr []
@@ -40,7 +40,7 @@ list players =
                         ]
                     ]
                     , tbody [] (List.map playerRow players)
-                ]  
+                ]
             ]
 
 playerRow : Player -> Html Msg

@@ -2,30 +2,25 @@ module Models exposing (..)
 
 import RemoteData exposing (WebData)
 import Users.User as User exposing (..)
+import Players.Model exposing (Player, PlayerId)
+import Page.LoginForm as LoginForm
 import Material
 
 type alias Model =
-        { mdl : Material.Model 
-        , players : WebData (List Player) 
+        { mdl : Material.Model
+        , players : WebData (List Player)
         , user : WebData User
         , route : Route
+        , loginForm : LoginForm.Form
         }
 
 initialModel : Route -> Model
 initialModel route =
-        { mdl = Material.model 
+        { mdl = Material.model
         , players = RemoteData.Loading
         , user = RemoteData.NotAsked
         , route = route
-        }
-
-type alias PlayerId =
-        String
-
-type alias Player =
-        { id : PlayerId
-        , name : String
-        , level : Int
+        , loginForm = LoginForm.initialLoginForm
         }
 
 type Route
@@ -33,4 +28,3 @@ type Route
     | PlayersRoute
     | PlayerRoute PlayerId
     | NotFoundRoute
-
