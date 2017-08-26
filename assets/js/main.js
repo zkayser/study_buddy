@@ -21023,8 +21023,12 @@ var _user$project$Page_LoginForm$view = function (state) {
 																_0: _elm_lang$html$Html_Attributes$for('password'),
 																_1: {
 																	ctor: '::',
-																	_0: _elm_lang$html$Html_Events$onInput(_user$project$Page_LoginMsgs$SetPassword),
-																	_1: {ctor: '[]'}
+																	_0: _elm_lang$html$Html_Attributes$type_('password'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Events$onInput(_user$project$Page_LoginMsgs$SetPassword),
+																		_1: {ctor: '[]'}
+																	}
 																}
 															}
 														},

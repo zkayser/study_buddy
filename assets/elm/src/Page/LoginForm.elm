@@ -47,7 +47,10 @@ view state =
           , Html.input [ value state.username, for "username", onInput LoginMsg.SetUsername ] []
           , Html.br [] []
           , Html.label [ style [("margin", "2px") ], for "password"] [ Html.text "Password" ]
-          , Html.input [ value state.password, for "password", onInput LoginMsg.SetPassword ] []
+          , Html.input [ value state.password
+                       , for "password"
+                       , type_ "password"
+                       , onInput LoginMsg.SetPassword ] []
           ]
         ]
       ]
