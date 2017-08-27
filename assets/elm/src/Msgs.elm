@@ -16,6 +16,7 @@ type Msg
   | Mdl (Material.Msg Msg)
   | Login (LoginMsg)
   | LoginResult (Result Http.Error Token)
+  | Logout
 
 type alias Mdl =
         Material.Model

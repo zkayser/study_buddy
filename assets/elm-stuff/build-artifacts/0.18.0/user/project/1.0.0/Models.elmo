@@ -1,18 +1,30 @@
-var _user$project$Models$initialModel = function (route) {
-	return {
-		mdl: _debois$elm_mdl$Material$model,
-		players: _krisajenkins$remotedata$RemoteData$Loading,
-		user: _krisajenkins$remotedata$RemoteData$NotAsked,
-		route: route,
-		loginForm: _user$project$Page_LoginForm$initialLoginForm,
-		jwt: {jwt: ''},
-		errorMessage: ''
-	};
-};
+var _user$project$Models$initialModel = F2(
+	function (flags, route) {
+		var tkn = function () {
+			var _p0 = flags.token;
+			if (_p0.ctor === 'Just') {
+				return _p0._0;
+			} else {
+				return '';
+			}
+		}();
+		return {
+			mdl: _debois$elm_mdl$Material$model,
+			players: _krisajenkins$remotedata$RemoteData$Loading,
+			user: _krisajenkins$remotedata$RemoteData$NotAsked,
+			route: route,
+			loginForm: _user$project$Page_LoginForm$initialLoginForm,
+			jwt: {jwt: tkn},
+			errorMessage: ''
+		};
+	});
 var _user$project$Models$Model = F7(
 	function (a, b, c, d, e, f, g) {
 		return {mdl: a, players: b, user: c, route: d, loginForm: e, jwt: f, errorMessage: g};
 	});
+var _user$project$Models$Flags = function (a) {
+	return {token: a};
+};
 var _user$project$Models$NotFoundRoute = {ctor: 'NotFoundRoute'};
 var _user$project$Models$PlayerRoute = function (a) {
 	return {ctor: 'PlayerRoute', _0: a};

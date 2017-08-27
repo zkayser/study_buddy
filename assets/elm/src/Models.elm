@@ -17,16 +17,25 @@ type alias Model =
         , errorMessage : String
         }
 
-initialModel : Route -> Model
-initialModel route =
-        { mdl = Material.model
-        , players = RemoteData.Loading
-        , user = RemoteData.NotAsked
-        , route = route
-        , loginForm = LoginForm.initialLoginForm
-        , jwt = { jwt = "" }
-        , errorMessage = ""
-        }
+type alias Flags =
+  { token : Maybe String }
+
+initialModel : Flags -> Route -> Model
+initialModel flags route =
+  let
+    tkn =
+      case flags.token of
+        Just token -> token
+        Nothing -> ""
+  in
+    { mdl = Material.model
+    , players = RemoteData.Loading
+    , user = RemoteData.NotAsked
+    , route = route
+    , loginForm = LoginForm.initialLoginForm
+    , jwt = { jwt = tkn }
+    , errorMessage = ""
+    }
 
 type Route
     = HomeRoute

@@ -3,6 +3,7 @@ module Update exposing (..)
 import Msgs exposing (Msg(..))
 import Models exposing (Model)
 import Page.LoginForm as Login
+import Token exposing (storeToken, removeToken)
 import Material
 import Routing exposing (parseLocation)
 import Commands exposing (savePlayerCmd)
@@ -39,10 +40,12 @@ update msg model =
                ( { model | loginForm = form }, cmd)
             Msgs.LoginResult result ->
               case result of
-                Ok jwt -> 
-                  ( { model | jwt = jwt }, Cmd.none )
+                Ok token ->
+                  ( { model | jwt = token }, storeToken token.jwt )
                 Err errorMessage ->
                   ( { model | errorMessage = (toString errorMessage )}, Cmd.none)
+            Msgs.Logout ->
+              ( model, removeToken Nothing )
 
 updatePlayer : Model -> Player -> Model
 updatePlayer model updatedPlayer =

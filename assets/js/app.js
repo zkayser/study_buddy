@@ -15,5 +15,15 @@ import "phoenix_html";
 
 import Elm from "./main.js";
 
+const token = localStorage.getItem('studyBuddyToken');
+const userToken = token ? token : null
 const ELM_DIV = document.getElementById("elm-main");
-Elm.Main.embed(ELM_DIV);
+const elmApp =Elm.Main.embed(ELM_DIV, {token: userToken});
+
+elmApp.ports.storeToken.subscribe((token) => {
+    localStorage.setItem('studyBuddyToken', token);
+});
+
+elmApp.ports.removeToken.subscribe(() => {
+    localStorage.removeItem('studyBuddyToken');
+});

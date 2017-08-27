@@ -1,3 +1,13 @@
+var _user$project$Token$storeToken = _elm_lang$core$Native_Platform.outgoingPort(
+	'storeToken',
+	function (v) {
+		return v;
+	});
+var _user$project$Token$removeToken = _elm_lang$core$Native_Platform.outgoingPort(
+	'removeToken',
+	function (v) {
+		return (v.ctor === 'Nothing') ? null : v._0;
+	});
 var _user$project$Token$Token = function (a) {
 	return {jwt: a};
 };

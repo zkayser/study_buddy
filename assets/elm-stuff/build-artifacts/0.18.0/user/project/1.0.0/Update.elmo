@@ -65,15 +65,16 @@ var _user$project$Update$update = F2(
 						{loginForm: form}),
 					_1: cmd
 				};
-			default:
+			case 'LoginResult':
 				var _p3 = _p0._0;
 				if (_p3.ctor === 'Ok') {
+					var _p4 = _p3._0;
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
-							{jwt: _p3._0}),
-						_1: _elm_lang$core$Platform_Cmd$none
+							{jwt: _p4}),
+						_1: _user$project$Token$storeToken(_p4.jwt)
 					};
 				} else {
 					return {
@@ -86,5 +87,11 @@ var _user$project$Update$update = F2(
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
 				}
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _user$project$Token$removeToken(_elm_lang$core$Maybe$Nothing)
+				};
 		}
 	});
