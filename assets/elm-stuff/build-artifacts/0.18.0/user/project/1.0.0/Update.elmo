@@ -54,7 +54,7 @@ var _user$project$Update$update = F2(
 				}
 			case 'Mdl':
 				return A3(_debois$elm_mdl$Material$update, _user$project$Msgs$Mdl, _p0._0, model);
-			default:
+			case 'Login':
 				var _p2 = A2(_user$project$Page_LoginForm$update, _p0._0, model.loginForm);
 				var form = _p2._0;
 				var cmd = _p2._1;
@@ -65,5 +65,26 @@ var _user$project$Update$update = F2(
 						{loginForm: form}),
 					_1: cmd
 				};
+			default:
+				var _p3 = _p0._0;
+				if (_p3.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{jwt: _p3._0}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								errorMessage: _elm_lang$core$Basics$toString(_p3._0)
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
 		}
 	});

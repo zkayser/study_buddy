@@ -13,4 +13,8 @@ defmodule StudyBuddyWeb.SessionView do
   def render("session.json", %{session: session}) do
     %{id: session.id}
   end
+
+  def render("login.json", %{jwt: jwt}) do
+    %{jwt: jwt}
+  end
 end

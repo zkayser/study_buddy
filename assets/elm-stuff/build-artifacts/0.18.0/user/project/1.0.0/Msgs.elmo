@@ -1,3 +1,6 @@
+var _user$project$Msgs$LoginResult = function (a) {
+	return {ctor: 'LoginResult', _0: a};
+};
 var _user$project$Msgs$Login = function (a) {
 	return {ctor: 'Login', _0: a};
 };

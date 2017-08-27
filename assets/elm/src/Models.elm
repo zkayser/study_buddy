@@ -3,6 +3,7 @@ module Models exposing (..)
 import RemoteData exposing (WebData)
 import Users.User as User exposing (..)
 import Players.Model exposing (Player, PlayerId)
+import Token exposing (Token)
 import Page.LoginForm as LoginForm
 import Material
 
@@ -12,6 +13,8 @@ type alias Model =
         , user : WebData User
         , route : Route
         , loginForm : LoginForm.Form
+        , jwt : Token
+        , errorMessage : String
         }
 
 initialModel : Route -> Model
@@ -21,6 +24,8 @@ initialModel route =
         , user = RemoteData.NotAsked
         , route = route
         , loginForm = LoginForm.initialLoginForm
+        , jwt = { jwt = "" }
+        , errorMessage = ""
         }
 
 type Route

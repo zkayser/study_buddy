@@ -37,6 +37,12 @@ update msg model =
                   Login.update msg_ model.loginForm
               in
                ( { model | loginForm = form }, cmd)
+            Msgs.LoginResult result ->
+              case result of
+                Ok jwt -> 
+                  ( { model | jwt = jwt }, Cmd.none )
+                Err errorMessage ->
+                  ( { model | errorMessage = (toString errorMessage )}, Cmd.none)
 
 updatePlayer : Model -> Player -> Model
 updatePlayer model updatedPlayer =

@@ -23,7 +23,7 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :guardian, Guardian,
-  allowed_algos: ["ES512"],
+  allowed_algos: ["HS512"],
   secret_key: System.get_env("SB_SECRET"),
   issuer: "StudyBuddy",
   ttl: { 30, :days },

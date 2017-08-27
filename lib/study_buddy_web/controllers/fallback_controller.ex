@@ -12,15 +12,21 @@ defmodule StudyBuddyWeb.FallbackController do
     |> render(StudyBuddyWeb.ChangesetView, "error.json", changeset: changeset)
   end
 
-  def call(conn, {:error, :not_found}) do
+  def call(conn, {:error, :not_found, _}) do
     conn
     |> put_status(:not_found)
     |> render(StudyBuddyWeb.ErrorView, :"404")
   end
 
-  def call(conn, {:error, :unauthorized}) do
+  def call(conn, {:error, :unauthorized, _}) do
     conn
     |> put_status(401)
     |> render(StudyBuddyWeb.ErrorView, :"401")
+  end
+
+  def call(conn, _) do
+    conn
+    |> put_status(500)
+    |> render(StudyBuddyWeb.ErrorView, :"500")
   end
 end

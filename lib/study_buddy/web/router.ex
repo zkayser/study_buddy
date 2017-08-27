@@ -10,7 +10,16 @@ defmodule StudyBuddyWeb.Router do
   end
 
   pipeline :api do
+    plug :fetch_session
     plug :accepts, ["json"]
+  end
+
+  scope "/api", StudyBuddyWeb do
+    pipe_through :api
+    get "/players", PlayerController, :index
+    get "/players/:id", PlayerController, :show
+    post "/players/:id", PlayerController, :update
+    resources "/sessions", SessionController, only: [:delete, :create]
   end
 
   scope "/", StudyBuddyWeb do
@@ -30,13 +39,7 @@ defmodule StudyBuddyWeb.Router do
     end
   end
 
-  scope "/api", StudyBuddyWeb do
-    pipe_through :api
-    get "/players", PlayerController, :index
-    get "/players/:id", PlayerController, :show
-    post "/players/:id", PlayerController, :update
-    resources "/sesssions", SessionController, only: [:delete, :create]
-  end
+
   # Other scopes may use custom stacks.
   # scope "/api", StudyBuddyWeb do
   #   pipe_through :api

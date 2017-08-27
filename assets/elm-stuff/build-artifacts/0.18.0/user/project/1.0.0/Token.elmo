@@ -1,0 +1,3 @@
+var _user$project$Token$Token = function (a) {
+	return {jwt: a};
+};

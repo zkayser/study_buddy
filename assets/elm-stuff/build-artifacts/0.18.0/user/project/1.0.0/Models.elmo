@@ -1,9 +1,17 @@
 var _user$project$Models$initialModel = function (route) {
-	return {mdl: _debois$elm_mdl$Material$model, players: _krisajenkins$remotedata$RemoteData$Loading, user: _krisajenkins$remotedata$RemoteData$NotAsked, route: route, loginForm: _user$project$Page_LoginForm$initialLoginForm};
+	return {
+		mdl: _debois$elm_mdl$Material$model,
+		players: _krisajenkins$remotedata$RemoteData$Loading,
+		user: _krisajenkins$remotedata$RemoteData$NotAsked,
+		route: route,
+		loginForm: _user$project$Page_LoginForm$initialLoginForm,
+		jwt: {jwt: ''},
+		errorMessage: ''
+	};
 };
-var _user$project$Models$Model = F5(
-	function (a, b, c, d, e) {
-		return {mdl: a, players: b, user: c, route: d, loginForm: e};
+var _user$project$Models$Model = F7(
+	function (a, b, c, d, e, f, g) {
+		return {mdl: a, players: b, user: c, route: d, loginForm: e, jwt: f, errorMessage: g};
 	});
 var _user$project$Models$NotFoundRoute = {ctor: 'NotFoundRoute'};
 var _user$project$Models$PlayerRoute = function (a) {
