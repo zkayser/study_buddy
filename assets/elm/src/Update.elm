@@ -6,7 +6,7 @@ import Page.LoginForm as Login
 import Token exposing (storeToken, removeToken)
 import Material
 import Routing exposing (parseLocation)
-import Commands exposing (savePlayerCmd)
+import Commands exposing (savePlayerCmd, fetchUser)
 import Players.Model exposing (Player)
 import RemoteData
 
@@ -17,6 +17,8 @@ update msg model =
                     ( { model | players = response }, Cmd.none )
             Msgs.OnLoadUser response ->
               ( model, Debug.log ("Got response: " ++ (toString response)) Cmd.none)
+            Msgs.GetUser ->
+              ( model, fetchUser model.jwt.jwt 1 )
             Msgs.OnLocationChange location ->
                     let
                         newRoute =

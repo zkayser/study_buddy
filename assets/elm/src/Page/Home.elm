@@ -4,6 +4,8 @@ import Users.User as User exposing (..)
 import Msgs exposing (Msg(..))
 import Page.LoginForm as LoginForm
 import Html exposing (..)
+import Html.Attributes exposing (type_)
+import Utils exposing (onClickPreventDefault)
 import RemoteData exposing (WebData)
 import Material
 import Material.Color as Color
@@ -40,4 +42,7 @@ view user form_ =
           [ Html.h1 [] [ text "Welcome to Study Buddy." ]
           , Html.map Msgs.Login (LoginForm.view form_ )
           ]
+        , Grid.cell
+          [ Grid.size Grid.All 12, Typography.center ]
+          [ Html.button [ type_ "button", onClickPreventDefault Msgs.GetUser ] [ text "Get user" ]]
         ]

@@ -35,6 +35,12 @@ var _user$project$Update$update = F2(
 							_elm_lang$core$Basics$toString(_p0._0)),
 						_elm_lang$core$Platform_Cmd$none)
 				};
+			case 'GetUser':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(_user$project$Commands$fetchUser, model.jwt.jwt, 1)
+				};
 			case 'OnLocationChange':
 				var newRoute = _user$project$Routing$parseLocation(_p0._0);
 				return {

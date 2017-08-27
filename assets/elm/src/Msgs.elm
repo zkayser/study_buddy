@@ -20,6 +20,7 @@ type Msg
   | LoginResult (Result Http.Error Token)
   | Logout
   | OnLoadUser (Result Jwt.JwtError ApiUser)
+  | GetUser
 
 type alias Mdl =
         Material.Model
