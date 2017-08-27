@@ -20778,6 +20778,646 @@ var _krisajenkins$remotedata$RemoteData$update = F2(
 		}
 	});
 
+var _truqu$elm_base64$BitList$partition = F2(
+	function (size, list) {
+		if (_elm_lang$core$Native_Utils.cmp(
+			_elm_lang$core$List$length(list),
+			size) < 1) {
+			return {
+				ctor: '::',
+				_0: list,
+				_1: {ctor: '[]'}
+			};
+		} else {
+			var partitionTail = F3(
+				function (size, list, res) {
+					partitionTail:
+					while (true) {
+						var _p0 = list;
+						if (_p0.ctor === '[]') {
+							return res;
+						} else {
+							var _v1 = size,
+								_v2 = A2(_elm_lang$core$List$drop, size, list),
+								_v3 = {
+								ctor: '::',
+								_0: A2(_elm_lang$core$List$take, size, list),
+								_1: res
+							};
+							size = _v1;
+							list = _v2;
+							res = _v3;
+							continue partitionTail;
+						}
+					}
+				});
+			return _elm_lang$core$List$reverse(
+				A3(
+					partitionTail,
+					size,
+					list,
+					{ctor: '[]'}));
+		}
+	});
+var _truqu$elm_base64$BitList$toByteReverse = function (bitList) {
+	var _p1 = bitList;
+	if (_p1.ctor === '[]') {
+		return 0;
+	} else {
+		if (_p1._0.ctor === 'Off') {
+			return 2 * _truqu$elm_base64$BitList$toByteReverse(_p1._1);
+		} else {
+			return 1 + (2 * _truqu$elm_base64$BitList$toByteReverse(_p1._1));
+		}
+	}
+};
+var _truqu$elm_base64$BitList$toByte = function (bitList) {
+	return _truqu$elm_base64$BitList$toByteReverse(
+		_elm_lang$core$List$reverse(bitList));
+};
+var _truqu$elm_base64$BitList$Off = {ctor: 'Off'};
+var _truqu$elm_base64$BitList$On = {ctor: 'On'};
+var _truqu$elm_base64$BitList$fromNumber = function ($int) {
+	return _elm_lang$core$Native_Utils.eq($int, 0) ? {ctor: '[]'} : (_elm_lang$core$Native_Utils.eq(
+		A2(_elm_lang$core$Basics_ops['%'], $int, 2),
+		1) ? A2(
+		_elm_lang$core$List$append,
+		_truqu$elm_base64$BitList$fromNumber(($int / 2) | 0),
+		{
+			ctor: '::',
+			_0: _truqu$elm_base64$BitList$On,
+			_1: {ctor: '[]'}
+		}) : A2(
+		_elm_lang$core$List$append,
+		_truqu$elm_base64$BitList$fromNumber(($int / 2) | 0),
+		{
+			ctor: '::',
+			_0: _truqu$elm_base64$BitList$Off,
+			_1: {ctor: '[]'}
+		}));
+};
+var _truqu$elm_base64$BitList$fromNumberWithSize = F2(
+	function (number, size) {
+		var bitList = _truqu$elm_base64$BitList$fromNumber(number);
+		var paddingSize = size - _elm_lang$core$List$length(bitList);
+		return A2(
+			_elm_lang$core$List$append,
+			A2(_elm_lang$core$List$repeat, paddingSize, _truqu$elm_base64$BitList$Off),
+			bitList);
+	});
+var _truqu$elm_base64$BitList$fromByte = function ($byte) {
+	return A2(_truqu$elm_base64$BitList$fromNumberWithSize, $byte, 8);
+};
+
+var _truqu$elm_base64$Base64$dropLast = F2(
+	function (number, list) {
+		return _elm_lang$core$List$reverse(
+			A2(
+				_elm_lang$core$List$drop,
+				number,
+				_elm_lang$core$List$reverse(list)));
+	});
+var _truqu$elm_base64$Base64$partitionBits = function (list) {
+	var list_ = A3(
+		_elm_lang$core$List$foldr,
+		_elm_lang$core$List$append,
+		{ctor: '[]'},
+		A2(_elm_lang$core$List$map, _truqu$elm_base64$BitList$fromByte, list));
+	return A2(
+		_elm_lang$core$List$map,
+		_truqu$elm_base64$BitList$toByte,
+		A2(_truqu$elm_base64$BitList$partition, 6, list_));
+};
+var _truqu$elm_base64$Base64$base64CharsList = _elm_lang$core$String$toList('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/');
+var _truqu$elm_base64$Base64$base64Map = function () {
+	var insert = F2(
+		function (_p0, dict) {
+			var _p1 = _p0;
+			return A3(_elm_lang$core$Dict$insert, _p1._1, _p1._0, dict);
+		});
+	return A3(
+		_elm_lang$core$List$foldl,
+		insert,
+		_elm_lang$core$Dict$empty,
+		A2(
+			_elm_lang$core$List$indexedMap,
+			F2(
+				function (v0, v1) {
+					return {ctor: '_Tuple2', _0: v0, _1: v1};
+				}),
+			_truqu$elm_base64$Base64$base64CharsList));
+}();
+var _truqu$elm_base64$Base64$isValid = function (string) {
+	var string_ = A2(_elm_lang$core$String$endsWith, '==', string) ? A2(_elm_lang$core$String$dropRight, 2, string) : (A2(_elm_lang$core$String$endsWith, '=', string) ? A2(_elm_lang$core$String$dropRight, 1, string) : string);
+	var isBase64Char = function ($char) {
+		return A2(_elm_lang$core$Dict$member, $char, _truqu$elm_base64$Base64$base64Map);
+	};
+	return A2(_elm_lang$core$String$all, isBase64Char, string_);
+};
+var _truqu$elm_base64$Base64$toBase64BitList = function (string) {
+	var endingEquals = A2(_elm_lang$core$String$endsWith, '==', string) ? 2 : (A2(_elm_lang$core$String$endsWith, '=', string) ? 1 : 0);
+	var stripped = _elm_lang$core$String$toList(
+		A2(_elm_lang$core$String$dropRight, endingEquals, string));
+	var base64ToInt = function ($char) {
+		var _p2 = A2(_elm_lang$core$Dict$get, $char, _truqu$elm_base64$Base64$base64Map);
+		if (_p2.ctor === 'Just') {
+			return _p2._0;
+		} else {
+			return -1;
+		}
+	};
+	var numberList = A2(_elm_lang$core$List$map, base64ToInt, stripped);
+	return A2(
+		_truqu$elm_base64$Base64$dropLast,
+		endingEquals * 2,
+		A2(
+			_elm_lang$core$List$concatMap,
+			A2(_elm_lang$core$Basics$flip, _truqu$elm_base64$BitList$fromNumberWithSize, 6),
+			numberList));
+};
+var _truqu$elm_base64$Base64$toCharList = function (bitList) {
+	var array = _elm_lang$core$Array$fromList(_truqu$elm_base64$Base64$base64CharsList);
+	var toBase64Char = function (index) {
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			_elm_lang$core$Native_Utils.chr('!'),
+			A2(_elm_lang$core$Array$get, index, array));
+	};
+	var toChars = function (_p3) {
+		var _p4 = _p3;
+		var _p5 = {ctor: '_Tuple3', _0: _p4._0, _1: _p4._1, _2: _p4._2};
+		if (_p5._2 === -1) {
+			if (_p5._1 === -1) {
+				return A2(
+					_elm_lang$core$List$append,
+					A2(
+						_truqu$elm_base64$Base64$dropLast,
+						2,
+						A2(
+							_elm_lang$core$List$map,
+							toBase64Char,
+							_truqu$elm_base64$Base64$partitionBits(
+								{
+									ctor: '::',
+									_0: _p5._0,
+									_1: {
+										ctor: '::',
+										_0: 0,
+										_1: {
+											ctor: '::',
+											_0: 0,
+											_1: {ctor: '[]'}
+										}
+									}
+								}))),
+					{
+						ctor: '::',
+						_0: _elm_lang$core$Native_Utils.chr('='),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$core$Native_Utils.chr('='),
+							_1: {ctor: '[]'}
+						}
+					});
+			} else {
+				return A2(
+					_elm_lang$core$List$append,
+					A2(
+						_truqu$elm_base64$Base64$dropLast,
+						1,
+						A2(
+							_elm_lang$core$List$map,
+							toBase64Char,
+							_truqu$elm_base64$Base64$partitionBits(
+								{
+									ctor: '::',
+									_0: _p5._0,
+									_1: {
+										ctor: '::',
+										_0: _p5._1,
+										_1: {
+											ctor: '::',
+											_0: 0,
+											_1: {ctor: '[]'}
+										}
+									}
+								}))),
+					{
+						ctor: '::',
+						_0: _elm_lang$core$Native_Utils.chr('='),
+						_1: {ctor: '[]'}
+					});
+			}
+		} else {
+			return A2(
+				_elm_lang$core$List$map,
+				toBase64Char,
+				_truqu$elm_base64$Base64$partitionBits(
+					{
+						ctor: '::',
+						_0: _p5._0,
+						_1: {
+							ctor: '::',
+							_0: _p5._1,
+							_1: {
+								ctor: '::',
+								_0: _p5._2,
+								_1: {ctor: '[]'}
+							}
+						}
+					}));
+		}
+	};
+	return A2(_elm_lang$core$List$concatMap, toChars, bitList);
+};
+var _truqu$elm_base64$Base64$toTupleList = function () {
+	var toTupleListHelp = F2(
+		function (acc, list) {
+			toTupleListHelp:
+			while (true) {
+				var _p6 = list;
+				if (_p6.ctor === '::') {
+					if (_p6._1.ctor === '::') {
+						if (_p6._1._1.ctor === '::') {
+							var _v5 = {
+								ctor: '::',
+								_0: {ctor: '_Tuple3', _0: _p6._0, _1: _p6._1._0, _2: _p6._1._1._0},
+								_1: acc
+							},
+								_v6 = _p6._1._1._1;
+							acc = _v5;
+							list = _v6;
+							continue toTupleListHelp;
+						} else {
+							return {
+								ctor: '::',
+								_0: {ctor: '_Tuple3', _0: _p6._0, _1: _p6._1._0, _2: -1},
+								_1: acc
+							};
+						}
+					} else {
+						return {
+							ctor: '::',
+							_0: {ctor: '_Tuple3', _0: _p6._0, _1: -1, _2: -1},
+							_1: acc
+						};
+					}
+				} else {
+					return acc;
+				}
+			}
+		});
+	return function (_p7) {
+		return _elm_lang$core$List$reverse(
+			A2(
+				toTupleListHelp,
+				{ctor: '[]'},
+				_p7));
+	};
+}();
+var _truqu$elm_base64$Base64$toCodeList = function (string) {
+	return A2(
+		_elm_lang$core$List$map,
+		_elm_lang$core$Char$toCode,
+		_elm_lang$core$String$toList(string));
+};
+var _truqu$elm_base64$Base64$decode = function (s) {
+	if (!_truqu$elm_base64$Base64$isValid(s)) {
+		return _elm_lang$core$Result$Err('Error while decoding');
+	} else {
+		var bitList = A2(
+			_elm_lang$core$List$map,
+			_truqu$elm_base64$BitList$toByte,
+			A2(
+				_truqu$elm_base64$BitList$partition,
+				8,
+				_truqu$elm_base64$Base64$toBase64BitList(s)));
+		var charList = A2(_elm_lang$core$List$map, _elm_lang$core$Char$fromCode, bitList);
+		return _elm_lang$core$Result$Ok(
+			_elm_lang$core$String$fromList(charList));
+	}
+};
+var _truqu$elm_base64$Base64$encode = function (s) {
+	return _elm_lang$core$Result$Ok(
+		_elm_lang$core$String$fromList(
+			_truqu$elm_base64$Base64$toCharList(
+				_truqu$elm_base64$Base64$toTupleList(
+					_truqu$elm_base64$Base64$toCodeList(s)))));
+};
+
+var _simonh1000$elm_jwt$Jwt_Decoders$andMap = _elm_lang$core$Json_Decode$map2(
+	F2(
+		function (x, y) {
+			return y(x);
+		}));
+var _simonh1000$elm_jwt$Jwt_Decoders$JwtToken = F4(
+	function (a, b, c, d) {
+		return {iat: a, exp: b, userId: c, email: d};
+	});
+var _simonh1000$elm_jwt$Jwt_Decoders$firebase = A2(
+	_simonh1000$elm_jwt$Jwt_Decoders$andMap,
+	_elm_lang$core$Json_Decode$maybe(
+		A2(_elm_lang$core$Json_Decode$field, 'email', _elm_lang$core$Json_Decode$string)),
+	A2(
+		_simonh1000$elm_jwt$Jwt_Decoders$andMap,
+		_elm_lang$core$Json_Decode$maybe(
+			A2(_elm_lang$core$Json_Decode$field, 'user_id', _elm_lang$core$Json_Decode$string)),
+		A2(
+			_simonh1000$elm_jwt$Jwt_Decoders$andMap,
+			A2(_elm_lang$core$Json_Decode$field, 'exp', _elm_lang$core$Json_Decode$int),
+			A2(
+				_simonh1000$elm_jwt$Jwt_Decoders$andMap,
+				A2(_elm_lang$core$Json_Decode$field, 'iat', _elm_lang$core$Json_Decode$int),
+				_elm_lang$core$Json_Decode$succeed(_simonh1000$elm_jwt$Jwt_Decoders$JwtToken)))));
+var _simonh1000$elm_jwt$Jwt_Decoders$phoenixGuardian = A2(
+	_simonh1000$elm_jwt$Jwt_Decoders$andMap,
+	_elm_lang$core$Json_Decode$succeed(_elm_lang$core$Maybe$Nothing),
+	A2(
+		_simonh1000$elm_jwt$Jwt_Decoders$andMap,
+		_elm_lang$core$Json_Decode$succeed(_elm_lang$core$Maybe$Nothing),
+		A2(
+			_simonh1000$elm_jwt$Jwt_Decoders$andMap,
+			A2(_elm_lang$core$Json_Decode$field, 'exp', _elm_lang$core$Json_Decode$int),
+			A2(
+				_simonh1000$elm_jwt$Jwt_Decoders$andMap,
+				A2(_elm_lang$core$Json_Decode$field, 'iat', _elm_lang$core$Json_Decode$int),
+				_elm_lang$core$Json_Decode$succeed(_simonh1000$elm_jwt$Jwt_Decoders$JwtToken)))));
+
+var _simonh1000$elm_jwt$Jwt$authenticate = F3(
+	function (url, dec, credentials) {
+		return A3(
+			_elm_lang$http$Http$post,
+			url,
+			_elm_lang$http$Http$jsonBody(credentials),
+			dec);
+	});
+var _simonh1000$elm_jwt$Jwt$createRequestObject = F5(
+	function (method, token, url, body, dec) {
+		return {
+			method: method,
+			headers: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$http$Http$header,
+					'Authorization',
+					A2(_elm_lang$core$Basics_ops['++'], 'Bearer ', token)),
+				_1: {ctor: '[]'}
+			},
+			url: url,
+			body: body,
+			expect: _elm_lang$http$Http$expectJson(dec),
+			timeout: _elm_lang$core$Maybe$Nothing,
+			withCredentials: false
+		};
+	});
+var _simonh1000$elm_jwt$Jwt$createRequest = F4(
+	function (method, token, url, body) {
+		return function (_p0) {
+			return _elm_lang$http$Http$request(
+				A5(_simonh1000$elm_jwt$Jwt$createRequestObject, method, token, url, body, _p0));
+		};
+	});
+var _simonh1000$elm_jwt$Jwt$get = F3(
+	function (token, url, dec) {
+		return A5(_simonh1000$elm_jwt$Jwt$createRequest, 'GET', token, url, _elm_lang$http$Http$emptyBody, dec);
+	});
+var _simonh1000$elm_jwt$Jwt$post = _simonh1000$elm_jwt$Jwt$createRequest('POST');
+var _simonh1000$elm_jwt$Jwt$put = _simonh1000$elm_jwt$Jwt$createRequest('PUT');
+var _simonh1000$elm_jwt$Jwt$delete = F3(
+	function (token, url, dec) {
+		return A5(_simonh1000$elm_jwt$Jwt$createRequest, 'DELETE', token, url, _elm_lang$http$Http$emptyBody, dec);
+	});
+var _simonh1000$elm_jwt$Jwt$unurl = function () {
+	var fix = function (c) {
+		var _p1 = c;
+		switch (_p1.valueOf()) {
+			case '-':
+				return _elm_lang$core$Native_Utils.chr('+');
+			case '_':
+				return _elm_lang$core$Native_Utils.chr('/');
+			default:
+				return _p1;
+		}
+	};
+	return _elm_lang$core$String$map(fix);
+}();
+var _simonh1000$elm_jwt$Jwt$TokenDecodeError = function (a) {
+	return {ctor: 'TokenDecodeError', _0: a};
+};
+var _simonh1000$elm_jwt$Jwt$TokenProcessingError = function (a) {
+	return {ctor: 'TokenProcessingError', _0: a};
+};
+var _simonh1000$elm_jwt$Jwt$fixlength = function (s) {
+	var _p2 = A2(
+		_elm_lang$core$Basics_ops['%'],
+		_elm_lang$core$String$length(s),
+		4);
+	switch (_p2) {
+		case 0:
+			return _elm_lang$core$Result$Ok(s);
+		case 2:
+			return _elm_lang$core$Result$Ok(
+				_elm_lang$core$String$concat(
+					{
+						ctor: '::',
+						_0: s,
+						_1: {
+							ctor: '::',
+							_0: '==',
+							_1: {ctor: '[]'}
+						}
+					}));
+		case 3:
+			return _elm_lang$core$Result$Ok(
+				_elm_lang$core$String$concat(
+					{
+						ctor: '::',
+						_0: s,
+						_1: {
+							ctor: '::',
+							_0: '=',
+							_1: {ctor: '[]'}
+						}
+					}));
+		default:
+			return _elm_lang$core$Result$Err(
+				_simonh1000$elm_jwt$Jwt$TokenProcessingError('Wrong length'));
+	}
+};
+var _simonh1000$elm_jwt$Jwt$getTokenBody = function (token) {
+	var processor = function (_p3) {
+		return A2(
+			_elm_lang$core$List$map,
+			_simonh1000$elm_jwt$Jwt$fixlength,
+			A2(
+				_elm_lang$core$String$split,
+				'.',
+				_simonh1000$elm_jwt$Jwt$unurl(_p3)));
+	};
+	var _p4 = processor(token);
+	_v2_2:
+	do {
+		if ((_p4.ctor === '::') && (_p4._1.ctor === '::')) {
+			if (_p4._1._0.ctor === 'Err') {
+				if ((_p4._1._1.ctor === '::') && (_p4._1._1._1.ctor === '[]')) {
+					return _elm_lang$core$Result$Err(_p4._1._0._0);
+				} else {
+					break _v2_2;
+				}
+			} else {
+				if ((_p4._1._1.ctor === '::') && (_p4._1._1._1.ctor === '[]')) {
+					return _elm_lang$core$Result$Ok(_p4._1._0._0);
+				} else {
+					break _v2_2;
+				}
+			}
+		} else {
+			break _v2_2;
+		}
+	} while(false);
+	return _elm_lang$core$Result$Err(
+		_simonh1000$elm_jwt$Jwt$TokenProcessingError('Token has invalid shape'));
+};
+var _simonh1000$elm_jwt$Jwt$decodeToken = function (dec) {
+	return function (_p5) {
+		return A2(
+			_elm_lang$core$Result$andThen,
+			function (_p6) {
+				return A2(
+					_elm_lang$core$Result$mapError,
+					_simonh1000$elm_jwt$Jwt$TokenDecodeError,
+					A2(_elm_lang$core$Json_Decode$decodeString, dec, _p6));
+			},
+			A2(
+				_elm_lang$core$Result$andThen,
+				function (_p7) {
+					return A2(
+						_elm_lang$core$Result$mapError,
+						_simonh1000$elm_jwt$Jwt$TokenDecodeError,
+						_truqu$elm_base64$Base64$decode(_p7));
+				},
+				_simonh1000$elm_jwt$Jwt$getTokenBody(_p5)));
+	};
+};
+var _simonh1000$elm_jwt$Jwt$isExpired = F2(
+	function (now, token) {
+		return A2(
+			_elm_lang$core$Result$map,
+			function (exp) {
+				return _elm_lang$core$Native_Utils.cmp(now, exp * 1000) > 0;
+			},
+			A2(
+				_simonh1000$elm_jwt$Jwt$decodeToken,
+				A2(_elm_lang$core$Json_Decode$field, 'exp', _elm_lang$core$Json_Decode$float),
+				token));
+	});
+var _simonh1000$elm_jwt$Jwt$tokenDecoder = function (inner) {
+	return A2(
+		_elm_lang$core$Json_Decode$andThen,
+		function (tokenStr) {
+			var transformedToken = A2(
+				_elm_lang$core$Result$andThen,
+				_elm_lang$core$Json_Decode$decodeString(inner),
+				A2(
+					_elm_lang$core$Result$mapError,
+					F2(
+						function (x, y) {
+							return A2(_elm_lang$core$Basics_ops['++'], x, y);
+						})('base64 error: '),
+					A2(
+						_elm_lang$core$Result$andThen,
+						_truqu$elm_base64$Base64$decode,
+						A2(
+							_elm_lang$core$Result$mapError,
+							_elm_lang$core$Basics$toString,
+							_simonh1000$elm_jwt$Jwt$getTokenBody(tokenStr)))));
+			var _p8 = transformedToken;
+			if (_p8.ctor === 'Ok') {
+				return _elm_lang$core$Json_Decode$succeed(_p8._0);
+			} else {
+				return _elm_lang$core$Json_Decode$fail(_p8._0);
+			}
+		},
+		_elm_lang$core$Json_Decode$string);
+};
+var _simonh1000$elm_jwt$Jwt$TokenNotExpired = {ctor: 'TokenNotExpired'};
+var _simonh1000$elm_jwt$Jwt$TokenExpired = {ctor: 'TokenExpired'};
+var _simonh1000$elm_jwt$Jwt$checkUnacceptedToken = F2(
+	function (token, now) {
+		var _p9 = A2(_simonh1000$elm_jwt$Jwt$isExpired, now, token);
+		if (_p9.ctor === 'Ok') {
+			if (_p9._0 === true) {
+				return _simonh1000$elm_jwt$Jwt$TokenExpired;
+			} else {
+				return _simonh1000$elm_jwt$Jwt$TokenNotExpired;
+			}
+		} else {
+			return _p9._0;
+		}
+	});
+var _simonh1000$elm_jwt$Jwt$checkTokenExpiry = function (token) {
+	return A2(
+		_elm_lang$core$Task$andThen,
+		function (_p10) {
+			return _elm_lang$core$Task$succeed(
+				A2(_simonh1000$elm_jwt$Jwt$checkUnacceptedToken, token, _p10));
+		},
+		_elm_lang$core$Time$now);
+};
+var _simonh1000$elm_jwt$Jwt$Unauthorized = {ctor: 'Unauthorized'};
+var _simonh1000$elm_jwt$Jwt$HttpError = function (a) {
+	return {ctor: 'HttpError', _0: a};
+};
+var _simonh1000$elm_jwt$Jwt$promote401 = function (err) {
+	var _p11 = err;
+	if (_p11.ctor === 'BadStatus') {
+		return _elm_lang$core$Native_Utils.eq(_p11._0.status.code, 401) ? _simonh1000$elm_jwt$Jwt$Unauthorized : _simonh1000$elm_jwt$Jwt$HttpError(err);
+	} else {
+		return _simonh1000$elm_jwt$Jwt$HttpError(err);
+	}
+};
+var _simonh1000$elm_jwt$Jwt$send = F2(
+	function (msgCreator, req) {
+		var conv = function (fn) {
+			return function (_p12) {
+				return fn(
+					A2(_elm_lang$core$Result$mapError, _simonh1000$elm_jwt$Jwt$promote401, _p12));
+			};
+		};
+		return A2(
+			_elm_lang$http$Http$send,
+			conv(msgCreator),
+			req);
+	});
+var _simonh1000$elm_jwt$Jwt$handleError = F2(
+	function (token, err) {
+		var _p13 = _simonh1000$elm_jwt$Jwt$promote401(err);
+		if (_p13.ctor === 'Unauthorized') {
+			return _simonh1000$elm_jwt$Jwt$checkTokenExpiry(token);
+		} else {
+			return _elm_lang$core$Task$succeed(
+				_simonh1000$elm_jwt$Jwt$HttpError(err));
+		}
+	});
+var _simonh1000$elm_jwt$Jwt$sendCheckExpired = F3(
+	function (token, msgCreator, request) {
+		return A2(
+			_elm_lang$core$Task$perform,
+			msgCreator,
+			A2(
+				_elm_lang$core$Task$onError,
+				function (_p14) {
+					return A2(
+						_elm_lang$core$Task$map,
+						_elm_lang$core$Result$Err,
+						A2(_simonh1000$elm_jwt$Jwt$handleError, token, _p14));
+				},
+				A2(
+					_elm_lang$core$Task$map,
+					_elm_lang$core$Result$Ok,
+					_elm_lang$http$Http$toTask(request))));
+	});
+
 var _user$project$Players_Model$Player = F3(
 	function (a, b, c) {
 		return {id: a, name: b, level: c};
@@ -20790,6 +21430,18 @@ var _user$project$Page_LoginMsgs$SetPassword = function (a) {
 var _user$project$Page_LoginMsgs$SetUsername = function (a) {
 	return {ctor: 'SetUsername', _0: a};
 };
+
+var _user$project$Users_User$fullName = function (user) {
+	return A2(_elm_lang$core$Basics_ops['++'], user.firstName, user.lastName);
+};
+var _user$project$Users_User$User = F8(
+	function (a, b, c, d, e, f, g, h) {
+		return {userId: a, username: b, email: c, firstName: d, lastName: e, rememberMe: f, password: g, loggedIn: h};
+	});
+var _user$project$Users_User$ApiUser = F4(
+	function (a, b, c, d) {
+		return {id: a, username: b, name: c, email: d};
+	});
 
 var _user$project$Token$storeToken = _elm_lang$core$Native_Platform.outgoingPort(
 	'storeToken',
@@ -20805,6 +21457,9 @@ var _user$project$Token$Token = function (a) {
 	return {jwt: a};
 };
 
+var _user$project$Msgs$OnLoadUser = function (a) {
+	return {ctor: 'OnLoadUser', _0: a};
+};
 var _user$project$Msgs$Logout = {ctor: 'Logout'};
 var _user$project$Msgs$LoginResult = function (a) {
 	return {ctor: 'LoginResult', _0: a};
@@ -20900,19 +21555,56 @@ var _user$project$Commands$playersDecoder = A2(
 		_1: {ctor: '[]'}
 	},
 	_elm_lang$core$Json_Decode$list(_user$project$Commands$playerDecoder));
+var _user$project$Commands$userDecoder = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'data',
+		_1: {ctor: '[]'}
+	},
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'email',
+		_elm_lang$core$Json_Decode$string,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'name',
+			_elm_lang$core$Json_Decode$string,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+				'username',
+				_elm_lang$core$Json_Decode$string,
+				A3(
+					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+					'id',
+					_elm_lang$core$Json_Decode$int,
+					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Users_User$ApiUser))))));
 var _user$project$Commands$fetchPlayersUrl = 'http://localhost:4000/api/players';
 var _user$project$Commands$fetchPlayers = A2(
 	_elm_lang$core$Platform_Cmd$map,
 	_user$project$Msgs$OnFetchPlayers,
 	_krisajenkins$remotedata$RemoteData$sendRequest(
 		A2(_elm_lang$http$Http$get, _user$project$Commands$fetchPlayersUrl, _user$project$Commands$playersDecoder)));
-
-var _user$project$Users_User$fullName = function (user) {
-	return A2(_elm_lang$core$Basics_ops['++'], user.firstName, user.lastName);
+var _user$project$Commands$baseUrl = 'http://localhost:4000/api/';
+var _user$project$Commands$fetchUserUrl = function (userId) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		_user$project$Commands$baseUrl,
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			'users/',
+			_elm_lang$core$Basics$toString(userId)));
 };
-var _user$project$Users_User$User = F8(
-	function (a, b, c, d, e, f, g, h) {
-		return {userId: a, username: b, email: c, firstName: d, lastName: e, rememberMe: f, password: g, loggedIn: h};
+var _user$project$Commands$fetchUser = F2(
+	function (token, userId) {
+		return A2(
+			_simonh1000$elm_jwt$Jwt$send,
+			_user$project$Msgs$OnLoadUser,
+			A3(
+				_simonh1000$elm_jwt$Jwt$get,
+				token,
+				_user$project$Commands$fetchUserUrl(1),
+				_user$project$Commands$userDecoder));
 	});
 
 var _user$project$Utils$onClickPreventDefault = function (msg) {
@@ -22020,6 +22712,18 @@ var _user$project$Update$update = F2(
 						{players: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'OnLoadUser':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(
+						_elm_lang$core$Debug$log,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Got response: ',
+							_elm_lang$core$Basics$toString(_p0._0)),
+						_elm_lang$core$Platform_Cmd$none)
+				};
 			case 'OnLocationChange':
 				var newRoute = _user$project$Routing$parseLocation(_p0._0);
 				return {
@@ -22163,7 +22867,7 @@ var _user$project$Main$main = A2(
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {
-    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"RemoteData.RemoteData":{"args":["e","a"],"tags":{"NotAsked":[],"Success":["a"],"Loading":[],"Failure":["e"]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"OnFetchPlayers":["RemoteData.WebData (List Players.Model.Player)"],"LoginResult":["Result.Result Http.Error Token.Token"],"Mdl":["Material.Msg Msgs.Msg"],"ChangeLevel":["Players.Model.Player","Int"],"OnPlayerSave":["Result.Result Http.Error Players.Model.Player"],"Login":["Page.LoginMsgs.LoginMsg"]}},"Page.LoginMsgs.LoginMsg":{"args":[],"tags":{"SetUsername":["String"],"SubmitCredentials":[],"SetPassword":["String"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Players.Model.Player":{"args":[],"type":"{ id : Players.Model.PlayerId, name : String, level : Int }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"RemoteData.WebData":{"args":["a"],"type":"RemoteData.RemoteData Http.Error a"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Token.Token":{"args":[],"type":"{ jwt : String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"},"Players.Model.PlayerId":{"args":[],"type":"String"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
+    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Jwt.JwtError":{"args":[],"tags":{"TokenDecodeError":["String"],"TokenExpired":[],"Unauthorized":[],"HttpError":["Http.Error"],"TokenProcessingError":["String"],"TokenNotExpired":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"RemoteData.RemoteData":{"args":["e","a"],"tags":{"NotAsked":[],"Success":["a"],"Loading":[],"Failure":["e"]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"OnFetchPlayers":["RemoteData.WebData (List Players.Model.Player)"],"LoginResult":["Result.Result Http.Error Token.Token"],"Mdl":["Material.Msg Msgs.Msg"],"ChangeLevel":["Players.Model.Player","Int"],"OnPlayerSave":["Result.Result Http.Error Players.Model.Player"],"Login":["Page.LoginMsgs.LoginMsg"],"OnLoadUser":["Result.Result Jwt.JwtError Users.User.ApiUser"]}},"Page.LoginMsgs.LoginMsg":{"args":[],"tags":{"SetUsername":["String"],"SubmitCredentials":[],"SetPassword":["String"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Players.Model.Player":{"args":[],"type":"{ id : Players.Model.PlayerId, name : String, level : Int }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"RemoteData.WebData":{"args":["a"],"type":"RemoteData.RemoteData Http.Error a"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Token.Token":{"args":[],"type":"{ jwt : String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Users.User.ApiUser":{"args":[],"type":"{ id : Int, username : String, name : String, email : String }"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"},"Players.Model.PlayerId":{"args":[],"type":"String"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

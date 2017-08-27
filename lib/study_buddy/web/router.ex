@@ -20,13 +20,14 @@ defmodule StudyBuddyWeb.Router do
     get "/players/:id", PlayerController, :show
     post "/players/:id", PlayerController, :update
     resources "/sessions", SessionController, only: [:delete, :create]
+    resources "/users", UserController, except: [:new, :edit]
+    resources "/categories", CategoryController, except: [:new, :edit]
   end
 
   scope "/", StudyBuddyWeb do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/users", UserController, except: [:new, :edit]
   end
 
   scope "/users/:id/" do

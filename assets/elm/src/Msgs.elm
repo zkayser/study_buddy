@@ -2,7 +2,9 @@ module Msgs exposing (..)
 
 import Players.Model exposing (Player)
 import Page.LoginMsgs exposing (LoginMsg(..))
+import Users.User exposing (ApiUser)
 import Http
+import Jwt
 import Token exposing (Token)
 import Material
 import Navigation exposing (Location)
@@ -17,6 +19,7 @@ type Msg
   | Login (LoginMsg)
   | LoginResult (Result Http.Error Token)
   | Logout
+  | OnLoadUser (Result Jwt.JwtError ApiUser)
 
 type alias Mdl =
         Material.Model

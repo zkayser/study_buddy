@@ -1,3 +1,6 @@
+var _user$project$Msgs$OnLoadUser = function (a) {
+	return {ctor: 'OnLoadUser', _0: a};
+};
 var _user$project$Msgs$Logout = {ctor: 'Logout'};
 var _user$project$Msgs$LoginResult = function (a) {
 	return {ctor: 'LoginResult', _0: a};

@@ -1,5 +1,7 @@
 defmodule StudyBuddyWeb.UserController do
+  require Logger
   use StudyBuddyWeb, :controller
+  plug Guardian.Plug.EnsureAuthenticated, [handler: __MODULE__] when action in [:show, :update, :delete, :edit]
 
   alias StudyBuddy.Accounts
   alias StudyBuddy.Accounts.{User}
@@ -38,5 +40,11 @@ defmodule StudyBuddyWeb.UserController do
     with {:ok, %User{}} <- Accounts.delete_user(user) do
       send_resp(conn, :no_content, "")
     end
+  end
+
+  def unauthenticated(conn, params) do
+      Logger.warn "Unauthenticated request made to UserController.\nParams: #{inspect params}"
+      conn
+      |> redirect(to: "/")
   end
 end

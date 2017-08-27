@@ -15,6 +15,8 @@ update msg model =
     case msg of
             Msgs.OnFetchPlayers response ->
                     ( { model | players = response }, Cmd.none )
+            Msgs.OnLoadUser response ->
+              ( model, Debug.log ("Got response: " ++ (toString response)) Cmd.none)
             Msgs.OnLocationChange location ->
                     let
                         newRoute =

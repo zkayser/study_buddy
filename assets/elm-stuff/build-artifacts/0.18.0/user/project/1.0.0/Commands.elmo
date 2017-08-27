@@ -69,9 +69,54 @@ var _user$project$Commands$playersDecoder = A2(
 		_1: {ctor: '[]'}
 	},
 	_elm_lang$core$Json_Decode$list(_user$project$Commands$playerDecoder));
+var _user$project$Commands$userDecoder = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'data',
+		_1: {ctor: '[]'}
+	},
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'email',
+		_elm_lang$core$Json_Decode$string,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'name',
+			_elm_lang$core$Json_Decode$string,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+				'username',
+				_elm_lang$core$Json_Decode$string,
+				A3(
+					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+					'id',
+					_elm_lang$core$Json_Decode$int,
+					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Users_User$ApiUser))))));
 var _user$project$Commands$fetchPlayersUrl = 'http://localhost:4000/api/players';
 var _user$project$Commands$fetchPlayers = A2(
 	_elm_lang$core$Platform_Cmd$map,
 	_user$project$Msgs$OnFetchPlayers,
 	_krisajenkins$remotedata$RemoteData$sendRequest(
 		A2(_elm_lang$http$Http$get, _user$project$Commands$fetchPlayersUrl, _user$project$Commands$playersDecoder)));
+var _user$project$Commands$baseUrl = 'http://localhost:4000/api/';
+var _user$project$Commands$fetchUserUrl = function (userId) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		_user$project$Commands$baseUrl,
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			'users/',
+			_elm_lang$core$Basics$toString(userId)));
+};
+var _user$project$Commands$fetchUser = F2(
+	function (token, userId) {
+		return A2(
+			_simonh1000$elm_jwt$Jwt$send,
+			_user$project$Msgs$OnLoadUser,
+			A3(
+				_simonh1000$elm_jwt$Jwt$get,
+				token,
+				_user$project$Commands$fetchUserUrl(1),
+				_user$project$Commands$userDecoder));
+	});

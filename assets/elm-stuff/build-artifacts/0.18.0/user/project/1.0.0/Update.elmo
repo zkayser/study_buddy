@@ -23,6 +23,18 @@ var _user$project$Update$update = F2(
 						{players: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'OnLoadUser':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(
+						_elm_lang$core$Debug$log,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Got response: ',
+							_elm_lang$core$Basics$toString(_p0._0)),
+						_elm_lang$core$Platform_Cmd$none)
+				};
 			case 'OnLocationChange':
 				var newRoute = _user$project$Routing$parseLocation(_p0._0);
 				return {

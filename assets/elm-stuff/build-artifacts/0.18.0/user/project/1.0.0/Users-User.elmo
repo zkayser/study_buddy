@@ -5,3 +5,7 @@ var _user$project$Users_User$User = F8(
 	function (a, b, c, d, e, f, g, h) {
 		return {userId: a, username: b, email: c, firstName: d, lastName: e, rememberMe: f, password: g, loggedIn: h};
 	});
+var _user$project$Users_User$ApiUser = F4(
+	function (a, b, c, d) {
+		return {id: a, username: b, name: c, email: d};
+	});

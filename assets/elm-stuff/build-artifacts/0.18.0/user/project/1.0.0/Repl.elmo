@@ -1,15 +1,8 @@
+var _user$project$Repl$token = A4(
+	_simonh1000$elm_jwt$Jwt_Decoders$JwtToken,
+	1,
+	1,
+	_elm_lang$core$Maybe$Just(''),
+	_elm_lang$core$Maybe$Just(''));
 var _user$project$Repl$t_s_o_l = {ctor: '_Tuple0'};
-var _user$project$Repl$list = {
-	ctor: '::',
-	_0: 1,
-	_1: {
-		ctor: '::',
-		_0: 2,
-		_1: {
-			ctor: '::',
-			_0: 3,
-			_1: {ctor: '[]'}
-		}
-	}
-};
-var _user$project$Repl$d_e_l_t_r_o_n_3_0_3_0 = 3 + 6;
+var _user$project$Repl$d_e_l_t_r_o_n_3_0_3_0 = A2(_simonh1000$elm_jwt$Jwt$decodeToken, _simonh1000$elm_jwt$Jwt_Decoders$firebase, 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjEiLCJleHAiOjE1MDY0NDY2MDQsImlhdCI6MTUwMzg1NDYwNCwiaXNzIjoiU3R1ZHlCdWRkeSIsImp0aSI6ImM4NDNiZDcwLWY5YzItNDExMi04OTdiLWZkZWJhMWFmODA0NCIsInBlbSI6e30sInN1YiI6IlVzZXI6MSIsInR5cCI6ImFjY2VzcyJ9.XmGEOzWZosW93PMaEDD17_X3Yu8-4MFRGpBlHjL2Wsh_BkN1dIA-yaut8r8NshuTDeXtl7-LK0DjJrnNm2ZReA');
