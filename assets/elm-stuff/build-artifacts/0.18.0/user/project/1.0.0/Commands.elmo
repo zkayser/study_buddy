@@ -111,12 +111,17 @@ var _user$project$Commands$fetchUserUrl = function (userId) {
 };
 var _user$project$Commands$fetchUser = F2(
 	function (token, userId) {
-		return A2(
-			_simonh1000$elm_jwt$Jwt$send,
-			_user$project$Msgs$OnLoadUser,
-			A3(
-				_simonh1000$elm_jwt$Jwt$get,
-				token,
-				_user$project$Commands$fetchUserUrl(1),
-				_user$project$Commands$userDecoder));
+		var _p0 = token;
+		if (_p0.ctor === 'Just') {
+			return A2(
+				_simonh1000$elm_jwt$Jwt$send,
+				_user$project$Msgs$OnLoadUser,
+				A3(
+					_simonh1000$elm_jwt$Jwt$get,
+					_p0._0,
+					_user$project$Commands$fetchUserUrl(1),
+					_user$project$Commands$userDecoder));
+		} else {
+			return _elm_lang$core$Platform_Cmd$none;
+		}
 	});

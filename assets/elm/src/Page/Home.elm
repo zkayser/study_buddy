@@ -8,12 +8,14 @@ import Html.Attributes exposing (type_)
 import Utils exposing (onClickPreventDefault)
 import RemoteData exposing (WebData)
 import Material
+import Material.Button as Button
+import Material.Options as Options
 import Material.Color as Color
 import Material.Grid as Grid
 import Material.Typography as Typography
 
-view : (WebData User) -> LoginForm.Form -> Html Msg
-view user form_ =
+view : (WebData User) -> LoginForm.Form -> Maybe String -> Material.Model -> Html Msg
+view user form_ maybeToken mdl =
   case user of
     -- Should be the cases fir the WebData
     RemoteData.Loading ->
@@ -44,5 +46,12 @@ view user form_ =
           ]
         , Grid.cell
           [ Grid.size Grid.All 12, Typography.center ]
-          [ Html.button [ type_ "button", onClickPreventDefault Msgs.GetUser ] [ text "Get user" ]]
+          [ Button.render Msgs.Mdl [0] mdl
+            [ Button.raised
+            , Options.css "color" "white"
+            , Options.css "background-color" "blue"
+            , Options.onClick Msgs.GetUser
+            ]
+            [ text "Get user" ]
+          ]
         ]

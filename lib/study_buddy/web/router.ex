@@ -25,6 +25,7 @@ defmodule StudyBuddyWeb.Router do
     get "/players/:id", PlayerController, :show
     post "/players/:id", PlayerController, :update
     resources "/sessions", SessionController, only: [:delete, :create]
+
     pipe_through :api_auth
     resources "/users", UserController, except: [:new, :edit]
     resources "/categories", CategoryController, except: [:new, :edit]

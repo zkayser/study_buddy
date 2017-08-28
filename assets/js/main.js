@@ -21446,7 +21446,7 @@ var _user$project$Users_User$ApiUser = F4(
 var _user$project$Token$storeToken = _elm_lang$core$Native_Platform.outgoingPort(
 	'storeToken',
 	function (v) {
-		return v;
+		return (v.ctor === 'Nothing') ? null : v._0;
 	});
 var _user$project$Token$removeToken = _elm_lang$core$Native_Platform.outgoingPort(
 	'removeToken',
@@ -21598,14 +21598,19 @@ var _user$project$Commands$fetchUserUrl = function (userId) {
 };
 var _user$project$Commands$fetchUser = F2(
 	function (token, userId) {
-		return A2(
-			_simonh1000$elm_jwt$Jwt$send,
-			_user$project$Msgs$OnLoadUser,
-			A3(
-				_simonh1000$elm_jwt$Jwt$get,
-				token,
-				_user$project$Commands$fetchUserUrl(1),
-				_user$project$Commands$userDecoder));
+		var _p0 = token;
+		if (_p0.ctor === 'Just') {
+			return A2(
+				_simonh1000$elm_jwt$Jwt$send,
+				_user$project$Msgs$OnLoadUser,
+				A3(
+					_simonh1000$elm_jwt$Jwt$get,
+					_p0._0,
+					_user$project$Commands$fetchUserUrl(1),
+					_user$project$Commands$userDecoder));
+		} else {
+			return _elm_lang$core$Platform_Cmd$none;
+		}
 	});
 
 var _user$project$Utils$onClickPreventDefault = function (msg) {
@@ -21619,7 +21624,7 @@ var _user$project$Utils$onClickPreventDefault = function (msg) {
 var _user$project$Page_LoginForm$tokenDecoder = A3(
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 	'jwt',
-	_elm_lang$core$Json_Decode$string,
+	_elm_lang$core$Json_Decode$maybe(_elm_lang$core$Json_Decode$string),
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Token$Token));
 var _user$project$Page_LoginForm$submitCredentialsCmd = function (request) {
 	return A2(_elm_lang$http$Http$send, _user$project$Msgs$LoginResult, request);
@@ -21855,14 +21860,7 @@ var _user$project$Page_LoginForm$Form = F4(
 
 var _user$project$Models$initialModel = F2(
 	function (flags, route) {
-		var tkn = function () {
-			var _p0 = flags.token;
-			if (_p0.ctor === 'Just') {
-				return _p0._0;
-			} else {
-				return '';
-			}
-		}();
+		var tkn = flags.token;
 		return {
 			mdl: _debois$elm_mdl$Material$model,
 			players: _krisajenkins$remotedata$RemoteData$Loading,
@@ -22223,8 +22221,8 @@ var _user$project$Players_List$view = function (response) {
 		});
 };
 
-var _user$project$Page_Home$view = F2(
-	function (user, form_) {
+var _user$project$Page_Home$view = F4(
+	function (user, form_, maybeToken, mdl) {
 		var _p0 = user;
 		switch (_p0.ctor) {
 			case 'Loading':
@@ -22408,15 +22406,30 @@ var _user$project$Page_Home$view = F2(
 								},
 								{
 									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$button,
+									_0: A5(
+										_debois$elm_mdl$Material_Button$render,
+										_user$project$Msgs$Mdl,
 										{
 											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$type_('button'),
+											_0: 0,
+											_1: {ctor: '[]'}
+										},
+										mdl,
+										{
+											ctor: '::',
+											_0: _debois$elm_mdl$Material_Button$raised,
 											_1: {
 												ctor: '::',
-												_0: _user$project$Utils$onClickPreventDefault(_user$project$Msgs$GetUser),
-												_1: {ctor: '[]'}
+												_0: A2(_debois$elm_mdl$Material_Options$css, 'color', 'white'),
+												_1: {
+													ctor: '::',
+													_0: A2(_debois$elm_mdl$Material_Options$css, 'background-color', 'blue'),
+													_1: {
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$GetUser),
+														_1: {ctor: '[]'}
+													}
+												}
 											}
 										},
 										{
@@ -22444,7 +22457,7 @@ var _user$project$Page_Body$page = function (model) {
 	var _p0 = model.route;
 	switch (_p0.ctor) {
 		case 'HomeRoute':
-			return A2(_user$project$Page_Home$view, model.user, model.loginForm);
+			return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt.jwt, model.mdl);
 		case 'PlayersRoute':
 			return _user$project$Players_List$view(model.players);
 		case 'PlayerRoute':
@@ -22702,7 +22715,7 @@ var _user$project$View$page = function (model) {
 	var _p2 = model.route;
 	switch (_p2.ctor) {
 		case 'HomeRoute':
-			return A2(_user$project$Page_Home$view, model.user, model.loginForm);
+			return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt.jwt, model.mdl);
 		case 'PlayersRoute':
 			return _user$project$Players_List$view(model.players);
 		case 'PlayerRoute':
@@ -22908,7 +22921,7 @@ var _user$project$Main$main = A2(
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {
-    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Jwt.JwtError":{"args":[],"tags":{"TokenDecodeError":["String"],"TokenExpired":[],"Unauthorized":[],"HttpError":["Http.Error"],"TokenProcessingError":["String"],"TokenNotExpired":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"RemoteData.RemoteData":{"args":["e","a"],"tags":{"NotAsked":[],"Success":["a"],"Loading":[],"Failure":["e"]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"OnFetchPlayers":["RemoteData.WebData (List Players.Model.Player)"],"GetUser":[],"LoginResult":["Result.Result Http.Error Token.Token"],"Mdl":["Material.Msg Msgs.Msg"],"ChangeLevel":["Players.Model.Player","Int"],"OnPlayerSave":["Result.Result Http.Error Players.Model.Player"],"Login":["Page.LoginMsgs.LoginMsg"],"OnLoadUser":["Result.Result Jwt.JwtError Users.User.ApiUser"]}},"Page.LoginMsgs.LoginMsg":{"args":[],"tags":{"SetUsername":["String"],"SubmitCredentials":[],"SetPassword":["String"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Players.Model.Player":{"args":[],"type":"{ id : Players.Model.PlayerId, name : String, level : Int }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"RemoteData.WebData":{"args":["a"],"type":"RemoteData.RemoteData Http.Error a"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Token.Token":{"args":[],"type":"{ jwt : String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Users.User.ApiUser":{"args":[],"type":"{ id : Int, username : String, name : String, email : String }"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"},"Players.Model.PlayerId":{"args":[],"type":"String"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
+    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Jwt.JwtError":{"args":[],"tags":{"TokenDecodeError":["String"],"TokenExpired":[],"Unauthorized":[],"HttpError":["Http.Error"],"TokenProcessingError":["String"],"TokenNotExpired":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"RemoteData.RemoteData":{"args":["e","a"],"tags":{"NotAsked":[],"Success":["a"],"Loading":[],"Failure":["e"]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"OnFetchPlayers":["RemoteData.WebData (List Players.Model.Player)"],"GetUser":[],"LoginResult":["Result.Result Http.Error Token.Token"],"Mdl":["Material.Msg Msgs.Msg"],"ChangeLevel":["Players.Model.Player","Int"],"OnPlayerSave":["Result.Result Http.Error Players.Model.Player"],"Login":["Page.LoginMsgs.LoginMsg"],"OnLoadUser":["Result.Result Jwt.JwtError Users.User.ApiUser"]}},"Page.LoginMsgs.LoginMsg":{"args":[],"tags":{"SetUsername":["String"],"SubmitCredentials":[],"SetPassword":["String"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Players.Model.Player":{"args":[],"type":"{ id : Players.Model.PlayerId, name : String, level : Int }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"RemoteData.WebData":{"args":["a"],"type":"RemoteData.RemoteData Http.Error a"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Token.Token":{"args":[],"type":"{ jwt : Maybe.Maybe String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Users.User.ApiUser":{"args":[],"type":"{ id : Int, username : String, name : String, email : String }"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"},"Players.Model.PlayerId":{"args":[],"type":"String"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

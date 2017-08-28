@@ -84,4 +84,4 @@ submitCredentialsCmd request =
 tokenDecoder : Decode.Decoder Token
 tokenDecoder =
    Json.Decode.Pipeline.decode Token
-    |> Json.Decode.Pipeline.required "jwt" Decode.string
+    |> (Json.Decode.Pipeline.required "jwt" (Decode.maybe Decode.string))

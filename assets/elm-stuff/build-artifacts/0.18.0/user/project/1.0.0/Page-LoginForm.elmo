@@ -1,7 +1,7 @@
 var _user$project$Page_LoginForm$tokenDecoder = A3(
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 	'jwt',
-	_elm_lang$core$Json_Decode$string,
+	_elm_lang$core$Json_Decode$maybe(_elm_lang$core$Json_Decode$string),
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Token$Token));
 var _user$project$Page_LoginForm$submitCredentialsCmd = function (request) {
 	return A2(_elm_lang$http$Http$send, _user$project$Msgs$LoginResult, request);

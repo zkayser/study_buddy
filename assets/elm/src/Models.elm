@@ -23,10 +23,7 @@ type alias Flags =
 initialModel : Flags -> Route -> Model
 initialModel flags route =
   let
-    tkn =
-      case flags.token of
-        Just token -> token
-        Nothing -> ""
+    tkn = flags.token
   in
     { mdl = Material.model
     , players = RemoteData.Loading

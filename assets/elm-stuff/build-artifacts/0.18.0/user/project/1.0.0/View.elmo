@@ -36,7 +36,7 @@ var _user$project$View$page = function (model) {
 	var _p2 = model.route;
 	switch (_p2.ctor) {
 		case 'HomeRoute':
-			return A2(_user$project$Page_Home$view, model.user, model.loginForm);
+			return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt.jwt, model.mdl);
 		case 'PlayersRoute':
 			return _user$project$Players_List$view(model.players);
 		case 'PlayerRoute':

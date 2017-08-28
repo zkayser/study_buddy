@@ -1,13 +1,6 @@
 var _user$project$Models$initialModel = F2(
 	function (flags, route) {
-		var tkn = function () {
-			var _p0 = flags.token;
-			if (_p0.ctor === 'Just') {
-				return _p0._0;
-			} else {
-				return '';
-			}
-		}();
+		var tkn = flags.token;
 		return {
 			mdl: _debois$elm_mdl$Material$model,
 			players: _krisajenkins$remotedata$RemoteData$Loading,

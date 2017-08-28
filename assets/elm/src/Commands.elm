@@ -38,10 +38,13 @@ userDecoder =
       |> required "email" Decode.string
     )
 
-fetchUser : String -> Int -> Cmd Msg
+fetchUser : Maybe String -> Int -> Cmd Msg
 fetchUser token userId =
-  Jwt.get token (fetchUserUrl 1) userDecoder
-  |> Jwt.send Msgs.OnLoadUser
+  case token of
+    Just token ->
+      Jwt.get token (fetchUserUrl 1) userDecoder
+      |> Jwt.send Msgs.OnLoadUser
+    Nothing -> Cmd.none
 
 playersDecoder : Decode.Decoder (List Player)
 playersDecoder =
