@@ -54,4 +54,21 @@ view user form_ maybeToken mdl =
             ]
             [ text "Get user" ]
           ]
+          , renderLogoutButton maybeToken mdl
         ]
+
+renderLogoutButton : Maybe String -> Material.Model -> Grid.Cell Msg
+renderLogoutButton maybeToken mdl =
+  case maybeToken of
+    Just token ->
+      Grid.cell
+       [ Grid.size Grid.All 12, Typography.center ]
+       [ Button.render Msgs.Mdl [1] mdl
+        [ Button.raised
+        , Options.css "color" "white"
+        , Options.css "background-color" "red"
+        , Options.onClick Msgs.Logout
+        ]
+        [ text "Logout" ]
+       ]
+    Nothing -> Grid.cell [] []

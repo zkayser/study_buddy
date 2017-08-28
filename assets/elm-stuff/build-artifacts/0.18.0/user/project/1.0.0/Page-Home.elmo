@@ -1,7 +1,64 @@
+var _user$project$Page_Home$renderLogoutButton = F2(
+	function (maybeToken, mdl) {
+		var _p0 = maybeToken;
+		if (_p0.ctor === 'Just') {
+			return A2(
+				_debois$elm_mdl$Material_Grid$cell,
+				{
+					ctor: '::',
+					_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 12),
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Typography$center,
+						_1: {ctor: '[]'}
+					}
+				},
+				{
+					ctor: '::',
+					_0: A5(
+						_debois$elm_mdl$Material_Button$render,
+						_user$project$Msgs$Mdl,
+						{
+							ctor: '::',
+							_0: 1,
+							_1: {ctor: '[]'}
+						},
+						mdl,
+						{
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Button$raised,
+							_1: {
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Options$css, 'color', 'white'),
+								_1: {
+									ctor: '::',
+									_0: A2(_debois$elm_mdl$Material_Options$css, 'background-color', 'red'),
+									_1: {
+										ctor: '::',
+										_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$Logout),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Logout'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				});
+		} else {
+			return A2(
+				_debois$elm_mdl$Material_Grid$cell,
+				{ctor: '[]'},
+				{ctor: '[]'});
+		}
+	});
 var _user$project$Page_Home$view = F4(
 	function (user, form_, maybeToken, mdl) {
-		var _p0 = user;
-		switch (_p0.ctor) {
+		var _p1 = user;
+		switch (_p1.ctor) {
 			case 'Loading':
 				return A2(
 					_debois$elm_mdl$Material_Grid$grid,
@@ -78,7 +135,7 @@ var _user$project$Page_Home$view = F4(
 											A2(
 												_elm_lang$core$Basics_ops['++'],
 												'Welcome to Study Buddy, ',
-												_user$project$Users_User$fullName(_p0._0))),
+												_user$project$Users_User$fullName(_p1._0))),
 										_1: {ctor: '[]'}
 									}),
 								_1: {ctor: '[]'}
@@ -121,7 +178,7 @@ var _user$project$Page_Home$view = F4(
 											A2(
 												_elm_lang$core$Basics_ops['++'],
 												'Something went wrong: ',
-												_elm_lang$core$Basics$toString(_p0._0))),
+												_elm_lang$core$Basics$toString(_p1._0))),
 										_1: {ctor: '[]'}
 									}),
 								_1: {ctor: '[]'}
@@ -216,7 +273,11 @@ var _user$project$Page_Home$view = F4(
 										}),
 									_1: {ctor: '[]'}
 								}),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: A2(_user$project$Page_Home$renderLogoutButton, maybeToken, mdl),
+								_1: {ctor: '[]'}
+							}
 						}
 					});
 		}

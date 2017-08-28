@@ -25,5 +25,7 @@ elmApp.ports.storeToken.subscribe((token) => {
 });
 
 elmApp.ports.removeToken.subscribe(() => {
+    console.log("Logging out...")
     localStorage.removeItem('studyBuddyToken');
+    console.log("Success")
 });

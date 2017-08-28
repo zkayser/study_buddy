@@ -49,7 +49,7 @@ update msg model =
                 Err errorMessage ->
                   ( { model | errorMessage = (toString errorMessage )}, Cmd.none)
             Msgs.Logout ->
-              ( model, removeToken Nothing )
+              ( { model | jwt = {jwt = Nothing } }, removeToken Nothing )
 
 updatePlayer : Model -> Player -> Model
 updatePlayer model updatedPlayer =
