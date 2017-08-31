@@ -16,7 +16,7 @@ import Material.Typography as Typography
 view : (WebData User) -> LoginForm.Form -> Maybe String -> Material.Model -> Html Msg
 view user form_ maybeToken mdl =
   case user of
-    -- Should be the cases fir the WebData
+    -- Should be the cases for the WebData
     RemoteData.Loading ->
       Grid.grid [ Grid.align Grid.Middle ]
         [ Grid.cell
