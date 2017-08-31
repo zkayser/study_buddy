@@ -18922,6 +18922,156 @@ var _debois$elm_mdl$Material$Model = F8(
 		return {button: a, textfield: b, menu: c, snackbar: d, layout: e, toggles: f, tooltip: g, tabs: h};
 	});
 
+var _debois$elm_mdl$Material_Card$stopClick = _debois$elm_mdl$Material_Options_Internal$attribute(
+	A2(_elm_lang$html$Html_Attributes$attribute, 'onclick', 'var event = arguments[0] || window.event; event.stopPropagation();'));
+var _debois$elm_mdl$Material_Card$block = function (block) {
+	var _p0 = block;
+	switch (_p0.ctor) {
+		case 'Title':
+			return A2(
+				_debois$elm_mdl$Material_Options$div,
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs('mdl-card__title'),
+					_1: _p0._0
+				},
+				_p0._1);
+		case 'Media':
+			return A2(
+				_debois$elm_mdl$Material_Options$div,
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs('mdl-card__media'),
+					_1: _p0._0
+				},
+				_p0._1);
+		case 'SupportingText':
+			return A2(
+				_debois$elm_mdl$Material_Options$div,
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs('mdl-card__supporting-text'),
+					_1: _p0._0
+				},
+				_p0._1);
+		case 'Actions':
+			return A2(
+				_debois$elm_mdl$Material_Options$div,
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs('mdl-card__actions'),
+					_1: {ctor: '::', _0: _debois$elm_mdl$Material_Card$stopClick, _1: _p0._0}
+				},
+				_p0._1);
+		default:
+			return A2(
+				_debois$elm_mdl$Material_Options$div,
+				{
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs('mdl-card__menu'),
+					_1: {ctor: '::', _0: _debois$elm_mdl$Material_Card$stopClick, _1: _p0._0}
+				},
+				_p0._1);
+	}
+};
+var _debois$elm_mdl$Material_Card$view = F2(
+	function (styling, views) {
+		return A2(
+			_debois$elm_mdl$Material_Options$div,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$many(styling),
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs('mdl-card'),
+					_1: {
+						ctor: '::',
+						_0: A2(_debois$elm_mdl$Material_Options$css, 'min-height', '0px'),
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			A2(_elm_lang$core$List$map, _debois$elm_mdl$Material_Card$block, views));
+	});
+var _debois$elm_mdl$Material_Card$subhead = function (styling) {
+	return _debois$elm_mdl$Material_Options$span(
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-card__subtitle-text'),
+			_1: {
+				ctor: '::',
+				_0: A2(_debois$elm_mdl$Material_Options$css, 'padding-top', '8px'),
+				_1: styling
+			}
+		});
+};
+var _debois$elm_mdl$Material_Card$head = function (styling) {
+	return A2(
+		_debois$elm_mdl$Material_Options$styled,
+		_elm_lang$html$Html$h1,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-card__title-text'),
+			_1: {
+				ctor: '::',
+				_0: A2(_debois$elm_mdl$Material_Options$css, 'align-self', 'flex-start'),
+				_1: styling
+			}
+		});
+};
+var _debois$elm_mdl$Material_Card$expand = _debois$elm_mdl$Material_Options$cs('mdl-card--expand');
+var _debois$elm_mdl$Material_Card$border = _debois$elm_mdl$Material_Options$cs('mdl-card--border');
+var _debois$elm_mdl$Material_Card$Actions = F2(
+	function (a, b) {
+		return {ctor: 'Actions', _0: a, _1: b};
+	});
+var _debois$elm_mdl$Material_Card$actions = _debois$elm_mdl$Material_Card$Actions;
+var _debois$elm_mdl$Material_Card$SupportingText = F2(
+	function (a, b) {
+		return {ctor: 'SupportingText', _0: a, _1: b};
+	});
+var _debois$elm_mdl$Material_Card$text = _debois$elm_mdl$Material_Card$SupportingText;
+var _debois$elm_mdl$Material_Card$Media = F2(
+	function (a, b) {
+		return {ctor: 'Media', _0: a, _1: b};
+	});
+var _debois$elm_mdl$Material_Card$media = _debois$elm_mdl$Material_Card$Media;
+var _debois$elm_mdl$Material_Card$Menu = F2(
+	function (a, b) {
+		return {ctor: 'Menu', _0: a, _1: b};
+	});
+var _debois$elm_mdl$Material_Card$menu = F2(
+	function (styling, block) {
+		return A2(_debois$elm_mdl$Material_Card$Menu, styling, block);
+	});
+var _debois$elm_mdl$Material_Card$Title = F2(
+	function (a, b) {
+		return {ctor: 'Title', _0: a, _1: b};
+	});
+var _debois$elm_mdl$Material_Card$title = F2(
+	function (styling, block) {
+		return A2(
+			_debois$elm_mdl$Material_Card$Title,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$many(styling),
+				_1: {
+					ctor: '::',
+					_0: A2(_debois$elm_mdl$Material_Options$css, 'justify-content', 'flex-end'),
+					_1: {
+						ctor: '::',
+						_0: A2(_debois$elm_mdl$Material_Options$css, 'flex-direction', 'column'),
+						_1: {
+							ctor: '::',
+							_0: A2(_debois$elm_mdl$Material_Options$css, 'align-items', 'flex-start'),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			},
+			block);
+	});
+
 var _debois$elm_mdl$Material_Color$text = function (_p0) {
 	var _p1 = _p0;
 	return _debois$elm_mdl$Material_Options$cs(
@@ -19457,68 +19607,6 @@ var _debois$elm_mdl$Material_Grid$cell = F2(
 var _debois$elm_mdl$Material_Grid$Bottom = {ctor: 'Bottom'};
 var _debois$elm_mdl$Material_Grid$Middle = {ctor: 'Middle'};
 var _debois$elm_mdl$Material_Grid$Top = {ctor: 'Top'};
-
-var _debois$elm_mdl$Material_Scheme$scheme = F2(
-	function (primary, accent) {
-		return A2(
-			_elm_lang$core$String$join,
-			'\n',
-			A2(
-				_elm_lang$core$List$map,
-				function (url) {
-					return A2(
-						_elm_lang$core$Basics_ops['++'],
-						'@import url(',
-						A2(_elm_lang$core$Basics_ops['++'], url, ');'));
-				},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$core$Basics_ops['++'],
-						'https://code.getmdl.io/1.3.0/',
-						A2(_debois$elm_mdl$Material_Color$scheme, primary, accent)),
-					_1: {
-						ctor: '::',
-						_0: 'https://fonts.googleapis.com/icon?family=Material+Icons',
-						_1: {
-							ctor: '::',
-							_0: 'https://fonts.googleapis.com/css?family=Roboto:400,300,500|Roboto+Mono|Roboto+Condensed:400,700&subset=latin,latin-ext',
-							_1: {ctor: '[]'}
-						}
-					}
-				}));
-	});
-var _debois$elm_mdl$Material_Scheme$topWithScheme = F3(
-	function (primary, accent, content) {
-		return A2(
-			_elm_lang$html$Html$div,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: A3(
-					_elm_lang$html$Html$node,
-					'style',
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$type_('text/css'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(
-							A2(_debois$elm_mdl$Material_Scheme$scheme, primary, accent)),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: content,
-					_1: {ctor: '[]'}
-				}
-			});
-	});
-var _debois$elm_mdl$Material_Scheme$top = function (content) {
-	return A3(_debois$elm_mdl$Material_Scheme$topWithScheme, _debois$elm_mdl$Material_Color$Grey, _debois$elm_mdl$Material_Color$Grey, content);
-};
 
 var _debois$elm_mdl$Material_Typography$uppercase = _debois$elm_mdl$Material_Options$cs('mdl-typography--text-uppercase');
 var _debois$elm_mdl$Material_Typography$lowercase = _debois$elm_mdl$Material_Options$cs('mdl-typography--text-lowercase');
@@ -21418,12 +21506,6 @@ var _simonh1000$elm_jwt$Jwt$sendCheckExpired = F3(
 					_elm_lang$http$Http$toTask(request))));
 	});
 
-var _user$project$Players_Model$Player = F3(
-	function (a, b, c) {
-		return {id: a, name: b, level: c};
-	});
-
-var _user$project$Page_LoginMsgs$SubmitCredentials = {ctor: 'SubmitCredentials'};
 var _user$project$Page_LoginMsgs$SetPassword = function (a) {
 	return {ctor: 'SetPassword', _0: a};
 };
@@ -21434,9 +21516,9 @@ var _user$project$Page_LoginMsgs$SetUsername = function (a) {
 var _user$project$Users_User$fullName = function (user) {
 	return A2(_elm_lang$core$Basics_ops['++'], user.firstName, user.lastName);
 };
-var _user$project$Users_User$User = F8(
-	function (a, b, c, d, e, f, g, h) {
-		return {userId: a, username: b, email: c, firstName: d, lastName: e, rememberMe: f, password: g, loggedIn: h};
+var _user$project$Users_User$User = F6(
+	function (a, b, c, d, e, f) {
+		return {userId: a, username: b, email: c, firstName: d, lastName: e, password: f};
 	});
 var _user$project$Users_User$ApiUser = F4(
 	function (a, b, c, d) {
@@ -21465,97 +21547,20 @@ var _user$project$Msgs$Logout = {ctor: 'Logout'};
 var _user$project$Msgs$LoginResult = function (a) {
 	return {ctor: 'LoginResult', _0: a};
 };
-var _user$project$Msgs$Login = function (a) {
-	return {ctor: 'Login', _0: a};
+var _user$project$Msgs$SubmitCredentials = {ctor: 'SubmitCredentials'};
+var _user$project$Msgs$SetPass = function (a) {
+	return {ctor: 'SetPass', _0: a};
+};
+var _user$project$Msgs$SetUser = function (a) {
+	return {ctor: 'SetUser', _0: a};
 };
 var _user$project$Msgs$Mdl = function (a) {
 	return {ctor: 'Mdl', _0: a};
 };
-var _user$project$Msgs$OnPlayerSave = function (a) {
-	return {ctor: 'OnPlayerSave', _0: a};
-};
-var _user$project$Msgs$ChangeLevel = F2(
-	function (a, b) {
-		return {ctor: 'ChangeLevel', _0: a, _1: b};
-	});
 var _user$project$Msgs$OnLocationChange = function (a) {
 	return {ctor: 'OnLocationChange', _0: a};
 };
-var _user$project$Msgs$OnFetchPlayers = function (a) {
-	return {ctor: 'OnFetchPlayers', _0: a};
-};
 
-var _user$project$Commands$playerEncoder = function (player) {
-	var attributes = {
-		ctor: '::',
-		_0: {
-			ctor: '_Tuple2',
-			_0: 'id',
-			_1: _elm_lang$core$Json_Encode$string(player.id)
-		},
-		_1: {
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple2',
-				_0: 'name',
-				_1: _elm_lang$core$Json_Encode$string(player.name)
-			},
-			_1: {
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'level',
-					_1: _elm_lang$core$Json_Encode$int(player.level)
-				},
-				_1: {ctor: '[]'}
-			}
-		}
-	};
-	return _elm_lang$core$Json_Encode$object(attributes);
-};
-var _user$project$Commands$savePlayerUrl = function (playerId) {
-	return A2(_elm_lang$core$Basics_ops['++'], 'http://localhost:4000/api/players/', playerId);
-};
-var _user$project$Commands$playerDecoder = A3(
-	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-	'level',
-	_elm_lang$core$Json_Decode$int,
-	A3(
-		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-		'name',
-		_elm_lang$core$Json_Decode$string,
-		A3(
-			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-			'id',
-			_elm_lang$core$Json_Decode$string,
-			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Players_Model$Player))));
-var _user$project$Commands$savePlayerRequest = function (player) {
-	return _elm_lang$http$Http$request(
-		{
-			body: _elm_lang$http$Http$jsonBody(
-				_user$project$Commands$playerEncoder(player)),
-			expect: _elm_lang$http$Http$expectJson(_user$project$Commands$playerDecoder),
-			headers: {ctor: '[]'},
-			method: 'POST',
-			timeout: _elm_lang$core$Maybe$Nothing,
-			url: _user$project$Commands$savePlayerUrl(player.id),
-			withCredentials: false
-		});
-};
-var _user$project$Commands$savePlayerCmd = function (player) {
-	return A2(
-		_elm_lang$http$Http$send,
-		_user$project$Msgs$OnPlayerSave,
-		_user$project$Commands$savePlayerRequest(player));
-};
-var _user$project$Commands$playersDecoder = A2(
-	_elm_lang$core$Json_Decode$at,
-	{
-		ctor: '::',
-		_0: 'data',
-		_1: {ctor: '[]'}
-	},
-	_elm_lang$core$Json_Decode$list(_user$project$Commands$playerDecoder));
 var _user$project$Commands$userDecoder = A2(
 	_elm_lang$core$Json_Decode$at,
 	{
@@ -21580,12 +21585,6 @@ var _user$project$Commands$userDecoder = A2(
 					'id',
 					_elm_lang$core$Json_Decode$int,
 					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Users_User$ApiUser))))));
-var _user$project$Commands$fetchPlayersUrl = 'http://localhost:4000/api/players';
-var _user$project$Commands$fetchPlayers = A2(
-	_elm_lang$core$Platform_Cmd$map,
-	_user$project$Msgs$OnFetchPlayers,
-	_krisajenkins$remotedata$RemoteData$sendRequest(
-		A2(_elm_lang$http$Http$get, _user$project$Commands$fetchPlayersUrl, _user$project$Commands$playersDecoder)));
 var _user$project$Commands$baseUrl = 'http://localhost:4000/api/';
 var _user$project$Commands$fetchUserUrl = function (userId) {
 	return A2(
@@ -21652,205 +21651,212 @@ var _user$project$Page_LoginForm$submitCredentials = F2(
 				}));
 		return A3(_elm_lang$http$Http$post, 'http://localhost:4000/api/sessions', body, _user$project$Page_LoginForm$tokenDecoder);
 	});
-var _user$project$Page_LoginForm$view = function (state) {
-	return A2(
-		_debois$elm_mdl$Material_Grid$grid,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: A2(
-				_debois$elm_mdl$Material_Grid$cell,
-				{
-					ctor: '::',
-					_0: A2(_debois$elm_mdl$Material_Grid$offset, _debois$elm_mdl$Material_Grid$All, 4),
-					_1: {
+var _user$project$Page_LoginForm$view = F2(
+	function (state, mdl) {
+		return A2(
+			_debois$elm_mdl$Material_Grid$grid,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Grid$align(_debois$elm_mdl$Material_Grid$Middle),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_debois$elm_mdl$Material_Grid$cell,
+					{
 						ctor: '::',
-						_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 4),
+						_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 12),
 						_1: {
 							ctor: '::',
 							_0: _debois$elm_mdl$Material_Typography$center,
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: _debois$elm_mdl$Material_Options$center,
+								_1: {ctor: '[]'}
+							}
 						}
-					}
-				},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$style(
-								{
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_Card$view,
+							{
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Options$css, 'border-radius', '1em'),
+								_1: {
 									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'border', _1: '1px black solid'},
-									_1: {ctor: '[]'}
-								}),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$form,
-								{ctor: '[]'},
-								{
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$label,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$style(
-												{
-													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: 'margin', _1: '2px'},
-													_1: {ctor: '[]'}
-												}),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$for('username'),
-												_1: {ctor: '[]'}
-											}
-										},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('Username'),
-											_1: {ctor: '[]'}
-										}),
+									_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 4),
 									_1: {
 										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$input,
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$value(state.username),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$for('username'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html_Events$onInput(_user$project$Page_LoginMsgs$SetUsername),
-														_1: {ctor: '[]'}
-													}
-												}
-											},
-											{ctor: '[]'}),
+										_0: _debois$elm_mdl$Material_Color$background(
+											A2(_debois$elm_mdl$Material_Color$color, _debois$elm_mdl$Material_Color$LightBlue, _debois$elm_mdl$Material_Color$S500)),
 										_1: {
 											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$br,
-												{ctor: '[]'},
-												{ctor: '[]'}),
+											_0: A2(_debois$elm_mdl$Material_Options$css, 'color', 'white'),
 											_1: {
 												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$label,
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$style(
-															{
-																ctor: '::',
-																_0: {ctor: '_Tuple2', _0: 'margin', _1: '2px'},
-																_1: {ctor: '[]'}
-															}),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$for('password'),
-															_1: {ctor: '[]'}
-														}
-													},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('Password'),
-														_1: {ctor: '[]'}
-													}),
+												_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'flex'),
 												_1: {
 													ctor: '::',
-													_0: A2(
-														_elm_lang$html$Html$input,
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$value(state.password),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$for('password'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$type_('password'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Events$onInput(_user$project$Page_LoginMsgs$SetPassword),
-																		_1: {ctor: '[]'}
-																	}
-																}
-															}
-														},
-														{ctor: '[]'}),
+													_0: A2(_debois$elm_mdl$Material_Options$css, 'align-items', 'center'),
 													_1: {ctor: '[]'}
 												}
 											}
 										}
 									}
-								}),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$br,
-							{ctor: '[]'},
-							{ctor: '[]'}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$button,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$type_('button'),
-									_1: {
+								}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_Card$title,
+									{
 										ctor: '::',
-										_0: _user$project$Utils$onClickPreventDefault(_user$project$Page_LoginMsgs$SubmitCredentials),
+										_0: _debois$elm_mdl$Material_Typography$center,
 										_1: {ctor: '[]'}
-									}
-								},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text('Login'),
-									_1: {ctor: '[]'}
-								}),
-							_1: {ctor: '[]'}
-						}
-					}
-				}),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Page_LoginForm$update = F2(
-	function (msg, form_) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
-			case 'SetUsername':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						form_,
-						{username: _p0._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'SetPassword':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						form_,
-						{password: _p0._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			default:
-				return {
-					ctor: '_Tuple2',
-					_0: form_,
-					_1: _user$project$Page_LoginForm$submitCredentialsCmd(
-						A2(_user$project$Page_LoginForm$submitCredentials, form_.username, form_.password))
-				};
-		}
+									},
+									{
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Card$head,
+											{
+												ctor: '::',
+												_0: A2(_debois$elm_mdl$Material_Options$css, 'color', 'white'),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('Login'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A5(
+												_debois$elm_mdl$Material_Textfield$render,
+												_user$project$Msgs$Mdl,
+												{
+													ctor: '::',
+													_0: 0,
+													_1: {ctor: '[]'}
+												},
+												mdl,
+												{
+													ctor: '::',
+													_0: _debois$elm_mdl$Material_Textfield$label('Username'),
+													_1: {
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Options$onInput(
+															function ($char) {
+																return _user$project$Msgs$SetUser($char);
+															}),
+														_1: {
+															ctor: '::',
+															_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+															_1: {ctor: '[]'}
+														}
+													}
+												},
+												{ctor: '[]'}),
+											_1: {
+												ctor: '::',
+												_0: A5(
+													_debois$elm_mdl$Material_Textfield$render,
+													_user$project$Msgs$Mdl,
+													{
+														ctor: '::',
+														_0: 1,
+														_1: {ctor: '[]'}
+													},
+													mdl,
+													{
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Textfield$label('password'),
+														_1: {
+															ctor: '::',
+															_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+															_1: {
+																ctor: '::',
+																_0: _debois$elm_mdl$Material_Options$onInput(
+																	function ($char) {
+																		return _user$project$Msgs$SetPass($char);
+																	}),
+																_1: {
+																	ctor: '::',
+																	_0: _debois$elm_mdl$Material_Textfield$password,
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													},
+													{ctor: '[]'}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$br,
+														{ctor: '[]'},
+														{ctor: '[]'}),
+													_1: {
+														ctor: '::',
+														_0: A5(
+															_debois$elm_mdl$Material_Button$render,
+															_user$project$Msgs$Mdl,
+															{
+																ctor: '::',
+																_0: 1,
+																_1: {
+																	ctor: '::',
+																	_0: 0,
+																	_1: {
+																		ctor: '::',
+																		_0: 0,
+																		_1: {
+																			ctor: '::',
+																			_0: 0,
+																			_1: {ctor: '[]'}
+																		}
+																	}
+																}
+															},
+															mdl,
+															{
+																ctor: '::',
+																_0: _debois$elm_mdl$Material_Button$ripple,
+																_1: {
+																	ctor: '::',
+																	_0: _debois$elm_mdl$Material_Button$raised,
+																	_1: {
+																		ctor: '::',
+																		_0: _debois$elm_mdl$Material_Button$colored,
+																		_1: {
+																			ctor: '::',
+																			_0: _debois$elm_mdl$Material_Button$type_('button'),
+																			_1: {
+																				ctor: '::',
+																				_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$SubmitCredentials),
+																				_1: {ctor: '[]'}
+																			}
+																		}
+																	}
+																}
+															},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('Login'),
+																_1: {ctor: '[]'}
+															}),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			});
 	});
 var _user$project$Page_LoginForm$initialLoginForm = {username: '', password: '', rememberMe: false, forgotPassword: false};
 var _user$project$Page_LoginForm$Form = F4(
@@ -21863,7 +21869,6 @@ var _user$project$Models$initialModel = F2(
 		var tkn = flags.token;
 		return {
 			mdl: _debois$elm_mdl$Material$model,
-			players: _krisajenkins$remotedata$RemoteData$Loading,
 			user: _krisajenkins$remotedata$RemoteData$NotAsked,
 			route: route,
 			loginForm: _user$project$Page_LoginForm$initialLoginForm,
@@ -21871,18 +21876,14 @@ var _user$project$Models$initialModel = F2(
 			errorMessage: ''
 		};
 	});
-var _user$project$Models$Model = F7(
-	function (a, b, c, d, e, f, g) {
-		return {mdl: a, players: b, user: c, route: d, loginForm: e, jwt: f, errorMessage: g};
+var _user$project$Models$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {mdl: a, user: b, route: c, loginForm: d, jwt: e, errorMessage: f};
 	});
 var _user$project$Models$Flags = function (a) {
 	return {token: a};
 };
 var _user$project$Models$NotFoundRoute = {ctor: 'NotFoundRoute'};
-var _user$project$Models$PlayerRoute = function (a) {
-	return {ctor: 'PlayerRoute', _0: a};
-};
-var _user$project$Models$PlayersRoute = {ctor: 'PlayersRoute'};
 var _user$project$Models$HomeRoute = {ctor: 'HomeRoute'};
 
 var _user$project$Page_Header$header = function (model) {
@@ -21981,250 +21982,19 @@ var _user$project$Page_Header$header = function (model) {
 	};
 };
 
-var _user$project$Routing$playerPath = function (playerId) {
-	return A2(_elm_lang$core$Basics_ops['++'], '#players/', playerId);
-};
-var _user$project$Routing$playersPath = '#players';
-var _user$project$Routing$matchers = _evancz$url_parser$UrlParser$oneOf(
-	{
-		ctor: '::',
-		_0: A2(_evancz$url_parser$UrlParser$map, _user$project$Models$HomeRoute, _evancz$url_parser$UrlParser$top),
-		_1: {
-			ctor: '::',
-			_0: A2(
-				_evancz$url_parser$UrlParser$map,
-				_user$project$Models$PlayerRoute,
-				A2(
-					_evancz$url_parser$UrlParser_ops['</>'],
-					_evancz$url_parser$UrlParser$s('players'),
-					_evancz$url_parser$UrlParser$string)),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_evancz$url_parser$UrlParser$map,
-					_user$project$Models$PlayersRoute,
-					_evancz$url_parser$UrlParser$s('players')),
-				_1: {ctor: '[]'}
-			}
+var _user$project$Page_Home$renderLoginForm = F3(
+	function (maybeToken, form_, mdl) {
+		var _p0 = maybeToken;
+		if (_p0.ctor === 'Nothing') {
+			return A2(_user$project$Page_LoginForm$view, form_, mdl);
+		} else {
+			return _elm_lang$html$Html$text('');
 		}
 	});
-var _user$project$Routing$parseLocation = function (location) {
-	var _p0 = A2(_evancz$url_parser$UrlParser$parseHash, _user$project$Routing$matchers, location);
-	if (_p0.ctor === 'Just') {
-		return _p0._0;
-	} else {
-		return _user$project$Models$NotFoundRoute;
-	}
-};
-
-var _user$project$Players_List$editBtn = function (player) {
-	var path = _user$project$Routing$playerPath(player.id);
-	return A2(
-		_elm_lang$html$Html$a,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('btn regular'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$href(path),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('Edit'),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Players_List$playerRow = function (player) {
-	return A2(
-		_elm_lang$html$Html$tr,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$td,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(player.id),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$td,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(player.name),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$td,
-						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(
-								_elm_lang$core$Basics$toString(player.level)),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$td,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: _user$project$Players_List$editBtn(player),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					}
-				}
-			}
-		});
-};
-var _user$project$Players_List$list = function (players) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('p2'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$table,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$thead,
-						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$tr,
-								{ctor: '[]'},
-								{
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$th,
-										{ctor: '[]'},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('Id'),
-											_1: {ctor: '[]'}
-										}),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$th,
-											{ctor: '[]'},
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('Name'),
-												_1: {ctor: '[]'}
-											}),
-										_1: {
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$th,
-												{ctor: '[]'},
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('Level'),
-													_1: {ctor: '[]'}
-												}),
-											_1: {
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$th,
-													{ctor: '[]'},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('Actions'),
-														_1: {ctor: '[]'}
-													}),
-												_1: {ctor: '[]'}
-											}
-										}
-									}
-								}),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$tbody,
-							{ctor: '[]'},
-							A2(_elm_lang$core$List$map, _user$project$Players_List$playerRow, players)),
-						_1: {ctor: '[]'}
-					}
-				}),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Players_List$maybeList = function (response) {
-	var _p0 = response;
-	switch (_p0.ctor) {
-		case 'NotAsked':
-			return _elm_lang$html$Html$text('');
-		case 'Loading':
-			return _elm_lang$html$Html$text('Loading...');
-		case 'Success':
-			return _user$project$Players_List$list(_p0._0);
-		default:
-			return _elm_lang$html$Html$text(
-				_elm_lang$core$Basics$toString(_p0._0));
-	}
-};
-var _user$project$Players_List$nav = A2(
-	_elm_lang$html$Html$div,
-	{
-		ctor: '::',
-		_0: _elm_lang$html$Html_Attributes$class('clearfix mb2 white bg-black'),
-		_1: {ctor: '[]'}
-	},
-	{
-		ctor: '::',
-		_0: A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('left p2'),
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Players'),
-				_1: {ctor: '[]'}
-			}),
-		_1: {ctor: '[]'}
-	});
-var _user$project$Players_List$view = function (response) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: _user$project$Players_List$nav,
-			_1: {
-				ctor: '::',
-				_0: _user$project$Players_List$maybeList(response),
-				_1: {ctor: '[]'}
-			}
-		});
-};
-
 var _user$project$Page_Home$renderLogoutButton = F2(
 	function (maybeToken, mdl) {
-		var _p0 = maybeToken;
-		if (_p0.ctor === 'Just') {
+		var _p1 = maybeToken;
+		if (_p1.ctor === 'Just') {
 			return A2(
 				_debois$elm_mdl$Material_Grid$cell,
 				{
@@ -22280,8 +22050,8 @@ var _user$project$Page_Home$renderLogoutButton = F2(
 	});
 var _user$project$Page_Home$view = F4(
 	function (user, form_, maybeToken, mdl) {
-		var _p1 = user;
-		switch (_p1.ctor) {
+		var _p2 = user;
+		switch (_p2.ctor) {
 			case 'Loading':
 				return A2(
 					_debois$elm_mdl$Material_Grid$grid,
@@ -22358,7 +22128,7 @@ var _user$project$Page_Home$view = F4(
 											A2(
 												_elm_lang$core$Basics_ops['++'],
 												'Welcome to Study Buddy, ',
-												_user$project$Users_User$fullName(_p1._0))),
+												_user$project$Users_User$fullName(_p2._0))),
 										_1: {ctor: '[]'}
 									}),
 								_1: {ctor: '[]'}
@@ -22401,7 +22171,7 @@ var _user$project$Page_Home$view = F4(
 											A2(
 												_elm_lang$core$Basics_ops['++'],
 												'Something went wrong: ',
-												_elm_lang$core$Basics$toString(_p1._0))),
+												_elm_lang$core$Basics$toString(_p2._0))),
 										_1: {ctor: '[]'}
 									}),
 								_1: {ctor: '[]'}
@@ -22441,10 +22211,7 @@ var _user$project$Page_Home$view = F4(
 									}),
 								_1: {
 									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$map,
-										_user$project$Msgs$Login,
-										_user$project$Page_LoginForm$view(form_)),
+									_0: A3(_user$project$Page_Home$renderLoginForm, maybeToken, form_, mdl),
 									_1: {ctor: '[]'}
 								}
 							}),
@@ -22516,15 +22283,10 @@ var _user$project$Page_Body$notFoundView = A2(
 	});
 var _user$project$Page_Body$page = function (model) {
 	var _p0 = model.route;
-	switch (_p0.ctor) {
-		case 'HomeRoute':
-			return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt.jwt, model.mdl);
-		case 'PlayersRoute':
-			return _user$project$Players_List$view(model.players);
-		case 'PlayerRoute':
-			return _user$project$Page_Body$notFoundView;
-		default:
-			return _user$project$Page_Body$notFoundView;
+	if (_p0.ctor === 'HomeRoute') {
+		return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt.jwt, model.mdl);
+	} else {
+		return _user$project$Page_Body$notFoundView;
 	}
 };
 
@@ -22557,7 +22319,7 @@ var _user$project$Page_Layout$layout = function (model) {
 				ctor: '_Tuple2',
 				_0: {
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('Some tabs'),
+					_0: _elm_lang$html$Html$text('Some tabs and whatnot'),
 					_1: {ctor: '[]'}
 				},
 				_1: {ctor: '[]'}
@@ -22570,257 +22332,54 @@ var _user$project$Page_Layout$layout = function (model) {
 		});
 };
 
-var _user$project$Players_Edit$listBtn = A2(
-	_elm_lang$html$Html$a,
-	{
-		ctor: '::',
-		_0: _elm_lang$html$Html_Attributes$class('btn regular'),
-		_1: {
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$href(_user$project$Routing$playersPath),
-			_1: {ctor: '[]'}
-		}
-	},
-	{
-		ctor: '::',
-		_0: _elm_lang$html$Html$text('List'),
-		_1: {ctor: '[]'}
-	});
-var _user$project$Players_Edit$btnLevelIncrease = function (player) {
-	var message = A2(_user$project$Msgs$ChangeLevel, player, 1);
-	return A2(
-		_elm_lang$html$Html$button,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('btn ml1 h1'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(message),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('+'),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Players_Edit$btnLevelDecrease = function (player) {
-	var message = A2(_user$project$Msgs$ChangeLevel, player, -1);
-	return A2(
-		_elm_lang$html$Html$button,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('btn ml1 h1'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(message),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('-'),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Players_Edit$formLevel = function (player) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('clearfix py1'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('col col-5'),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Level'),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$div,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('col col-7'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$span,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('h2 bold'),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text(
-									_elm_lang$core$Basics$toString(player.level)),
-								_1: {ctor: '[]'}
-							}),
-						_1: {
-							ctor: '::',
-							_0: _user$project$Players_Edit$btnLevelDecrease(player),
-							_1: {
-								ctor: '::',
-								_0: _user$project$Players_Edit$btnLevelIncrease(player),
-								_1: {ctor: '[]'}
-							}
-						}
-					}),
-				_1: {ctor: '[]'}
-			}
-		});
-};
-var _user$project$Players_Edit$form = function (player) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('m3'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$h1,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(player.name),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: _user$project$Players_Edit$formLevel(player),
-				_1: {ctor: '[]'}
-			}
-		});
-};
-var _user$project$Players_Edit$nav = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('clearfix mb2 white bg-black p1'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _user$project$Players_Edit$listBtn,
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Players_Edit$view = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: _user$project$Players_Edit$nav(model),
-			_1: {
-				ctor: '::',
-				_0: _user$project$Players_Edit$form(model),
-				_1: {ctor: '[]'}
-			}
-		});
-};
-
-var _user$project$View$playerEditPage = F2(
-	function (model, playerId) {
-		var _p0 = model.players;
-		switch (_p0.ctor) {
-			case 'NotAsked':
-				return _elm_lang$html$Html$text('');
-			case 'Loading':
-				return _elm_lang$html$Html$text('Loading...');
-			case 'Success':
-				var maybePlayer = _elm_lang$core$List$head(
-					A2(
-						_elm_lang$core$List$filter,
-						function (player) {
-							return _elm_lang$core$Native_Utils.eq(player.id, playerId);
-						},
-						_p0._0));
-				var _p1 = maybePlayer;
-				if (_p1.ctor === 'Just') {
-					return _user$project$Players_Edit$view(_p1._0);
-				} else {
-					return A2(
-						_elm_lang$html$Html$div,
-						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text('Not found...'),
-							_1: {ctor: '[]'}
-						});
-				}
-			default:
-				return _elm_lang$html$Html$text(
-					_elm_lang$core$Basics$toString(_p0._0));
-		}
-	});
 var _user$project$View$page = function (model) {
-	var _p2 = model.route;
-	switch (_p2.ctor) {
-		case 'HomeRoute':
-			return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt.jwt, model.mdl);
-		case 'PlayersRoute':
-			return _user$project$Players_List$view(model.players);
-		case 'PlayerRoute':
-			return A2(_user$project$View$playerEditPage, model, _p2._0);
-		default:
-			return A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Not found...'),
-					_1: {ctor: '[]'}
-				});
+	var _p0 = model.route;
+	if (_p0.ctor === 'HomeRoute') {
+		return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt.jwt, model.mdl);
+	} else {
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Not found...'),
+				_1: {ctor: '[]'}
+			});
 	}
 };
 var _user$project$View$view = function (model) {
 	return _user$project$Page_Layout$layout(model);
 };
 
-var _user$project$Update$updatePlayer = F2(
-	function (model, updatedPlayer) {
-		var pick = function (currentPlayer) {
-			return _elm_lang$core$Native_Utils.eq(updatedPlayer.id, currentPlayer.id) ? updatedPlayer : currentPlayer;
-		};
-		var updatePlayerList = function (players) {
-			return A2(_elm_lang$core$List$map, pick, players);
-		};
-		var updatedPlayers = A2(_krisajenkins$remotedata$RemoteData$map, updatePlayerList, model.players);
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{players: updatedPlayers});
+var _user$project$Page_LoginFormHelpers$clearLoginForm = function (model) {
+	var loginForm = model.loginForm;
+	var updated = _elm_lang$core$Native_Utils.update(
+		loginForm,
+		{username: '', password: ''});
+	return _elm_lang$core$Native_Utils.update(
+		model,
+		{loginForm: updated});
+};
+
+var _user$project$Routing$matchers = _evancz$url_parser$UrlParser$oneOf(
+	{
+		ctor: '::',
+		_0: A2(_evancz$url_parser$UrlParser$map, _user$project$Models$HomeRoute, _evancz$url_parser$UrlParser$top),
+		_1: {ctor: '[]'}
 	});
+var _user$project$Routing$parseLocation = function (location) {
+	var _p0 = A2(_evancz$url_parser$UrlParser$parseHash, _user$project$Routing$matchers, location);
+	if (_p0.ctor === 'Just') {
+		return _p0._0;
+	} else {
+		return _user$project$Models$NotFoundRoute;
+	}
+};
+
 var _user$project$Update$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
 		switch (_p0.ctor) {
-			case 'OnFetchPlayers':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{players: _p0._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
 			case 'OnLoadUser':
 				return {
 					ctor: '_Tuple2',
@@ -22848,49 +22407,50 @@ var _user$project$Update$update = F2(
 						{route: newRoute}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
-			case 'ChangeLevel':
-				var _p1 = _p0._0;
-				var updatedPlayer = _elm_lang$core$Native_Utils.update(
-					_p1,
-					{level: _p1.level + _p0._1});
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: _user$project$Commands$savePlayerCmd(updatedPlayer)
-				};
-			case 'OnPlayerSave':
-				if (_p0._0.ctor === 'Ok') {
-					return {
-						ctor: '_Tuple2',
-						_0: A2(_user$project$Update$updatePlayer, model, _p0._0._0),
-						_1: _elm_lang$core$Platform_Cmd$none
-					};
-				} else {
-					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-				}
 			case 'Mdl':
 				return A3(_debois$elm_mdl$Material$update, _user$project$Msgs$Mdl, _p0._0, model);
-			case 'Login':
-				var _p2 = A2(_user$project$Page_LoginForm$update, _p0._0, model.loginForm);
-				var form = _p2._0;
-				var cmd = _p2._1;
+			case 'SetUser':
+				var loginForm = model.loginForm;
+				var updated = _elm_lang$core$Native_Utils.update(
+					loginForm,
+					{username: _p0._0});
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{loginForm: form}),
-					_1: cmd
+						{loginForm: updated}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SetPass':
+				var loginForm = model.loginForm;
+				var updated = _elm_lang$core$Native_Utils.update(
+					loginForm,
+					{password: _p0._0});
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{loginForm: updated}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SubmitCredentials':
+				var loginForm = model.loginForm;
+				return {
+					ctor: '_Tuple2',
+					_0: _user$project$Page_LoginFormHelpers$clearLoginForm(model),
+					_1: _user$project$Page_LoginForm$submitCredentialsCmd(
+						A2(_user$project$Page_LoginForm$submitCredentials, loginForm.username, loginForm.password))
 				};
 			case 'LoginResult':
-				var _p3 = _p0._0;
-				if (_p3.ctor === 'Ok') {
-					var _p4 = _p3._0;
+				var _p1 = _p0._0;
+				if (_p1.ctor === 'Ok') {
+					var _p2 = _p1._0;
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
-							{jwt: _p4}),
-						_1: _user$project$Token$storeToken(_p4.jwt)
+							{jwt: _p2}),
+						_1: _user$project$Token$storeToken(_p2.jwt)
 					};
 				} else {
 					return {
@@ -22898,7 +22458,7 @@ var _user$project$Update$update = F2(
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{
-								errorMessage: _elm_lang$core$Basics$toString(_p3._0)
+								errorMessage: _elm_lang$core$Basics$toString(_p1._0)
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
@@ -22914,23 +22474,6 @@ var _user$project$Update$update = F2(
 					_1: _user$project$Token$removeToken(_elm_lang$core$Maybe$Nothing)
 				};
 		}
-	});
-
-var _user$project$Other$yetAnother = A2(
-	_elm_lang$html$Html$p,
-	{ctor: '[]'},
-	{
-		ctor: '::',
-		_0: _elm_lang$html$Html$text('This is perfect!'),
-		_1: {ctor: '[]'}
-	});
-var _user$project$Other$other = A2(
-	_elm_lang$html$Html$p,
-	{ctor: '[]'},
-	{
-		ctor: '::',
-		_0: _elm_lang$html$Html$text('Some text from another file.'),
-		_1: {ctor: '[]'}
 	});
 
 var _user$project$Main$init = F2(
@@ -22986,7 +22529,7 @@ var _user$project$Main$main = A2(
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {
-    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Jwt.JwtError":{"args":[],"tags":{"TokenDecodeError":["String"],"TokenExpired":[],"Unauthorized":[],"HttpError":["Http.Error"],"TokenProcessingError":["String"],"TokenNotExpired":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"RemoteData.RemoteData":{"args":["e","a"],"tags":{"NotAsked":[],"Success":["a"],"Loading":[],"Failure":["e"]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"OnFetchPlayers":["RemoteData.WebData (List Players.Model.Player)"],"GetUser":[],"LoginResult":["Result.Result Http.Error Token.Token"],"Mdl":["Material.Msg Msgs.Msg"],"ChangeLevel":["Players.Model.Player","Int"],"OnPlayerSave":["Result.Result Http.Error Players.Model.Player"],"Login":["Page.LoginMsgs.LoginMsg"],"OnLoadUser":["Result.Result Jwt.JwtError Users.User.ApiUser"]}},"Page.LoginMsgs.LoginMsg":{"args":[],"tags":{"SetUsername":["String"],"SubmitCredentials":[],"SetPassword":["String"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Players.Model.Player":{"args":[],"type":"{ id : Players.Model.PlayerId, name : String, level : Int }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"RemoteData.WebData":{"args":["a"],"type":"RemoteData.RemoteData Http.Error a"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Token.Token":{"args":[],"type":"{ jwt : Maybe.Maybe String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Users.User.ApiUser":{"args":[],"type":"{ id : Int, username : String, name : String, email : String }"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"},"Players.Model.PlayerId":{"args":[],"type":"String"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
+    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Jwt.JwtError":{"args":[],"tags":{"TokenDecodeError":["String"],"TokenExpired":[],"Unauthorized":[],"HttpError":["Http.Error"],"TokenProcessingError":["String"],"TokenNotExpired":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"SetUser":["String"],"SubmitCredentials":[],"GetUser":[],"LoginResult":["Result.Result Http.Error Token.Token"],"Mdl":["Material.Msg Msgs.Msg"],"SetPass":["String"],"OnLoadUser":["Result.Result Jwt.JwtError Users.User.ApiUser"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Token.Token":{"args":[],"type":"{ jwt : Maybe.Maybe String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Users.User.ApiUser":{"args":[],"type":"{ id : Int, username : String, name : String, email : String }"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

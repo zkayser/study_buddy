@@ -6,22 +6,16 @@ var _user$project$Msgs$Logout = {ctor: 'Logout'};
 var _user$project$Msgs$LoginResult = function (a) {
 	return {ctor: 'LoginResult', _0: a};
 };
-var _user$project$Msgs$Login = function (a) {
-	return {ctor: 'Login', _0: a};
+var _user$project$Msgs$SubmitCredentials = {ctor: 'SubmitCredentials'};
+var _user$project$Msgs$SetPass = function (a) {
+	return {ctor: 'SetPass', _0: a};
+};
+var _user$project$Msgs$SetUser = function (a) {
+	return {ctor: 'SetUser', _0: a};
 };
 var _user$project$Msgs$Mdl = function (a) {
 	return {ctor: 'Mdl', _0: a};
 };
-var _user$project$Msgs$OnPlayerSave = function (a) {
-	return {ctor: 'OnPlayerSave', _0: a};
-};
-var _user$project$Msgs$ChangeLevel = F2(
-	function (a, b) {
-		return {ctor: 'ChangeLevel', _0: a, _1: b};
-	});
 var _user$project$Msgs$OnLocationChange = function (a) {
 	return {ctor: 'OnLocationChange', _0: a};
-};
-var _user$project$Msgs$OnFetchPlayers = function (a) {
-	return {ctor: 'OnFetchPlayers', _0: a};
 };

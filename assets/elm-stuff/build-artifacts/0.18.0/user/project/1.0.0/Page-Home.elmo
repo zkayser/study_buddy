@@ -1,7 +1,16 @@
+var _user$project$Page_Home$renderLoginForm = F3(
+	function (maybeToken, form_, mdl) {
+		var _p0 = maybeToken;
+		if (_p0.ctor === 'Nothing') {
+			return A2(_user$project$Page_LoginForm$view, form_, mdl);
+		} else {
+			return _elm_lang$html$Html$text('');
+		}
+	});
 var _user$project$Page_Home$renderLogoutButton = F2(
 	function (maybeToken, mdl) {
-		var _p0 = maybeToken;
-		if (_p0.ctor === 'Just') {
+		var _p1 = maybeToken;
+		if (_p1.ctor === 'Just') {
 			return A2(
 				_debois$elm_mdl$Material_Grid$cell,
 				{
@@ -57,8 +66,8 @@ var _user$project$Page_Home$renderLogoutButton = F2(
 	});
 var _user$project$Page_Home$view = F4(
 	function (user, form_, maybeToken, mdl) {
-		var _p1 = user;
-		switch (_p1.ctor) {
+		var _p2 = user;
+		switch (_p2.ctor) {
 			case 'Loading':
 				return A2(
 					_debois$elm_mdl$Material_Grid$grid,
@@ -135,7 +144,7 @@ var _user$project$Page_Home$view = F4(
 											A2(
 												_elm_lang$core$Basics_ops['++'],
 												'Welcome to Study Buddy, ',
-												_user$project$Users_User$fullName(_p1._0))),
+												_user$project$Users_User$fullName(_p2._0))),
 										_1: {ctor: '[]'}
 									}),
 								_1: {ctor: '[]'}
@@ -178,7 +187,7 @@ var _user$project$Page_Home$view = F4(
 											A2(
 												_elm_lang$core$Basics_ops['++'],
 												'Something went wrong: ',
-												_elm_lang$core$Basics$toString(_p1._0))),
+												_elm_lang$core$Basics$toString(_p2._0))),
 										_1: {ctor: '[]'}
 									}),
 								_1: {ctor: '[]'}
@@ -218,10 +227,7 @@ var _user$project$Page_Home$view = F4(
 									}),
 								_1: {
 									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$map,
-										_user$project$Msgs$Login,
-										_user$project$Page_LoginForm$view(form_)),
+									_0: A3(_user$project$Page_Home$renderLoginForm, maybeToken, form_, mdl),
 									_1: {ctor: '[]'}
 								}
 							}),

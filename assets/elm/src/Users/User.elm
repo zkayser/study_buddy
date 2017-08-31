@@ -6,9 +6,7 @@ type alias User =
     , email : String
     , firstName : String
     , lastName : String
-    , rememberMe : Bool
     , password : String
-    , loggedIn : Bool
   }
 
 type alias ApiUser =

@@ -4,7 +4,6 @@ import Users.User as User exposing (..)
 import Msgs exposing (Msg(..))
 import Page.LoginForm as LoginForm
 import Html exposing (..)
-import Html.Attributes exposing (type_)
 import Utils exposing (onClickPreventDefault)
 import RemoteData exposing (WebData)
 import Material
@@ -42,7 +41,7 @@ view user form_ maybeToken mdl =
         [ Grid.cell
           [ Grid.size Grid.All 12, Typography.center ]
           [ Html.h1 [] [ text "Welcome to Study Buddy." ]
-          , Html.map Msgs.Login (LoginForm.view form_ )
+          , (renderLoginForm maybeToken form_ mdl )
           ]
         , Grid.cell
           [ Grid.size Grid.All 12, Typography.center ]
@@ -72,3 +71,9 @@ renderLogoutButton maybeToken mdl =
         [ text "Logout" ]
        ]
     Nothing -> Grid.cell [] []
+
+renderLoginForm : Maybe String -> LoginForm.Form -> Material.Model -> Html Msg
+renderLoginForm maybeToken form_ mdl =
+  case maybeToken of
+    Nothing -> LoginForm.view form_ mdl
+    Just token -> Html.text ""

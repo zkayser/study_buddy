@@ -8,14 +8,9 @@ var _user$project$Page_Body$notFoundView = A2(
 	});
 var _user$project$Page_Body$page = function (model) {
 	var _p0 = model.route;
-	switch (_p0.ctor) {
-		case 'HomeRoute':
-			return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt.jwt, model.mdl);
-		case 'PlayersRoute':
-			return _user$project$Players_List$view(model.players);
-		case 'PlayerRoute':
-			return _user$project$Page_Body$notFoundView;
-		default:
-			return _user$project$Page_Body$notFoundView;
+	if (_p0.ctor === 'HomeRoute') {
+		return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt.jwt, model.mdl);
+	} else {
+		return _user$project$Page_Body$notFoundView;
 	}
 };

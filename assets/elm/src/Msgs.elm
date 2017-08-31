@@ -1,6 +1,5 @@
 module Msgs exposing (..)
 
-import Players.Model exposing (Player)
 import Page.LoginMsgs exposing (LoginMsg(..))
 import Users.User exposing (ApiUser)
 import Http
@@ -11,12 +10,11 @@ import Navigation exposing (Location)
 import RemoteData exposing (WebData)
 
 type Msg
-  = OnFetchPlayers (WebData (List Player))
-  | OnLocationChange Location
-  | ChangeLevel Player Int
-  | OnPlayerSave (Result Http.Error Player)
+  = OnLocationChange Location
   | Mdl (Material.Msg Msg)
-  | Login (LoginMsg)
+  | SetUser String
+  | SetPass String
+  | SubmitCredentials
   | LoginResult (Result Http.Error Token)
   | Logout
   | OnLoadUser (Result Jwt.JwtError ApiUser)

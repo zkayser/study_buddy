@@ -16,6 +16,6 @@ layout model =
         ]
           { header = Page.Header.header model 
           , drawer = [ text "This is the drawer" ]
-          , tabs = ([ text "Some tabs" ], []) 
+          , tabs = ([ text "Some tabs and whatnot" ], []) 
           , main = [ Page.Body.page model ] 
         }

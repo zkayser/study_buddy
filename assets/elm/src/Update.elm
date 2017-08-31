@@ -2,19 +2,17 @@ module Update exposing (..)
 
 import Msgs exposing (Msg(..))
 import Models exposing (Model)
-import Page.LoginForm as Login
+import Page.LoginForm as Login exposing (submitCredentials, submitCredentialsCmd)
+import Page.LoginFormHelpers as LoginHelpers
 import Token exposing (storeToken, removeToken)
 import Material
 import Routing exposing (parseLocation)
-import Commands exposing (savePlayerCmd, fetchUser)
-import Players.Model exposing (Player)
+import Commands exposing (fetchUser)
 import RemoteData
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-            Msgs.OnFetchPlayers response ->
-                    ( { model | players = response }, Cmd.none )
             Msgs.OnLoadUser response ->
               ( model, Debug.log ("Got response: " ++ (toString response)) Cmd.none)
             Msgs.GetUser ->
@@ -25,23 +23,30 @@ update msg model =
                                 parseLocation location
                     in
                         ( { model | route = newRoute }, Cmd.none )
-            Msgs.ChangeLevel player howMuch ->
-                    let updatedPlayer =
-                                { player | level = player.level + howMuch }
-                    in
-                        ( model, savePlayerCmd updatedPlayer )
-            Msgs.OnPlayerSave (Ok player) ->
-                    ( updatePlayer model player, Cmd.none )
-            Msgs.OnPlayerSave (Err error) ->
-                    ( model, Cmd.none )
             Msgs.Mdl msg_ ->
                     Material.update Mdl msg_ model
-            Msgs.Login msg_ ->
+            Msgs.SetUser username ->
               let
-                ( form, cmd ) =
-                  Login.update msg_ model.loginForm
+                loginForm =
+                  model.loginForm
+                updated =
+                  { loginForm | username = username }
               in
-               ( { model | loginForm = form }, cmd)
+                  ( { model | loginForm = updated }, Cmd.none )
+            Msgs.SetPass password ->
+              let
+                loginForm =
+                  model.loginForm
+                updated =
+                  { loginForm | password = password }
+              in
+              ( { model | loginForm = updated }, Cmd.none )
+            Msgs.SubmitCredentials ->
+              let
+                loginForm =
+                  model.loginForm
+              in
+                ( LoginHelpers.clearLoginForm model, (submitCredentialsCmd <| submitCredentials loginForm.username loginForm.password ))
             Msgs.LoginResult result ->
               case result of
                 Ok token ->
@@ -50,18 +55,3 @@ update msg model =
                   ( { model | errorMessage = (toString errorMessage )}, Cmd.none)
             Msgs.Logout ->
               ( { model | jwt = {jwt = Nothing } }, removeToken Nothing )
-
-updatePlayer : Model -> Player -> Model
-updatePlayer model updatedPlayer =
-        let
-            pick currentPlayer =
-                    if updatedPlayer.id == currentPlayer.id then
-                            updatedPlayer
-                    else
-                            currentPlayer
-            updatePlayerList players =
-                    List.map pick players
-            updatedPlayers =
-                    RemoteData.map updatePlayerList model.players
-        in
-            { model | players = updatedPlayers }

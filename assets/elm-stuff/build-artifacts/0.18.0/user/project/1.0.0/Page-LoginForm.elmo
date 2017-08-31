@@ -29,205 +29,212 @@ var _user$project$Page_LoginForm$submitCredentials = F2(
 				}));
 		return A3(_elm_lang$http$Http$post, 'http://localhost:4000/api/sessions', body, _user$project$Page_LoginForm$tokenDecoder);
 	});
-var _user$project$Page_LoginForm$view = function (state) {
-	return A2(
-		_debois$elm_mdl$Material_Grid$grid,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: A2(
-				_debois$elm_mdl$Material_Grid$cell,
-				{
-					ctor: '::',
-					_0: A2(_debois$elm_mdl$Material_Grid$offset, _debois$elm_mdl$Material_Grid$All, 4),
-					_1: {
+var _user$project$Page_LoginForm$view = F2(
+	function (state, mdl) {
+		return A2(
+			_debois$elm_mdl$Material_Grid$grid,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Grid$align(_debois$elm_mdl$Material_Grid$Middle),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_debois$elm_mdl$Material_Grid$cell,
+					{
 						ctor: '::',
-						_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 4),
+						_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 12),
 						_1: {
 							ctor: '::',
 							_0: _debois$elm_mdl$Material_Typography$center,
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: _debois$elm_mdl$Material_Options$center,
+								_1: {ctor: '[]'}
+							}
 						}
-					}
-				},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$style(
-								{
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_Card$view,
+							{
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Options$css, 'border-radius', '1em'),
+								_1: {
 									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'border', _1: '1px black solid'},
-									_1: {ctor: '[]'}
-								}),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$form,
-								{ctor: '[]'},
-								{
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$label,
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html_Attributes$style(
-												{
-													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: 'margin', _1: '2px'},
-													_1: {ctor: '[]'}
-												}),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$for('username'),
-												_1: {ctor: '[]'}
-											}
-										},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('Username'),
-											_1: {ctor: '[]'}
-										}),
+									_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 4),
 									_1: {
 										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$input,
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$value(state.username),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$for('username'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html_Events$onInput(_user$project$Page_LoginMsgs$SetUsername),
-														_1: {ctor: '[]'}
-													}
-												}
-											},
-											{ctor: '[]'}),
+										_0: _debois$elm_mdl$Material_Color$background(
+											A2(_debois$elm_mdl$Material_Color$color, _debois$elm_mdl$Material_Color$LightBlue, _debois$elm_mdl$Material_Color$S500)),
 										_1: {
 											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$br,
-												{ctor: '[]'},
-												{ctor: '[]'}),
+											_0: A2(_debois$elm_mdl$Material_Options$css, 'color', 'white'),
 											_1: {
 												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$label,
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$style(
-															{
-																ctor: '::',
-																_0: {ctor: '_Tuple2', _0: 'margin', _1: '2px'},
-																_1: {ctor: '[]'}
-															}),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$for('password'),
-															_1: {ctor: '[]'}
-														}
-													},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('Password'),
-														_1: {ctor: '[]'}
-													}),
+												_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'flex'),
 												_1: {
 													ctor: '::',
-													_0: A2(
-														_elm_lang$html$Html$input,
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$value(state.password),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$for('password'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$type_('password'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Events$onInput(_user$project$Page_LoginMsgs$SetPassword),
-																		_1: {ctor: '[]'}
-																	}
-																}
-															}
-														},
-														{ctor: '[]'}),
+													_0: A2(_debois$elm_mdl$Material_Options$css, 'align-items', 'center'),
 													_1: {ctor: '[]'}
 												}
 											}
 										}
 									}
-								}),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$br,
-							{ctor: '[]'},
-							{ctor: '[]'}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$button,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$type_('button'),
-									_1: {
+								}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_debois$elm_mdl$Material_Card$title,
+									{
 										ctor: '::',
-										_0: _user$project$Utils$onClickPreventDefault(_user$project$Page_LoginMsgs$SubmitCredentials),
+										_0: _debois$elm_mdl$Material_Typography$center,
 										_1: {ctor: '[]'}
-									}
-								},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text('Login'),
-									_1: {ctor: '[]'}
-								}),
-							_1: {ctor: '[]'}
-						}
-					}
-				}),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Page_LoginForm$update = F2(
-	function (msg, form_) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
-			case 'SetUsername':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						form_,
-						{username: _p0._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'SetPassword':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						form_,
-						{password: _p0._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			default:
-				return {
-					ctor: '_Tuple2',
-					_0: form_,
-					_1: _user$project$Page_LoginForm$submitCredentialsCmd(
-						A2(_user$project$Page_LoginForm$submitCredentials, form_.username, form_.password))
-				};
-		}
+									},
+									{
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Card$head,
+											{
+												ctor: '::',
+												_0: A2(_debois$elm_mdl$Material_Options$css, 'color', 'white'),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('Login'),
+												_1: {ctor: '[]'}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A5(
+												_debois$elm_mdl$Material_Textfield$render,
+												_user$project$Msgs$Mdl,
+												{
+													ctor: '::',
+													_0: 0,
+													_1: {ctor: '[]'}
+												},
+												mdl,
+												{
+													ctor: '::',
+													_0: _debois$elm_mdl$Material_Textfield$label('Username'),
+													_1: {
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Options$onInput(
+															function ($char) {
+																return _user$project$Msgs$SetUser($char);
+															}),
+														_1: {
+															ctor: '::',
+															_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+															_1: {ctor: '[]'}
+														}
+													}
+												},
+												{ctor: '[]'}),
+											_1: {
+												ctor: '::',
+												_0: A5(
+													_debois$elm_mdl$Material_Textfield$render,
+													_user$project$Msgs$Mdl,
+													{
+														ctor: '::',
+														_0: 1,
+														_1: {ctor: '[]'}
+													},
+													mdl,
+													{
+														ctor: '::',
+														_0: _debois$elm_mdl$Material_Textfield$label('password'),
+														_1: {
+															ctor: '::',
+															_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+															_1: {
+																ctor: '::',
+																_0: _debois$elm_mdl$Material_Options$onInput(
+																	function ($char) {
+																		return _user$project$Msgs$SetPass($char);
+																	}),
+																_1: {
+																	ctor: '::',
+																	_0: _debois$elm_mdl$Material_Textfield$password,
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													},
+													{ctor: '[]'}),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$br,
+														{ctor: '[]'},
+														{ctor: '[]'}),
+													_1: {
+														ctor: '::',
+														_0: A5(
+															_debois$elm_mdl$Material_Button$render,
+															_user$project$Msgs$Mdl,
+															{
+																ctor: '::',
+																_0: 1,
+																_1: {
+																	ctor: '::',
+																	_0: 0,
+																	_1: {
+																		ctor: '::',
+																		_0: 0,
+																		_1: {
+																			ctor: '::',
+																			_0: 0,
+																			_1: {ctor: '[]'}
+																		}
+																	}
+																}
+															},
+															mdl,
+															{
+																ctor: '::',
+																_0: _debois$elm_mdl$Material_Button$ripple,
+																_1: {
+																	ctor: '::',
+																	_0: _debois$elm_mdl$Material_Button$raised,
+																	_1: {
+																		ctor: '::',
+																		_0: _debois$elm_mdl$Material_Button$colored,
+																		_1: {
+																			ctor: '::',
+																			_0: _debois$elm_mdl$Material_Button$type_('button'),
+																			_1: {
+																				ctor: '::',
+																				_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$SubmitCredentials),
+																				_1: {ctor: '[]'}
+																			}
+																		}
+																	}
+																}
+															},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('Login'),
+																_1: {ctor: '[]'}
+															}),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			});
 	});
 var _user$project$Page_LoginForm$initialLoginForm = {username: '', password: '', rememberMe: false, forgotPassword: false};
 var _user$project$Page_LoginForm$Form = F4(

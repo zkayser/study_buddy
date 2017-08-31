@@ -1,28 +1,7 @@
-var _user$project$Update$updatePlayer = F2(
-	function (model, updatedPlayer) {
-		var pick = function (currentPlayer) {
-			return _elm_lang$core$Native_Utils.eq(updatedPlayer.id, currentPlayer.id) ? updatedPlayer : currentPlayer;
-		};
-		var updatePlayerList = function (players) {
-			return A2(_elm_lang$core$List$map, pick, players);
-		};
-		var updatedPlayers = A2(_krisajenkins$remotedata$RemoteData$map, updatePlayerList, model.players);
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{players: updatedPlayers});
-	});
 var _user$project$Update$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
 		switch (_p0.ctor) {
-			case 'OnFetchPlayers':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{players: _p0._0}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
 			case 'OnLoadUser':
 				return {
 					ctor: '_Tuple2',
@@ -50,49 +29,50 @@ var _user$project$Update$update = F2(
 						{route: newRoute}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
-			case 'ChangeLevel':
-				var _p1 = _p0._0;
-				var updatedPlayer = _elm_lang$core$Native_Utils.update(
-					_p1,
-					{level: _p1.level + _p0._1});
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: _user$project$Commands$savePlayerCmd(updatedPlayer)
-				};
-			case 'OnPlayerSave':
-				if (_p0._0.ctor === 'Ok') {
-					return {
-						ctor: '_Tuple2',
-						_0: A2(_user$project$Update$updatePlayer, model, _p0._0._0),
-						_1: _elm_lang$core$Platform_Cmd$none
-					};
-				} else {
-					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-				}
 			case 'Mdl':
 				return A3(_debois$elm_mdl$Material$update, _user$project$Msgs$Mdl, _p0._0, model);
-			case 'Login':
-				var _p2 = A2(_user$project$Page_LoginForm$update, _p0._0, model.loginForm);
-				var form = _p2._0;
-				var cmd = _p2._1;
+			case 'SetUser':
+				var loginForm = model.loginForm;
+				var updated = _elm_lang$core$Native_Utils.update(
+					loginForm,
+					{username: _p0._0});
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{loginForm: form}),
-					_1: cmd
+						{loginForm: updated}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SetPass':
+				var loginForm = model.loginForm;
+				var updated = _elm_lang$core$Native_Utils.update(
+					loginForm,
+					{password: _p0._0});
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{loginForm: updated}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SubmitCredentials':
+				var loginForm = model.loginForm;
+				return {
+					ctor: '_Tuple2',
+					_0: _user$project$Page_LoginFormHelpers$clearLoginForm(model),
+					_1: _user$project$Page_LoginForm$submitCredentialsCmd(
+						A2(_user$project$Page_LoginForm$submitCredentials, loginForm.username, loginForm.password))
 				};
 			case 'LoginResult':
-				var _p3 = _p0._0;
-				if (_p3.ctor === 'Ok') {
-					var _p4 = _p3._0;
+				var _p1 = _p0._0;
+				if (_p1.ctor === 'Ok') {
+					var _p2 = _p1._0;
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
-							{jwt: _p4}),
-						_1: _user$project$Token$storeToken(_p4.jwt)
+							{jwt: _p2}),
+						_1: _user$project$Token$storeToken(_p2.jwt)
 					};
 				} else {
 					return {
@@ -100,7 +80,7 @@ var _user$project$Update$update = F2(
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{
-								errorMessage: _elm_lang$core$Basics$toString(_p3._0)
+								errorMessage: _elm_lang$core$Basics$toString(_p1._0)
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};

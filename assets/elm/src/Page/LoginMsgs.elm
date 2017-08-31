@@ -5,4 +5,3 @@ import Http
 type LoginMsg
   = SetUsername String
   | SetPassword String
-  | SubmitCredentials

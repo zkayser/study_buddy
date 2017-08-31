@@ -3,7 +3,6 @@ var _user$project$Models$initialModel = F2(
 		var tkn = flags.token;
 		return {
 			mdl: _debois$elm_mdl$Material$model,
-			players: _krisajenkins$remotedata$RemoteData$Loading,
 			user: _krisajenkins$remotedata$RemoteData$NotAsked,
 			route: route,
 			loginForm: _user$project$Page_LoginForm$initialLoginForm,
@@ -11,16 +10,12 @@ var _user$project$Models$initialModel = F2(
 			errorMessage: ''
 		};
 	});
-var _user$project$Models$Model = F7(
-	function (a, b, c, d, e, f, g) {
-		return {mdl: a, players: b, user: c, route: d, loginForm: e, jwt: f, errorMessage: g};
+var _user$project$Models$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {mdl: a, user: b, route: c, loginForm: d, jwt: e, errorMessage: f};
 	});
 var _user$project$Models$Flags = function (a) {
 	return {token: a};
 };
 var _user$project$Models$NotFoundRoute = {ctor: 'NotFoundRoute'};
-var _user$project$Models$PlayerRoute = function (a) {
-	return {ctor: 'PlayerRoute', _0: a};
-};
-var _user$project$Models$PlayersRoute = {ctor: 'PlayersRoute'};
 var _user$project$Models$HomeRoute = {ctor: 'HomeRoute'};

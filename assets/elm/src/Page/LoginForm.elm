@@ -13,6 +13,10 @@ import Token exposing (Token)
 import Users.User as User
 import Material
 import Material.Grid as Grid
+import Material.Card as Card
+import Material.Color as Color
+import Material.Button as Button
+import Material.Options as Options
 import Material.Typography as Typography
 import Material.Textfield as Textfield
 import Page.LoginMsgs as LoginMsg exposing (LoginMsg(..))
@@ -33,35 +37,49 @@ initialLoginForm =
     }
 
 
-update : LoginMsg -> Form -> ( Form, Cmd Msgs.Msg)
-update msg form_ =
-  case msg of
-    LoginMsg.SetUsername char ->
-      ( { form_ | username = char }, Cmd.none )
-    LoginMsg.SetPassword char ->
-      ( { form_ | password = char }, Cmd.none )
-    LoginMsg.SubmitCredentials ->
-      ( form_, (submitCredentialsCmd <| submitCredentials form_.username form_.password ))
-
-view : Form -> Html.Html LoginMsg
-view state =
-  Grid.grid []
+view : Form -> Material.Model -> Html.Html Msgs.Msg
+view state mdl =
+  Grid.grid [ Grid.align Grid.Middle ]
     [ Grid.cell
-      [ Grid.offset Grid.All 4, Grid.size Grid.All 4, Typography.center ]
-      [ Html.div [ style [ ("border", "1px black solid") ] ]
-        [Html.form []
-          [ Html.label [ style [("margin", "2px") ], for "username"] [ Html.text "Username" ]
-          , Html.input [ Html.Attributes.value state.username, for "username", onInput LoginMsg.SetUsername ] []
+      [ Grid.size Grid.All 12
+      , Typography.center
+      , Options.center
+      ]
+      [ Card.view
+        [ Options.css "border-radius" "1em"
+        , Grid.size Grid.All 4
+        , Color.background (Color.color Color.LightBlue Color.S500)
+        , Options.css "color" "white"
+        , Options.css "display" "flex"
+        , Options.css "align-items" "center"
+        ]
+        [ Card.title
+          [ Typography.center ]
+          [ Card.head [ Options.css "color" "white" ] [ Html.text "Login" ]
+          , Textfield.render Msgs.Mdl [0] mdl
+            [ Textfield.label "Username"
+            , Options.onInput (\char -> Msgs.SetUser char)
+            , Textfield.floatingLabel
+            ]
+            [ ]
+          , Textfield.render Msgs.Mdl [1] mdl
+            [ Textfield.label "password"
+            , Textfield.floatingLabel
+            , Options.onInput (\char -> Msgs.SetPass char)
+            , Textfield.password
+            ]
+            []
           , Html.br [] []
-          , Html.label [ style [("margin", "2px") ], for "password"] [ Html.text "Password" ]
-          , Html.input [ Html.Attributes.value state.password
-                       , for "password"
-                       , type_ "password"
-                       , onInput LoginMsg.SetPassword ] []
+          , Button.render Msgs.Mdl [1, 0, 0, 0] mdl
+            [ Button.ripple
+            , Button.raised
+            , Button.colored
+            , Button.type_ "button"
+            , Options.onClick Msgs.SubmitCredentials
+            ]
+            [ Html.text "Login" ]
           ]
         ]
-        , Html.br [] []
-        , Html.button [ type_ "button", onClickPreventDefault SubmitCredentials ] [ Html.text "Login" ]
       ]
     ]
 
