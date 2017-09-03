@@ -1,4 +1,3 @@
-var _user$project$Msgs$GetUser = {ctor: 'GetUser'};
 var _user$project$Msgs$OnLoadUser = function (a) {
 	return {ctor: 'OnLoadUser', _0: a};
 };
