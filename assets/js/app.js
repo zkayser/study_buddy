@@ -17,15 +17,20 @@ import Elm from "./main.js";
 
 const token = localStorage.getItem('studyBuddyToken');
 const userToken = token ? token : null
+const user = localStorage.getItem('studyBuddyUser');
+const storedUser = user ? JSON.parse(user) : null
 const ELM_DIV = document.getElementById("elm-main");
-const elmApp =Elm.Main.embed(ELM_DIV, {token: userToken});
+const elmApp =Elm.Main.embed(ELM_DIV, {token: userToken, user: storedUser});
 
 elmApp.ports.storeToken.subscribe((token) => {
     localStorage.setItem('studyBuddyToken', token);
 });
 
-elmApp.ports.removeToken.subscribe(() => {
-    console.log("Logging out...")
+elmApp.ports.storeUser.subscribe((user) => {
+	localStorage.setItem('studyBuddyUser', JSON.stringify(user));
+});
+
+elmApp.ports.logout.subscribe(() => {
     localStorage.removeItem('studyBuddyToken');
-    console.log("Success")
+	localStorage.removeItem('studyBuddyUser');
 });

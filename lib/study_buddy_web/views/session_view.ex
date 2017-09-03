@@ -15,6 +15,9 @@ defmodule StudyBuddyWeb.SessionView do
   end
 
   def render("login.json", %{jwt: jwt}) do
-    %{jwt: jwt}
+    {:ok, %{"aud" => user}} = Guardian.decode_and_verify(jwt)
+    require Logger
+    Logger.debug "Rendering login results with #{inspect jwt} and #{inspect user}"
+    %{jwt: jwt, id: String.last(user)}
   end
 end

@@ -1,36 +1,33 @@
 module Commands exposing (..)
 
-import Http
-import Json.Encode as Encode
 import Json.Decode as Decode
-import Json.Decode.Pipeline exposing (decode, required)
 import Jwt
 import Msgs exposing (Msg)
-import Users.User exposing (ApiUser)
-import RemoteData
+import Users.User exposing (User, userDecoder)
 
 baseUrl : String
 baseUrl =
   "http://localhost:4000/api/"
 
-userDecoder : Decode.Decoder ApiUser
-userDecoder =
-  Decode.at ["data"]
-    (decode ApiUser
-      |> required "id" Decode.int
-      |> required "username" Decode.string
-      |> required "name" Decode.string
-      |> required "email" Decode.string
-    )
-
-fetchUser : Maybe String -> Int -> Cmd Msg
+fetchUser : Maybe String -> Maybe String -> Cmd Msg
 fetchUser token userId =
-  case token of
-    Just token ->
-      Jwt.get token (fetchUserUrl 1) userDecoder
-      |> Jwt.send Msgs.OnLoadUser
-    Nothing -> Cmd.none
+  let
+    tkn =
+      case token of
+        Just token -> token
+        _ -> "" 
+    id =
+      case userId of
+        Just userId -> userId
+        _ -> "" 
+  in
+    case [tkn, id] of
+      ["", ""] -> Cmd.none
+      [tkn, id] -> 
+        Jwt.get tkn (fetchUserUrl id) userDecoder
+        |> Jwt.send Msgs.OnLoadUser
+      _ -> Cmd.none
 
-fetchUserUrl : Int -> String
+fetchUserUrl : String -> String
 fetchUserUrl userId =
-  baseUrl ++ "users/" ++ (toString userId)
+  baseUrl ++ "users/" ++ userId

@@ -9,7 +9,7 @@ var _user$project$Page_Body$notFoundView = A2(
 var _user$project$Page_Body$page = function (model) {
 	var _p0 = model.route;
 	if (_p0.ctor === 'HomeRoute') {
-		return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt.jwt, model.mdl);
+		return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt, model.mdl);
 	} else {
 		return _user$project$Page_Body$notFoundView;
 	}

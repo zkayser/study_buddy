@@ -18,18 +18,10 @@ var _user$project$Page_Layout$layout = function (model) {
 		},
 		{
 			header: _user$project$Page_Header$header(model),
-			drawer: {
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('This is the drawer'),
-				_1: {ctor: '[]'}
-			},
+			drawer: _user$project$Page_Drawer$drawer(model),
 			tabs: {
 				ctor: '_Tuple2',
-				_0: {
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Some tabs and whatnot'),
-					_1: {ctor: '[]'}
-				},
+				_0: {ctor: '[]'},
 				_1: {ctor: '[]'}
 			},
 			main: {

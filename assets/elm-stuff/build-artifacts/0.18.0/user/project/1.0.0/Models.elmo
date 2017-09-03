@@ -1,21 +1,12 @@
 var _user$project$Models$initialModel = F2(
 	function (flags, route) {
+		var initialUser = flags.user;
 		var tkn = flags.token;
-		return {
-			mdl: _debois$elm_mdl$Material$model,
-			user: _krisajenkins$remotedata$RemoteData$NotAsked,
-			route: route,
-			loginForm: _user$project$Page_LoginForm$initialLoginForm,
-			jwt: {jwt: tkn},
-			errorMessage: ''
-		};
+		return {mdl: _debois$elm_mdl$Material$model, route: route, user: initialUser, loginForm: _user$project$Page_LoginForm$initialLoginForm, jwt: tkn, errorMessage: ''};
 	});
 var _user$project$Models$Model = F6(
 	function (a, b, c, d, e, f) {
 		return {mdl: a, user: b, route: c, loginForm: d, jwt: e, errorMessage: f};
 	});
-var _user$project$Models$Flags = function (a) {
-	return {token: a};
-};
 var _user$project$Models$NotFoundRoute = {ctor: 'NotFoundRoute'};
 var _user$project$Models$HomeRoute = {ctor: 'HomeRoute'};

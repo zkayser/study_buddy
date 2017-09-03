@@ -31,8 +31,49 @@ var _user$project$Main$main = A2(
 	A2(
 		_elm_lang$core$Json_Decode$andThen,
 		function (token) {
-			return _elm_lang$core$Json_Decode$succeed(
-				{token: token});
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				function (user) {
+					return _elm_lang$core$Json_Decode$succeed(
+						{token: token, user: user});
+				},
+				A2(
+					_elm_lang$core$Json_Decode$field,
+					'user',
+					_elm_lang$core$Json_Decode$oneOf(
+						{
+							ctor: '::',
+							_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$core$Json_Decode$map,
+									_elm_lang$core$Maybe$Just,
+									A2(
+										_elm_lang$core$Json_Decode$andThen,
+										function (email) {
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												function (id) {
+													return A2(
+														_elm_lang$core$Json_Decode$andThen,
+														function (name) {
+															return A2(
+																_elm_lang$core$Json_Decode$andThen,
+																function (username) {
+																	return _elm_lang$core$Json_Decode$succeed(
+																		{email: email, id: id, name: name, username: username});
+																},
+																A2(_elm_lang$core$Json_Decode$field, 'username', _elm_lang$core$Json_Decode$string));
+														},
+														A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string));
+												},
+												A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int));
+										},
+										A2(_elm_lang$core$Json_Decode$field, 'email', _elm_lang$core$Json_Decode$string))),
+								_1: {ctor: '[]'}
+							}
+						})));
 		},
 		A2(
 			_elm_lang$core$Json_Decode$field,

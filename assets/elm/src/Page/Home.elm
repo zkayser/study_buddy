@@ -5,7 +5,6 @@ import Msgs exposing (Msg(..))
 import Page.LoginForm as LoginForm
 import Html exposing (..)
 import Utils exposing (onClickPreventDefault)
-import RemoteData exposing (WebData)
 import Material
 import Material.Button as Button
 import Material.Options as Options
@@ -13,48 +12,15 @@ import Material.Color as Color
 import Material.Grid as Grid
 import Material.Typography as Typography
 
-view : (WebData User) -> LoginForm.Form -> Maybe String -> Material.Model -> Html Msg
-view user form_ maybeToken mdl =
-  case user of
-    -- Should be the cases for the WebData
-    RemoteData.Loading ->
-      Grid.grid [ Grid.align Grid.Middle ]
-        [ Grid.cell
-          [ Grid.offset Grid.All 4, Grid.size Grid.All 4, Typography.center ]
-          [ Html.h3 [] [ text ("There are no users being loaded at the current time."
-          ++ "\nPlease come back later.") ] ]
-        ]
-    RemoteData.Success user_ ->
-      Grid.grid [ Grid.align Grid.Middle ]
-        [ Grid.cell
-          [ Grid.offset Grid.All 4, Grid.size Grid.All 4, Typography.center ]
-          [ Html.h1 [] [ text ("Welcome to Study Buddy, " ++ User.fullName user_) ] ]
-        ]
-    RemoteData.Failure err ->
-      Grid.grid [ Grid.align Grid.Middle ]
-        [ Grid.cell
-          [ Grid.offset Grid.All 4, Grid.size Grid.All 4, Typography.center ]
-          [ Html.p [] [ text ("Something went wrong: " ++ (toString err)) ] ]
-        ]
-    RemoteData.NotAsked ->
-      Grid.grid [ Grid.align Grid.Middle ]
-        [ Grid.cell
-          [ Grid.size Grid.All 12, Typography.center ]
-          [ Html.h1 [] [ text "Welcome to Study Buddy." ]
-          , (renderLoginForm maybeToken form_ mdl )
-          ]
-        , Grid.cell
-          [ Grid.size Grid.All 12, Typography.center ]
-          [ Button.render Msgs.Mdl [0] mdl
-            [ Button.raised
-            , Options.css "color" "white"
-            , Options.css "background-color" "blue"
-            , Options.onClick Msgs.GetUser
-            ]
-            [ text "Get user" ]
-          ]
-          , renderLogoutButton maybeToken mdl
-        ]
+view : Maybe User -> LoginForm.Form -> Maybe String -> Material.Model -> Html Msg
+view user form_ maybeToken mdl =  
+  Grid.grid [ Grid.align Grid.Middle ]
+    [ Grid.cell
+      [ Grid.size Grid.All 12, Typography.center ]
+      [ Html.h1 [] [ welcomeMessage user ] ]
+    , (renderLoginForm maybeToken form_ mdl )
+    , renderLogoutButton maybeToken mdl
+    ]
 
 renderLogoutButton : Maybe String -> Material.Model -> Grid.Cell Msg
 renderLogoutButton maybeToken mdl =
@@ -72,8 +38,16 @@ renderLogoutButton maybeToken mdl =
        ]
     Nothing -> Grid.cell [] []
 
-renderLoginForm : Maybe String -> LoginForm.Form -> Material.Model -> Html Msg
+renderLoginForm : Maybe String -> LoginForm.Form -> Material.Model -> Grid.Cell Msg
 renderLoginForm maybeToken form_ mdl =
   case maybeToken of
     Nothing -> LoginForm.view form_ mdl
-    Just token -> Html.text ""
+    Just token -> Grid.cell [] []
+
+welcomeMessage : Maybe User -> Html Msg
+welcomeMessage maybeUser =
+  case maybeUser of
+    Just user ->
+      text ("Welcome to Study Buddy, " ++ (User.firstName user))
+    Nothing ->
+      text "Welcome to Study Buddy"

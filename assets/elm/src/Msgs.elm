@@ -1,10 +1,10 @@
 module Msgs exposing (..)
 
 import Page.LoginMsgs exposing (LoginMsg(..))
-import Users.User exposing (ApiUser)
+import Users.User exposing (User)
 import Http
 import Jwt
-import Token exposing (Token)
+import Flags exposing (LoginInfo)
 import Material
 import Navigation exposing (Location)
 import RemoteData exposing (WebData)
@@ -15,9 +15,9 @@ type Msg
   | SetUser String
   | SetPass String
   | SubmitCredentials
-  | LoginResult (Result Http.Error Token)
+  | LoginResult (Result Http.Error LoginInfo)
   | Logout
-  | OnLoadUser (Result Jwt.JwtError ApiUser)
+  | OnLoadUser (Result Jwt.JwtError User)
   | GetUser
 
 type alias Mdl =

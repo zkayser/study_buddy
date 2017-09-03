@@ -1,33 +1,32 @@
 module Models exposing (..)
 
-import RemoteData exposing (WebData)
+import Flags exposing (Flags)
 import Users.User as User exposing (..)
-import Token exposing (Token)
 import Page.LoginForm as LoginForm
+import Json.Decode as Decode
+import Commands
 import Material
 
 type alias Model =
         { mdl : Material.Model
-        , user : WebData User
+        , user :  Maybe User
         , route : Route
         , loginForm : LoginForm.Form
-        , jwt : Token
+        , jwt : Maybe String 
         , errorMessage : String
         }
-
-type alias Flags =
-  { token : Maybe String }
 
 initialModel : Flags -> Route -> Model
 initialModel flags route =
   let
     tkn = flags.token
+    initialUser = flags.user
   in
     { mdl = Material.model
-    , user = RemoteData.NotAsked
     , route = route
+    , user = initialUser
     , loginForm = LoginForm.initialLoginForm
-    , jwt = { jwt = tkn }
+    , jwt = tkn
     , errorMessage = ""
     }
 

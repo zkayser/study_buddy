@@ -2,3 +2,7 @@
 .elm-overlay {
   z-index: 99999;
 }
+
+.pointer {
+	cursor: pointer;
+}

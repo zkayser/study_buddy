@@ -1,15 +1,12 @@
 module Page.LoginForm exposing (..)
 
-import Html
-import Html.Attributes exposing (..)
-import Html.Events exposing (..)
-import Msgs
+import Html exposing (Html)
+import Msgs exposing (Msg(..))
 import Json.Encode as Encode
 import Json.Decode as Decode exposing (..)
 import Json.Decode.Pipeline exposing (required, optional)
 import Http
-import Utils exposing (onClickPreventDefault)
-import Token exposing (Token)
+import Flags exposing (LoginInfo)
 import Users.User as User
 import Material
 import Material.Grid as Grid
@@ -19,7 +16,6 @@ import Material.Button as Button
 import Material.Options as Options
 import Material.Typography as Typography
 import Material.Textfield as Textfield
-import Page.LoginMsgs as LoginMsg exposing (LoginMsg(..))
 
 type alias Form =
     { username : String
@@ -37,53 +33,68 @@ initialLoginForm =
     }
 
 
-view : Form -> Material.Model -> Html.Html Msgs.Msg
+view : Form -> Material.Model -> Grid.Cell Msg
 view state mdl =
-  Grid.grid [ Grid.align Grid.Middle ]
-    [ Grid.cell
+    Grid.cell
       [ Grid.size Grid.All 12
       , Typography.center
       , Options.center
       ]
-      [ Card.view
-        [ Options.css "border-radius" "1em"
-        , Grid.size Grid.All 4
-        , Color.background (Color.color Color.LightBlue Color.S500)
-        , Options.css "color" "white"
-        , Options.css "display" "flex"
-        , Options.css "align-items" "center"
-        ]
+      [ Card.view cardOptions
         [ Card.title
           [ Typography.center ]
-          [ Card.head [ Options.css "color" "white" ] [ Html.text "Login" ]
-          , Textfield.render Msgs.Mdl [0] mdl
-            [ Textfield.label "Username"
-            , Options.onInput (\char -> Msgs.SetUser char)
-            , Textfield.floatingLabel
+          [ renderCardTitle 
+            [ Options.css "align-self" "center"
+            , Options.css "color" "white"
             ]
-            [ ]
-          , Textfield.render Msgs.Mdl [1] mdl
-            [ Textfield.label "password"
-            , Textfield.floatingLabel
-            , Options.onInput (\char -> Msgs.SetPass char)
-            , Textfield.password
-            ]
-            []
+            "Login"
+          , renderInputFieldFor "Username" [0] mdl Textfield.text_ Msgs.SetUser
+          , renderInputFieldFor "Password" [1] mdl Textfield.password Msgs.SetPass
           , Html.br [] []
-          , Button.render Msgs.Mdl [1, 0, 0, 0] mdl
-            [ Button.ripple
-            , Button.raised
-            , Button.colored
-            , Button.type_ "button"
-            , Options.onClick Msgs.SubmitCredentials
-            ]
-            [ Html.text "Login" ]
+          , viewButton mdl [1, 0, 0, 0] "Login"
           ]
         ]
       ]
-    ]
 
-submitCredentials : String -> String -> Http.Request Token
+renderInputFieldFor : String -> List Int -> Material.Model -> Textfield.Property Msg -> (String -> Msg) -> Html Msg
+renderInputFieldFor name mdlIndex mdl inputType msg =
+  Textfield.render Msgs.Mdl mdlIndex mdl
+    [ Textfield.label name
+    , Textfield.floatingLabel
+    , Options.onInput msg
+    , inputType
+    ]
+    []
+
+cardOptions : List (Options.Style Msg)
+cardOptions =
+  [ Options.css "border-radius" "1em"
+  , Grid.size Grid.Phone 12
+  , Grid.size Grid.Tablet 8
+  , Grid.size Grid.Desktop 4
+  , Color.background (Color.color Color.Cyan Color.S500)
+  , Options.css "display" "flex"
+  , Options.css "align-items" "center"
+  ]
+
+renderCardTitle : List (Options.Style Msg) -> String -> Html Msg
+renderCardTitle styling title =
+  Card.subhead styling
+    [ Html.h2 [] [ Html.text title ] ]
+
+viewButton : Material.Model -> List Int -> String -> Html Msg
+viewButton mdl mdlIndex buttonTxt =
+  Button.render Msgs.Mdl mdlIndex mdl
+    [ Button.ripple
+    , Button.raised
+    , Button.colored
+    , Button.type_ "button"
+    , Options.css "align-self" "center"
+    , Options.onClick Msgs.SubmitCredentials
+    ]
+    [ Html.text buttonTxt ]
+
+submitCredentials : String -> String -> Http.Request LoginInfo 
 submitCredentials username password =
   let
     body =
@@ -93,13 +104,14 @@ submitCredentials username password =
       |> Encode.object
       |> Http.jsonBody
   in
-    Http.post "http://localhost:4000/api/sessions" body tokenDecoder
+    Http.post "http://localhost:4000/api/sessions" body loginInfoDecoder
 
-submitCredentialsCmd : Http.Request Token -> Cmd Msgs.Msg
+submitCredentialsCmd : Http.Request LoginInfo -> Cmd Msgs.Msg
 submitCredentialsCmd request =
   Http.send Msgs.LoginResult request
 
-tokenDecoder : Decode.Decoder Token
-tokenDecoder =
-   Json.Decode.Pipeline.decode Token
+loginInfoDecoder : Decode.Decoder LoginInfo
+loginInfoDecoder =
+   Json.Decode.Pipeline.decode LoginInfo 
     |> (Json.Decode.Pipeline.required "jwt" (Decode.maybe Decode.string))
+    |> (Json.Decode.Pipeline.required "id" (Decode.maybe Decode.string))

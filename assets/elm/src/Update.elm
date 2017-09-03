@@ -2,21 +2,29 @@ module Update exposing (..)
 
 import Msgs exposing (Msg(..))
 import Models exposing (Model)
+import Users.User exposing (encodeUser)
 import Page.LoginForm as Login exposing (submitCredentials, submitCredentialsCmd)
 import Page.LoginFormHelpers as LoginHelpers
-import Token exposing (storeToken, removeToken)
+import Flags exposing (storeToken, logout, storeUser)
 import Material
 import Routing exposing (parseLocation)
 import Commands exposing (fetchUser)
-import RemoteData
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
             Msgs.OnLoadUser response ->
-              ( model, Debug.log ("Got response: " ++ (toString response)) Cmd.none)
+              case response of
+                Ok user ->
+                 ( { model | user = Just user }, storeUser <| Just user )
+                Err errorMessage ->
+              ( { model | errorMessage = (toString errorMessage) }, Cmd.none )
             Msgs.GetUser ->
-              ( model, fetchUser model.jwt.jwt 1 )
+              case model.user of
+                Just user ->
+                  ( model, fetchUser model.jwt (Just (toString <| user.id)))
+                Nothing ->
+                  ( model, Cmd.none )
             Msgs.OnLocationChange location ->
                     let
                         newRoute =
@@ -49,9 +57,10 @@ update msg model =
                 ( LoginHelpers.clearLoginForm model, (submitCredentialsCmd <| submitCredentials loginForm.username loginForm.password ))
             Msgs.LoginResult result ->
               case result of
-                Ok token ->
-                  ( { model | jwt = token }, storeToken token.jwt )
+                Ok loginInfo ->
+                  ( { model | jwt = loginInfo.jwt }, Cmd.batch [(storeToken loginInfo.jwt), (fetchUser loginInfo.jwt loginInfo.userId)] )
                 Err errorMessage ->
                   ( { model | errorMessage = (toString errorMessage )}, Cmd.none)
             Msgs.Logout ->
-              ( { model | jwt = {jwt = Nothing } }, removeToken Nothing )
+              ( { model | jwt = Nothing, user = Nothing }, logout Nothing ) 
+              

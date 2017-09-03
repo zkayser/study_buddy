@@ -1,3 +1,33 @@
+var _user$project$Page_Header$renderUserLinks = function (maybeUser) {
+	var _p0 = maybeUser;
+	if (_p0.ctor === 'Just') {
+		return A2(
+			_debois$elm_mdl$Material_Layout$link,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$Logout),
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$cs('pointer'),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$span,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Sign out'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			});
+	} else {
+		return _elm_lang$html$Html$text('');
+	}
+};
 var _user$project$Page_Header$header = function (model) {
 	return {
 		ctor: '::',
@@ -32,21 +62,14 @@ var _user$project$Page_Header$header = function (model) {
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: A2(
-									_debois$elm_mdl$Material_Layout$link,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: _debois$elm_mdl$Material_Icon$i('photo'),
-										_1: {ctor: '[]'}
-									}),
+								_0: _user$project$Page_Header$renderUserLinks(model.user),
 								_1: {
 									ctor: '::',
 									_0: A2(
 										_debois$elm_mdl$Material_Layout$link,
 										{
 											ctor: '::',
-											_0: _debois$elm_mdl$Material_Layout$href('https://www.github.com/zkayser'),
+											_0: _debois$elm_mdl$Material_Layout$href('https://www.elixir-lang.org'),
 											_1: {ctor: '[]'}
 										},
 										{
@@ -56,34 +79,12 @@ var _user$project$Page_Header$header = function (model) {
 												{ctor: '[]'},
 												{
 													ctor: '::',
-													_0: _elm_lang$html$Html$text('Github'),
+													_0: _elm_lang$html$Html$text('Elixir'),
 													_1: {ctor: '[]'}
 												}),
 											_1: {ctor: '[]'}
 										}),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_debois$elm_mdl$Material_Layout$link,
-											{
-												ctor: '::',
-												_0: _debois$elm_mdl$Material_Layout$href('https://www.elixir-lang.org'),
-												_1: {ctor: '[]'}
-											},
-											{
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$span,
-													{ctor: '[]'},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('Elixir'),
-														_1: {ctor: '[]'}
-													}),
-												_1: {ctor: '[]'}
-											}),
-										_1: {ctor: '[]'}
-									}
+									_1: {ctor: '[]'}
 								}
 							}),
 						_1: {ctor: '[]'}

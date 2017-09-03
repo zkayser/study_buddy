@@ -3,23 +3,45 @@ var _user$project$Update$update = F2(
 		var _p0 = msg;
 		switch (_p0.ctor) {
 			case 'OnLoadUser':
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: A2(
-						_elm_lang$core$Debug$log,
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'Got response: ',
-							_elm_lang$core$Basics$toString(_p0._0)),
-						_elm_lang$core$Platform_Cmd$none)
-				};
+				var _p1 = _p0._0;
+				if (_p1.ctor === 'Ok') {
+					var _p2 = _p1._0;
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								user: _elm_lang$core$Maybe$Just(_p2)
+							}),
+						_1: _user$project$Flags$storeUser(
+							_elm_lang$core$Maybe$Just(_p2))
+					};
+				} else {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								errorMessage: _elm_lang$core$Basics$toString(_p1._0)
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
 			case 'GetUser':
-				return {
-					ctor: '_Tuple2',
-					_0: model,
-					_1: A2(_user$project$Commands$fetchUser, model.jwt.jwt, 1)
-				};
+				var _p3 = model.user;
+				if (_p3.ctor === 'Just') {
+					return {
+						ctor: '_Tuple2',
+						_0: model,
+						_1: A2(
+							_user$project$Commands$fetchUser,
+							model.jwt,
+							_elm_lang$core$Maybe$Just(
+								_elm_lang$core$Basics$toString(_p3._0.id)))
+					};
+				} else {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
 			case 'OnLocationChange':
 				var newRoute = _user$project$Routing$parseLocation(_p0._0);
 				return {
@@ -64,15 +86,24 @@ var _user$project$Update$update = F2(
 						A2(_user$project$Page_LoginForm$submitCredentials, loginForm.username, loginForm.password))
 				};
 			case 'LoginResult':
-				var _p1 = _p0._0;
-				if (_p1.ctor === 'Ok') {
-					var _p2 = _p1._0;
+				var _p4 = _p0._0;
+				if (_p4.ctor === 'Ok') {
+					var _p5 = _p4._0;
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
-							{jwt: _p2}),
-						_1: _user$project$Token$storeToken(_p2.jwt)
+							{jwt: _p5.jwt}),
+						_1: _elm_lang$core$Platform_Cmd$batch(
+							{
+								ctor: '::',
+								_0: _user$project$Flags$storeToken(_p5.jwt),
+								_1: {
+									ctor: '::',
+									_0: A2(_user$project$Commands$fetchUser, _p5.jwt, _p5.userId),
+									_1: {ctor: '[]'}
+								}
+							})
 					};
 				} else {
 					return {
@@ -80,7 +111,7 @@ var _user$project$Update$update = F2(
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{
-								errorMessage: _elm_lang$core$Basics$toString(_p1._0)
+								errorMessage: _elm_lang$core$Basics$toString(_p4._0)
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
@@ -90,10 +121,8 @@ var _user$project$Update$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{
-							jwt: {jwt: _elm_lang$core$Maybe$Nothing}
-						}),
-					_1: _user$project$Token$removeToken(_elm_lang$core$Maybe$Nothing)
+						{jwt: _elm_lang$core$Maybe$Nothing, user: _elm_lang$core$Maybe$Nothing}),
+					_1: _user$project$Flags$logout(_elm_lang$core$Maybe$Nothing)
 				};
 		}
 	});

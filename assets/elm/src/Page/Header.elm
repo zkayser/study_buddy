@@ -6,6 +6,7 @@ import Msgs exposing (Msg(..))
 import Material.Layout as Layout
 import Material.Options as Options
 import Material.Icon as Icon
+import Users.User exposing (User)
 
 header : Model -> List (Html Msg)
 header model =
@@ -14,13 +15,20 @@ header model =
             [ Layout.title [] [ text "Study Buddy" ]
             , Layout.spacer
             , Layout.navigation []
-                [ Layout.link [] [ Icon.i "photo" ]
+                [ renderUserLinks model.user
                 , Layout.link
-                [ Layout.href "https://www.github.com/zkayser" ]
-                [ Html.span [] [ text "Github" ] ]
-                , Layout.link
-                [ Layout.href "https://www.elixir-lang.org" ]
-                [ Html.span [] [ text "Elixir" ] ]
+                    [ Layout.href "https://www.elixir-lang.org" ]
+                    [ Html.span [] [ text "Elixir" ] ]
                 ]
             ]
         ]
+
+renderUserLinks : Maybe User -> Html Msg
+renderUserLinks maybeUser =
+    case maybeUser of
+        Just user ->
+            Layout.link
+                [ Options.onClick Msgs.Logout, Options.cs "pointer" ]
+                [ Html.span [] [ text "Sign out" ] ]
+        Nothing ->
+            text ""

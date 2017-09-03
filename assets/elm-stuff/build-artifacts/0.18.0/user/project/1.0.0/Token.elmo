@@ -3,8 +3,8 @@ var _user$project$Token$storeToken = _elm_lang$core$Native_Platform.outgoingPort
 	function (v) {
 		return (v.ctor === 'Nothing') ? null : v._0;
 	});
-var _user$project$Token$removeToken = _elm_lang$core$Native_Platform.outgoingPort(
-	'removeToken',
+var _user$project$Token$logout = _elm_lang$core$Native_Platform.outgoingPort(
+	'logout',
 	function (v) {
 		return (v.ctor === 'Nothing') ? null : v._0;
 	});

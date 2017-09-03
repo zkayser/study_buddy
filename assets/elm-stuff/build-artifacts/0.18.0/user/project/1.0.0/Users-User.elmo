@@ -1,11 +1,122 @@
-var _user$project$Users_User$fullName = function (user) {
-	return A2(_elm_lang$core$Basics_ops['++'], user.firstName, user.lastName);
+var _user$project$Users_User$encodeUser = function (user) {
+	return _elm_lang$core$Json_Encode$object(
+		{
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'id',
+				_1: _elm_lang$core$Json_Encode$int(user.id)
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'username',
+					_1: _elm_lang$core$Json_Encode$string(user.username)
+				},
+				_1: {
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'name',
+						_1: _elm_lang$core$Json_Encode$string(user.name)
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'email',
+							_1: _elm_lang$core$Json_Encode$string(user.email)
+						},
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
 };
-var _user$project$Users_User$User = F6(
-	function (a, b, c, d, e, f) {
-		return {userId: a, username: b, email: c, firstName: d, lastName: e, password: f};
-	});
-var _user$project$Users_User$ApiUser = F4(
+var _user$project$Users_User$initialUser = _elm_lang$core$Maybe$Nothing;
+var _user$project$Users_User$lastName = function (user) {
+	var _p0 = A2(
+		_elm_lang$core$List$drop,
+		1,
+		A2(_elm_lang$core$String$split, ' ', user.name));
+	if ((_p0.ctor === '::') && (_p0._1.ctor === '[]')) {
+		return _p0._0;
+	} else {
+		return '';
+	}
+};
+var _user$project$Users_User$firstName = function (user) {
+	var _p1 = A2(
+		_elm_lang$core$List$take,
+		1,
+		A2(_elm_lang$core$String$split, ' ', user.name));
+	if ((_p1.ctor === '::') && (_p1._1.ctor === '[]')) {
+		return _p1._0;
+	} else {
+		return '';
+	}
+};
+var _user$project$Users_User$User = F4(
 	function (a, b, c, d) {
 		return {id: a, username: b, name: c, email: d};
 	});
+var _user$project$Users_User$userDecoder = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'data',
+		_1: {ctor: '[]'}
+	},
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'email',
+		_elm_lang$core$Json_Decode$string,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'name',
+			_elm_lang$core$Json_Decode$string,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+				'username',
+				_elm_lang$core$Json_Decode$string,
+				A3(
+					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+					'id',
+					_elm_lang$core$Json_Decode$int,
+					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Users_User$User))))));
+var _user$project$Users_User$storedUserDecoder = A5(
+	_elm_lang$core$Json_Decode$map4,
+	_user$project$Users_User$User,
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'id',
+			_1: {ctor: '[]'}
+		},
+		_elm_lang$core$Json_Decode$int),
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'username',
+			_1: {ctor: '[]'}
+		},
+		_elm_lang$core$Json_Decode$string),
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'name',
+			_1: {ctor: '[]'}
+		},
+		_elm_lang$core$Json_Decode$string),
+	A2(
+		_elm_lang$core$Json_Decode$at,
+		{
+			ctor: '::',
+			_0: 'email',
+			_1: {ctor: '[]'}
+		},
+		_elm_lang$core$Json_Decode$string));
