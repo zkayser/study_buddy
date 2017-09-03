@@ -9,6 +9,7 @@ defmodule StudyBuddy.Categories do
   alias StudyBuddy.Categories.Category
   alias StudyBuddy.Categories.Topic
   alias StudyBuddy.Exercises.Exercise
+  alias StudyBuddy.Accounts.User
 
   @doc """
   Returns the list of categories.
@@ -19,8 +20,8 @@ defmodule StudyBuddy.Categories do
       [%Category{}, ...]
 
   """
-  def list_categories do
-    Repo.all(Category)
+  def list_categories(user_id) do
+    Repo.all(from c in Category, where: c.user_id == ^user_id)
   end
 
   @doc """
@@ -51,10 +52,17 @@ defmodule StudyBuddy.Categories do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_category(attrs \\ %{}) do
-    %Category{}
-    |> Category.changeset(attrs)
-    |> Repo.insert()
+  def create_category(attrs \\ %{}, user_id) do
+    with {:ok, %Category{} = category} <- 
+      %Category{}
+      |> Category.changeset(attrs) 
+      |> Repo.insert() 
+    do
+      associate(Repo.get(User, user_id), category)
+    else
+      {:error, %Ecto.Changeset{} = changeset} -> {:error, changeset}
+      _ -> {:error, :transaction_failed}
+    end
   end
 
   @doc """
@@ -112,6 +120,8 @@ defmodule StudyBuddy.Categories do
     updated in the database.
 
     Associatable structs are as follows:
+    associate(%Category{} = category, %User{} = user)
+    associate(%User{} = user, %Category{} = user)
     associate(%Category{} = category, %Category{} = subcategory)
     associate(%Category{} = subcategory, %Topic{} = topic)
     associate(%Topic{} = topic, %Category{} = subcategory)
@@ -126,6 +136,14 @@ defmodule StudyBuddy.Categories do
     a topic with a subcategory can be made with the params in either order for convenience.
 
   """
+
+  def associate(%User{} = user, %Category{} = category) do
+    Category.build_belong_to_relation(:user, category, user)
+  end
+
+  def associate(%Category{} = category, %User{} = user) do
+    Category.build_belong_to_relation(:user, category, user)
+  end
 
   def associate(%Category{} = category, %Category{} = subcategory) do
     Category.build_relation(:subcategories, category, subcategory)

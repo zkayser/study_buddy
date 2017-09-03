@@ -10,6 +10,10 @@ defmodule StudyBuddyWeb.SessionController do
       {:ok, claims} = Guardian.Plug.claims(new_conn)
       expiration = Map.get(claims, "exp")
 
+      ## Cleanup, debuggin only
+      require Logger
+      Logger.debug "Current resource: #{inspect(Guardian.Plug.current_resource(new_conn))}"
+
       new_conn
       |> put_resp_header("authorization", "Bearer #{jwt}")
       |> put_resp_header("x-expires", "#{expiration}")

@@ -23,7 +23,6 @@ defmodule StudyBuddyWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    Logger.debug "In UserController.show with #{id}"
     user = Accounts.get_user!(id)
     render(conn, "show.json", user: user)
   end

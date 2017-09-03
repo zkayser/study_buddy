@@ -7,45 +7,54 @@ defmodule StudyBuddy.Categories.CategoryTest do
 
   @valid_attrs %{name: "Some Category"}
   @invalid_attrs %{name: ""}
+  @registration %{email: "e@example.com", first_name: "Z", last_name: "K", 
+                  username: "username", password: "password"
+                }
 
-  def category_fixture(_attrs \\ %{}) do
-    {:ok, category} = Categories.create_category(@valid_attrs)
+  setup do
+    {:ok, user} = StudyBuddy.Accounts.register_user(@registration)
+
+    [user: user]
+  end
+
+  def category_fixture(_attrs \\ %{}, user_id) do
+    {:ok, category, _user} = Categories.create_category(@valid_attrs, user_id)
     category
   end
 
   describe "Category" do
-    test "should exist" do
-      assert category_fixture().name == "Some Category"
+    test "should exist", context do
+      assert category_fixture(context[:user].id).name == "Some Category"
     end
 
-    test "should return an invalid changeset if name is absent" do
-      {:error, changeset} = Categories.create_category(@invalid_attrs)
+    test "should return an invalid changeset if name is absent", context do
+      {:error, changeset} = Categories.create_category(@invalid_attrs, context[:user].id)
       refute changeset.valid?
     end
 
-    test "should be able to build and insert subcategory association with valid attributes" do
-      category = category_fixture()
+    test "should be able to build and insert subcategory association with valid attributes", context do
+      category = category_fixture(context[:user].id)
       {:ok, sub_cat} = build_assoc(category, :subcategories, [name: "Some subcategory"])
       |> Repo.insert()
       category = Repo.get!(Category, category.id) |> Repo.preload(:subcategories)
       assert sub_cat in category.subcategories
     end
 
-    test "should return an invalid changeset when building a subcategory association with invalid attributes" do
-      category = category_fixture()
+    test "should return an invalid changeset when building a subcategory association with invalid attributes", context do
+      category = category_fixture(context[:user].id)
       sub_cat = Category.build_subcategory(category, %Category{name: nil})
       refute sub_cat.valid?
     end
 
-    test "build_subcategory should build a valid Category struct when given valid attributes" do
-      sub_cat = category_fixture()
+    test "build_subcategory should build a valid Category struct when given valid attributes", context do
+      sub_cat = category_fixture(context[:user].id)
       |> Category.build_subcategory(%Category{name: "Some subcategory"})
       assert sub_cat.name == "Some subcategory"
       assert sub_cat.category_id
     end
 
-    test "should be able to insert a valid subcategory into the database" do
-      {:ok, sub_cat} = category_fixture()
+    test "should be able to insert a valid subcategory into the database", context do
+      {:ok, sub_cat} = category_fixture(context[:user].id)
       |> Category.build_subcategory(%Category{name: "Some subcategory"})
       |> StudyBuddy.Repo.insert()
       inserted = StudyBuddy.Repo.get(Category, sub_cat.id)

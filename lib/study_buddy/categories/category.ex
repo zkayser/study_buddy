@@ -58,10 +58,18 @@ defmodule StudyBuddy.Categories.Category do
   association)
   """
   @spec build_relation(atom, map(), map()) :: map() | map()
-  def build_relation(relation_type, %Category{} = cat, assoc) when relation_type in [:subcategories, :topics] do
+  def build_relation(relation_type, %Category{} = cat, assoc) 
+  when relation_type in [:subcategories, :topics] do
     Repo.preload(cat, [relation_type])
     |> Ecto.Changeset.change()
     |> Ecto.Changeset.put_assoc(relation_type, [assoc])
+    |> commit_changes(%{category: cat, association: assoc, module: get_module_name(relation_type)})
+  end
+
+  def build_belong_to_relation(relation_type, %Category{} = cat, assoc) when relation_type in [:user] do
+    Repo.preload(cat, [relation_type])
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(relation_type, assoc)
     |> commit_changes(%{category: cat, association: assoc, module: get_module_name(relation_type)})
   end
 
@@ -79,6 +87,7 @@ defmodule StudyBuddy.Categories.Category do
     case atom do
       :subcategories -> Category
       :topics -> Topic
+      :user -> StudyBuddy.Accounts.User
       _ -> raise ArgumentError, "module not recognized"
     end
   end

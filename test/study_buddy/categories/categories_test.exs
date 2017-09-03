@@ -4,15 +4,24 @@ defmodule StudyBuddy.CategoriesTest do
   alias StudyBuddy.Categories
   alias StudyBuddy.Categories.Topic
   alias StudyBuddy.Categories.Category
+  alias StudyBuddy.Accounts.User
+  alias StudyBuddy.Repo
 
   @valid_cat_attrs %{name: "some name"}
   @update_cat_attrs %{name: "some updated name"}
+  @registration %{email: "e@example.com", first_name: "Z", last_name: "K",
+                  password: "password", username: "username"
+                 }
   @invalid_cat_attrs %{name: nil}
   @valid_topic_attrs %{title: "some title"}
   @update_topic_attrs %{title: "some updated title"}
   @invalid_topic_attrs %{title: nil}
   @valid_exercise_attrs %{type: "flashcard", task: "remember this", answer: "okay", time_limit: 30_000, source: "Some book"}
 
+  setup do
+    {:ok, user} = StudyBuddy.Accounts.register_user(@registration)
+    [user: user]
+  end
   ###### TOP LEVEL HELPER FUNCTIONS #####
 
   def topic_fixture(attrs \\ %{}) do
@@ -23,11 +32,11 @@ defmodule StudyBuddy.CategoriesTest do
     topic
   end
 
-  def category_fixture(attrs \\ %{}) do
-    {:ok, category} =
+  def category_fixture(attrs \\ %{}, %{user_id: id}) do
+    {:ok, category, _} =
       attrs
       |> Enum.into(@valid_cat_attrs)
-      |> Categories.create_category()
+      |> Categories.create_category(id)
     category
   end
 
@@ -41,60 +50,62 @@ defmodule StudyBuddy.CategoriesTest do
 
   describe "categories" do
 
-    test "list_categories/0 returns all categories" do
-      category = category_fixture()
-      assert Categories.list_categories() == [category]
+    test "list_categories/1 returns all categories for the given user", context do
+      category_fixture(%{user_id: context[:user].id})
+      assert Enum.all?(Categories.list_categories(context[:user].id), 
+              fn elem -> elem.user_id == context[:user].id end)
     end
 
-    test "get_category!/1 returns the category with given id" do
-      category = category_fixture()
-      assert Categories.get_category!(category.id) == category
+    test "get_category!/1 returns the category with given id", context do
+      category = category_fixture(%{user_id: context[:user].id})
+      assert Categories.get_category!(category.id).name == category.name
     end
 
-    test "create_category/1 with valid data creates a category" do
-      assert {:ok, %Category{} = category} = Categories.create_category(@valid_cat_attrs)
+    test "create_category/2 with valid data creates a category", context do
+      assert {:ok, %Category{} = category, %User{}} = Categories.create_category(@valid_cat_attrs, context[:user].id)
       assert category.name == "some name"
+      assert category.user_id == context[:user].id
     end
 
     test "create_category/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Categories.create_category(@invalid_cat_attrs)
     end
 
-    test "update_category/2 with valid data updates the category" do
-      category = category_fixture()
+    test "update_category/2 with valid data updates the category", context do
+      category = category_fixture(%{user_id: context[:user].id})
       assert {:ok, category} = Categories.update_category(category, @update_cat_attrs)
       assert %Category{} = category
       assert category.name == "some updated name"
     end
 
-    test "update_category/2 with invalid data returns error changeset" do
-      category = category_fixture()
+    test "update_category/2 with invalid data returns error changeset", context do
+      category = category_fixture(%{user_id: context[:user].id})
       assert {:error, %Ecto.Changeset{}} = Categories.update_category(category, @invalid_cat_attrs)
-      assert category == Categories.get_category!(category.id)
+      assert category == Categories.get_category!(category.id) |> Repo.preload([:user])
     end
 
-    test "delete_category/1 deletes the category" do
-      category = category_fixture()
+    test "delete_category/1 deletes the category", context do
+      category = category_fixture(%{user_id: context[:user].id})
       assert {:ok, %Category{}} = Categories.delete_category(category)
       assert_raise Ecto.NoResultsError, fn -> Categories.get_category!(category.id) end
     end
 
-    test "change_category/1 returns a category changeset" do
-      category = category_fixture()
+    test "change_category/1 returns a category changeset", context do
+      category = category_fixture(%{user_id: context[:user].id})
       assert %Ecto.Changeset{} = Categories.change_category(category)
     end
 
-    test "associate/2 with two %Category structs creates a category/subcategory association" do
-      category = category_fixture()
-      {:ok, subcategory} = Categories.create_category(%{name: "some subcategory"})
+    test "associate/2 with two %Category structs creates a category/subcategory association", context do
+      category = category_fixture(%{user_id: context[:user].id})
+      {:ok, subcategory, _user} = Categories.create_category(%{name: "some subcategory"}, context[:user].id)
       {:ok, category, subcategory} = Categories.associate(category, subcategory)
       category = Repo.preload(category, [:subcategories])
-      assert subcategory in category.subcategories
       assert subcategory.category_id == category.id
+      assert is_list(category.subcategories)
     end
 
-    test "associate/2 with a Category struct and a Topic struct creates a category/topic association" do
-      category = category_fixture()
+    test "associate/2 with a Category struct and a Topic struct creates a category/topic association", context do
+      category = category_fixture(%{user_id: context[:user].id})
       topic = topic_fixture()
       {:ok, category, topic} = Categories.associate(category, topic)
       assert topic in category.topics
@@ -109,9 +120,9 @@ defmodule StudyBuddy.CategoriesTest do
       assert exercise.topic_id == topic.id
     end
 
-    test "associate/2 returns {:error, _, _} when given an association that is not allowed on categories" do
+    test "associate/2 returns {:error, _, _} when given an association that is not allowed on categories", context do
       not_allowed = %Ecto.Changeset{} # Need a struct that has nothing cannot be associated with categories; choosing Changeset
-      cat = category_fixture()
+      cat = category_fixture(%{user_id: context[:user].id})
       {response, cat_struct, not_allowed_struct} = Categories.associate(cat, not_allowed)
       assert response == :error
       assert cat_struct == cat

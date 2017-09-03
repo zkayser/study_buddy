@@ -5,6 +5,15 @@ defmodule StudyBuddy.Categories.TopicTest do
 
   @valid_attrs %{title: "some title"}
   @invalid_attrs %{title: nil}
+  @registration %{email: "e@example.com", username: "username",
+                  password: "password", first_name: "Z", last_name: "K"
+                 }
+
+  setup do
+    {:ok, user} = StudyBuddy.Accounts.register_user(@registration)
+
+    [user: user]
+  end
 
   def topic_fixture(_attrs \\ %{}) do
     {:ok, topic} = Categories.create_topic(@valid_attrs)
@@ -22,9 +31,9 @@ defmodule StudyBuddy.Categories.TopicTest do
       assert "can't be blank" in errors_on(bad_topic).title
     end
 
-    test "should be able to associate a topic with a category" do
+    test "should be able to associate a topic with a category", context do
       topic = topic_fixture()
-      {:ok, category} = Categories.create_category(%{name: "some category"})
+      {:ok, category, _user} = Categories.create_category(%{name: "some category"}, context[:user].id)
       {:ok, updated_category, updated_topic} = Categories.associate(category, topic)
       assert updated_topic.category_id == updated_category.id
     end
