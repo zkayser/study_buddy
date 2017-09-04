@@ -19608,6 +19608,118 @@ var _debois$elm_mdl$Material_Grid$Bottom = {ctor: 'Bottom'};
 var _debois$elm_mdl$Material_Grid$Middle = {ctor: 'Middle'};
 var _debois$elm_mdl$Material_Grid$Top = {ctor: 'Top'};
 
+var _debois$elm_mdl$Material_List$action2 = _debois$elm_mdl$Material_Options$cs('mdl-list__item-secondary-action');
+var _debois$elm_mdl$Material_List$info2 = function (options) {
+	return _debois$elm_mdl$Material_Options$span(
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-secondary-info'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$content2 = function (options) {
+	return _debois$elm_mdl$Material_Options$span(
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-secondary-content'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$subtitle = function (options) {
+	return _debois$elm_mdl$Material_Options$span(
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-sub-title'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$body = function (options) {
+	return _debois$elm_mdl$Material_Options$span(
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-text-body'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$icon = F2(
+	function (i, options) {
+		return A2(
+			_debois$elm_mdl$Material_Icon$view,
+			i,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-icon'),
+				_1: options
+			});
+	});
+var _debois$elm_mdl$Material_List$avatar = _debois$elm_mdl$Material_Options$cs('mdl-list__item-avatar');
+var _debois$elm_mdl$Material_List$avatarImage = F2(
+	function (src, options) {
+		return A4(
+			_debois$elm_mdl$Material_Options$styled_,
+			_elm_lang$html$Html$img,
+			{ctor: '::', _0: _debois$elm_mdl$Material_List$avatar, _1: options},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$src(src),
+				_1: {ctor: '[]'}
+			},
+			{ctor: '[]'});
+	});
+var _debois$elm_mdl$Material_List$avatarIcon = F2(
+	function (i, options) {
+		return A2(
+			_debois$elm_mdl$Material_Options$div,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$center,
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Options$many(options),
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_List$avatar,
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Icon$i(i),
+				_1: {ctor: '[]'}
+			});
+	});
+var _debois$elm_mdl$Material_List$content = function (options) {
+	return _debois$elm_mdl$Material_Options$span(
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item-primary-content'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$withSubtitle = _debois$elm_mdl$Material_Options$cs('mdl-list__item--two-line');
+var _debois$elm_mdl$Material_List$withBody = _debois$elm_mdl$Material_Options$cs('mdl-list__item--three-line');
+var _debois$elm_mdl$Material_List$li = function (options) {
+	return A2(
+		_debois$elm_mdl$Material_Options$styled,
+		_elm_lang$html$Html$li,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list__item'),
+			_1: options
+		});
+};
+var _debois$elm_mdl$Material_List$ul = function (options) {
+	return A2(
+		_debois$elm_mdl$Material_Options$styled,
+		_elm_lang$html$Html$ul,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Options$cs('mdl-list'),
+			_1: options
+		});
+};
+
 var _debois$elm_mdl$Material_Typography$uppercase = _debois$elm_mdl$Material_Options$cs('mdl-typography--text-uppercase');
 var _debois$elm_mdl$Material_Typography$lowercase = _debois$elm_mdl$Material_Options$cs('mdl-typography--text-lowercase');
 var _debois$elm_mdl$Material_Typography$capitalize = _debois$elm_mdl$Material_Options$cs('mdl-typography--text-capitalize');
@@ -22245,6 +22357,94 @@ var _user$project$Models$Model = F7(
 var _user$project$Models$NotFoundRoute = {ctor: 'NotFoundRoute'};
 var _user$project$Models$HomeRoute = {ctor: 'HomeRoute'};
 
+var _user$project$Categories_View$viewCategory = function (category) {
+	return A2(
+		_debois$elm_mdl$Material_List$li,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_debois$elm_mdl$Material_List$content,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(category.name),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_debois$elm_mdl$Material_List$content2,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_List$info2,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('New'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_Icon$view,
+								'info',
+								{
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Color$text(_debois$elm_mdl$Material_Color$primary),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Categories_View$viewCategories = function (categories) {
+	var _p0 = categories;
+	if (_p0.ctor === 'Nothing') {
+		return {
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(''),
+			_1: {ctor: '[]'}
+		};
+	} else {
+		return {
+			ctor: '::',
+			_0: A2(
+				_debois$elm_mdl$Material_List$ul,
+				{ctor: '[]'},
+				A2(_elm_lang$core$List$map, _user$project$Categories_View$viewCategory, _p0._0)),
+			_1: {ctor: '[]'}
+		};
+	}
+};
+var _user$project$Categories_View$view = function (model) {
+	return A2(
+		_debois$elm_mdl$Material_Grid$cell,
+		{
+			ctor: '::',
+			_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$Desktop, 6),
+			_1: {
+				ctor: '::',
+				_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$Tablet, 6),
+				_1: {
+					ctor: '::',
+					_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$Phone, 12),
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Options$center,
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		},
+		_user$project$Categories_View$viewCategories(model.categories));
+};
+
 var _user$project$Page_Header$renderUserLinks = function (maybeUser) {
 	var _p0 = maybeUser;
 	if (_p0.ctor === 'Just') {
@@ -22361,22 +22561,37 @@ var _user$project$Utils$onClickPreventDefault = function (msg) {
 		_elm_lang$core$Json_Decode$succeed(msg));
 };
 
+var _user$project$Page_Home$maybeRenderCategories = function (model) {
+	var _p0 = model.categories;
+	if (_p0.ctor === 'Nothing') {
+		return A2(
+			_debois$elm_mdl$Material_Grid$cell,
+			{
+				ctor: '::',
+				_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 0),
+				_1: {ctor: '[]'}
+			},
+			{ctor: '[]'});
+	} else {
+		return _user$project$Categories_View$view(model);
+	}
+};
 var _user$project$Page_Home$welcomeMessage = function (maybeUser) {
-	var _p0 = maybeUser;
-	if (_p0.ctor === 'Just') {
+	var _p1 = maybeUser;
+	if (_p1.ctor === 'Just') {
 		return _elm_lang$html$Html$text(
 			A2(
 				_elm_lang$core$Basics_ops['++'],
 				'Welcome to Study Buddy, ',
-				_user$project$Users_User$firstName(_p0._0)));
+				_user$project$Users_User$firstName(_p1._0)));
 	} else {
 		return _elm_lang$html$Html$text('Welcome to Study Buddy');
 	}
 };
 var _user$project$Page_Home$renderLoginForm = F3(
 	function (maybeToken, form_, mdl) {
-		var _p1 = maybeToken;
-		if (_p1.ctor === 'Nothing') {
+		var _p2 = maybeToken;
+		if (_p2.ctor === 'Nothing') {
 			return A2(_user$project$Page_LoginForm$view, form_, mdl);
 		} else {
 			return A2(

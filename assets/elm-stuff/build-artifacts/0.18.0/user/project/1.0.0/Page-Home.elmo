@@ -1,19 +1,34 @@
+var _user$project$Page_Home$maybeRenderCategories = function (model) {
+	var _p0 = model.categories;
+	if (_p0.ctor === 'Nothing') {
+		return A2(
+			_debois$elm_mdl$Material_Grid$cell,
+			{
+				ctor: '::',
+				_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 0),
+				_1: {ctor: '[]'}
+			},
+			{ctor: '[]'});
+	} else {
+		return _user$project$Categories_View$view(model);
+	}
+};
 var _user$project$Page_Home$welcomeMessage = function (maybeUser) {
-	var _p0 = maybeUser;
-	if (_p0.ctor === 'Just') {
+	var _p1 = maybeUser;
+	if (_p1.ctor === 'Just') {
 		return _elm_lang$html$Html$text(
 			A2(
 				_elm_lang$core$Basics_ops['++'],
 				'Welcome to Study Buddy, ',
-				_user$project$Users_User$firstName(_p0._0)));
+				_user$project$Users_User$firstName(_p1._0)));
 	} else {
 		return _elm_lang$html$Html$text('Welcome to Study Buddy');
 	}
 };
 var _user$project$Page_Home$renderLoginForm = F3(
 	function (maybeToken, form_, mdl) {
-		var _p1 = maybeToken;
-		if (_p1.ctor === 'Nothing') {
+		var _p2 = maybeToken;
+		if (_p2.ctor === 'Nothing') {
 			return A2(_user$project$Page_LoginForm$view, form_, mdl);
 		} else {
 			return A2(

@@ -3,6 +3,7 @@ module Page.Home exposing (..)
 import Users.User as User exposing (..)
 import Msgs exposing (Msg(..))
 import Page.LoginForm as LoginForm
+import Categories.View as CategoryView
 import Models exposing (Model)
 import Html exposing (..)
 import Utils exposing (onClickPreventDefault)
@@ -37,3 +38,9 @@ welcomeMessage maybeUser =
       text ("Welcome to Study Buddy, " ++ (User.firstName user))
     Nothing ->
       text "Welcome to Study Buddy"
+
+maybeRenderCategories : Model -> Grid.Cell Msg
+maybeRenderCategories model =
+  case model.categories of
+    Nothing -> Grid.cell [Grid.size Grid.All 0] []
+    Just _ -> CategoryView.view model
