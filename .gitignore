@@ -14,6 +14,8 @@ npm-debug.log
 /assets/node_modules
 /assets/elm-stuff/build-artifacts
 /assets/elm-stuff
+/node_modules/elm-brunch
+/elm-stuff
 
 # Since we are building assets from assets/,
 # we ignore priv/static. You may want to comment
