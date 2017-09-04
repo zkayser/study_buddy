@@ -22,11 +22,17 @@ var _user$project$Page_Home$renderLoginForm = F3(
 				{ctor: '[]'});
 		}
 	});
-var _user$project$Page_Home$renderLogoutButton = F2(
-	function (maybeToken, mdl) {
-		var _p2 = maybeToken;
-		if (_p2.ctor === 'Just') {
-			return A2(
+var _user$project$Page_Home$view = function (model) {
+	return A2(
+		_debois$elm_mdl$Material_Grid$grid,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Grid$align(_debois$elm_mdl$Material_Grid$Middle),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
 				_debois$elm_mdl$Material_Grid$cell,
 				{
 					ctor: '::',
@@ -39,88 +45,20 @@ var _user$project$Page_Home$renderLogoutButton = F2(
 				},
 				{
 					ctor: '::',
-					_0: A5(
-						_debois$elm_mdl$Material_Button$render,
-						_user$project$Msgs$Mdl,
+					_0: A2(
+						_elm_lang$html$Html$h1,
+						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: 1,
-							_1: {ctor: '[]'}
-						},
-						mdl,
-						{
-							ctor: '::',
-							_0: _debois$elm_mdl$Material_Button$raised,
-							_1: {
-								ctor: '::',
-								_0: A2(_debois$elm_mdl$Material_Options$css, 'color', 'white'),
-								_1: {
-									ctor: '::',
-									_0: A2(_debois$elm_mdl$Material_Options$css, 'background-color', 'red'),
-									_1: {
-										ctor: '::',
-										_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$Logout),
-										_1: {ctor: '[]'}
-									}
-								}
-							}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text('Logout'),
+							_0: _user$project$Page_Home$welcomeMessage(model.user),
 							_1: {ctor: '[]'}
 						}),
 					_1: {ctor: '[]'}
-				});
-		} else {
-			return A2(
-				_debois$elm_mdl$Material_Grid$cell,
-				{ctor: '[]'},
-				{ctor: '[]'});
-		}
-	});
-var _user$project$Page_Home$view = F4(
-	function (user, form_, maybeToken, mdl) {
-		return A2(
-			_debois$elm_mdl$Material_Grid$grid,
-			{
+				}),
+			_1: {
 				ctor: '::',
-				_0: _debois$elm_mdl$Material_Grid$align(_debois$elm_mdl$Material_Grid$Middle),
+				_0: A3(_user$project$Page_Home$renderLoginForm, model.jwt, model.loginForm, model.mdl),
 				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: A2(
-					_debois$elm_mdl$Material_Grid$cell,
-					{
-						ctor: '::',
-						_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 12),
-						_1: {
-							ctor: '::',
-							_0: _debois$elm_mdl$Material_Typography$center,
-							_1: {ctor: '[]'}
-						}
-					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$h1,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: _user$project$Page_Home$welcomeMessage(user),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A3(_user$project$Page_Home$renderLoginForm, maybeToken, form_, mdl),
-					_1: {
-						ctor: '::',
-						_0: A2(_user$project$Page_Home$renderLogoutButton, maybeToken, mdl),
-						_1: {ctor: '[]'}
-					}
-				}
-			});
-	});
+			}
+		});
+};

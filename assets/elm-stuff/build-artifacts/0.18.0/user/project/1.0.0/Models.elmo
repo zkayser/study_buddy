@@ -2,11 +2,11 @@ var _user$project$Models$initialModel = F2(
 	function (flags, route) {
 		var initialUser = flags.user;
 		var tkn = flags.token;
-		return {mdl: _debois$elm_mdl$Material$model, route: route, user: initialUser, loginForm: _user$project$Page_LoginForm$initialLoginForm, jwt: tkn, errorMessage: ''};
+		return {mdl: _debois$elm_mdl$Material$model, route: route, user: initialUser, categories: _elm_lang$core$Maybe$Nothing, loginForm: _user$project$Page_LoginForm$initialLoginForm, jwt: tkn, errorMessage: ''};
 	});
-var _user$project$Models$Model = F6(
-	function (a, b, c, d, e, f) {
-		return {mdl: a, user: b, route: c, loginForm: d, jwt: e, errorMessage: f};
+var _user$project$Models$Model = F7(
+	function (a, b, c, d, e, f, g) {
+		return {mdl: a, user: b, categories: c, route: d, loginForm: e, jwt: f, errorMessage: g};
 	});
 var _user$project$Models$NotFoundRoute = {ctor: 'NotFoundRoute'};
 var _user$project$Models$HomeRoute = {ctor: 'HomeRoute'};

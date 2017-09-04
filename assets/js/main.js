@@ -19636,6 +19636,72 @@ var _debois$elm_mdl$Material_Typography$display3 = _debois$elm_mdl$Material_Opti
 var _debois$elm_mdl$Material_Typography$display2 = _debois$elm_mdl$Material_Options$cs('mdl-typography--display-2-color-contrast');
 var _debois$elm_mdl$Material_Typography$display1 = _debois$elm_mdl$Material_Options$cs('mdl-typography--display-1-color-contrast');
 
+//import Result //
+
+var _elm_lang$core$Native_Date = function() {
+
+function fromString(str)
+{
+	var date = new Date(str);
+	return isNaN(date.getTime())
+		? _elm_lang$core$Result$Err('Unable to parse \'' + str + '\' as a date. Dates must be in the ISO 8601 format.')
+		: _elm_lang$core$Result$Ok(date);
+}
+
+var dayTable = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var monthTable =
+	['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+	 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+
+return {
+	fromString: fromString,
+	year: function(d) { return d.getFullYear(); },
+	month: function(d) { return { ctor: monthTable[d.getMonth()] }; },
+	day: function(d) { return d.getDate(); },
+	hour: function(d) { return d.getHours(); },
+	minute: function(d) { return d.getMinutes(); },
+	second: function(d) { return d.getSeconds(); },
+	millisecond: function(d) { return d.getMilliseconds(); },
+	toTime: function(d) { return d.getTime(); },
+	fromTime: function(t) { return new Date(t); },
+	dayOfWeek: function(d) { return { ctor: dayTable[d.getDay()] }; }
+};
+
+}();
+var _elm_lang$core$Date$millisecond = _elm_lang$core$Native_Date.millisecond;
+var _elm_lang$core$Date$second = _elm_lang$core$Native_Date.second;
+var _elm_lang$core$Date$minute = _elm_lang$core$Native_Date.minute;
+var _elm_lang$core$Date$hour = _elm_lang$core$Native_Date.hour;
+var _elm_lang$core$Date$dayOfWeek = _elm_lang$core$Native_Date.dayOfWeek;
+var _elm_lang$core$Date$day = _elm_lang$core$Native_Date.day;
+var _elm_lang$core$Date$month = _elm_lang$core$Native_Date.month;
+var _elm_lang$core$Date$year = _elm_lang$core$Native_Date.year;
+var _elm_lang$core$Date$fromTime = _elm_lang$core$Native_Date.fromTime;
+var _elm_lang$core$Date$toTime = _elm_lang$core$Native_Date.toTime;
+var _elm_lang$core$Date$fromString = _elm_lang$core$Native_Date.fromString;
+var _elm_lang$core$Date$now = A2(_elm_lang$core$Task$map, _elm_lang$core$Date$fromTime, _elm_lang$core$Time$now);
+var _elm_lang$core$Date$Date = {ctor: 'Date'};
+var _elm_lang$core$Date$Sun = {ctor: 'Sun'};
+var _elm_lang$core$Date$Sat = {ctor: 'Sat'};
+var _elm_lang$core$Date$Fri = {ctor: 'Fri'};
+var _elm_lang$core$Date$Thu = {ctor: 'Thu'};
+var _elm_lang$core$Date$Wed = {ctor: 'Wed'};
+var _elm_lang$core$Date$Tue = {ctor: 'Tue'};
+var _elm_lang$core$Date$Mon = {ctor: 'Mon'};
+var _elm_lang$core$Date$Dec = {ctor: 'Dec'};
+var _elm_lang$core$Date$Nov = {ctor: 'Nov'};
+var _elm_lang$core$Date$Oct = {ctor: 'Oct'};
+var _elm_lang$core$Date$Sep = {ctor: 'Sep'};
+var _elm_lang$core$Date$Aug = {ctor: 'Aug'};
+var _elm_lang$core$Date$Jul = {ctor: 'Jul'};
+var _elm_lang$core$Date$Jun = {ctor: 'Jun'};
+var _elm_lang$core$Date$May = {ctor: 'May'};
+var _elm_lang$core$Date$Apr = {ctor: 'Apr'};
+var _elm_lang$core$Date$Mar = {ctor: 'Mar'};
+var _elm_lang$core$Date$Feb = {ctor: 'Feb'};
+var _elm_lang$core$Date$Jan = {ctor: 'Jan'};
+
 var _elm_lang$http$Native_Http = function() {
 
 
@@ -21506,6 +21572,96 @@ var _simonh1000$elm_jwt$Jwt$sendCheckExpired = F3(
 					_elm_lang$http$Http$toTask(request))));
 	});
 
+var _user$project$Exercises_Exercise$Exercise = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return function (k) {
+											return {type_: a, task: b, answer: c, reviews: d, successes: e, failures: f, isDue: g, lastReview: h, nextReview: i, source: j, mastered: k};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _user$project$Exercises_Exercise$exerciseDecoder = A4(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+	'mastered',
+	_elm_lang$core$Json_Decode$bool,
+	false,
+	A4(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+		'source',
+		_elm_lang$core$Json_Decode$string,
+		'',
+		A4(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+			'next_review',
+			_elm_lang$core$Json_Decode$string,
+			'',
+			A4(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+				'last_review',
+				_elm_lang$core$Json_Decode$string,
+				'',
+				A4(
+					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+					'is_due?',
+					_elm_lang$core$Json_Decode$bool,
+					true,
+					A4(
+						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+						'failures',
+						_elm_lang$core$Json_Decode$int,
+						0,
+						A4(
+							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+							'successes',
+							_elm_lang$core$Json_Decode$int,
+							0,
+							A4(
+								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+								'reviews',
+								_elm_lang$core$Json_Decode$int,
+								0,
+								A3(
+									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+									'answer',
+									_elm_lang$core$Json_Decode$string,
+									A3(
+										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+										'task',
+										_elm_lang$core$Json_Decode$string,
+										A3(
+											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+											'type',
+											_elm_lang$core$Json_Decode$string,
+											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Exercises_Exercise$Exercise))))))))))));
+
+var _user$project$Categories_Category$Category = F3(
+	function (a, b, c) {
+		return {name: a, id: b, subcategories: c};
+	});
+var _user$project$Categories_Category$Subcategory = F3(
+	function (a, b, c) {
+		return {name: a, id: b, topics: c};
+	});
+var _user$project$Categories_Category$Topic = F3(
+	function (a, b, c) {
+		return {title: a, id: b, exercises: c};
+	});
+
 var _user$project$Page_LoginMsgs$SetPassword = function (a) {
 	return {ctor: 'SetPassword', _0: a};
 };
@@ -21665,6 +21821,9 @@ var _user$project$Flags$LoginInfo = F2(
 		return {jwt: a, userId: b};
 	});
 
+var _user$project$Msgs$OnLoadCategories = function (a) {
+	return {ctor: 'OnLoadCategories', _0: a};
+};
 var _user$project$Msgs$OnLoadUser = function (a) {
 	return {ctor: 'OnLoadUser', _0: a};
 };
@@ -21685,6 +21844,64 @@ var _user$project$Msgs$Mdl = function (a) {
 var _user$project$Msgs$OnLocationChange = function (a) {
 	return {ctor: 'OnLocationChange', _0: a};
 };
+
+var _user$project$Categories_Decoder$topicDecoder = A4(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+	'exercises',
+	_elm_lang$core$Json_Decode$maybe(
+		_elm_lang$core$Json_Decode$list(_user$project$Exercises_Exercise$exerciseDecoder)),
+	_elm_lang$core$Maybe$Nothing,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'id',
+		_elm_lang$core$Json_Decode$int,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'title',
+			_elm_lang$core$Json_Decode$string,
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Categories_Category$Topic))));
+var _user$project$Categories_Decoder$subcategoryDecoder = A4(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+	'topics',
+	_elm_lang$core$Json_Decode$maybe(
+		_elm_lang$core$Json_Decode$list(_user$project$Categories_Decoder$topicDecoder)),
+	_elm_lang$core$Maybe$Nothing,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'id',
+		_elm_lang$core$Json_Decode$int,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'name',
+			_elm_lang$core$Json_Decode$string,
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Categories_Category$Subcategory))));
+var _user$project$Categories_Decoder$categoryDecoder = A4(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+	'subcategories',
+	_elm_lang$core$Json_Decode$maybe(
+		_elm_lang$core$Json_Decode$list(_user$project$Categories_Decoder$subcategoryDecoder)),
+	_elm_lang$core$Maybe$Nothing,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'id',
+		_elm_lang$core$Json_Decode$int,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'name',
+			_elm_lang$core$Json_Decode$string,
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Categories_Category$Category))));
+var _user$project$Categories_Decoder$categoryListDecoder = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'data',
+		_1: {
+			ctor: '::',
+			_0: 'categories',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$list(_user$project$Categories_Decoder$categoryDecoder));
 
 var _user$project$Commands$baseUrl = 'http://localhost:4000/api/';
 var _user$project$Commands$fetchUserUrl = function (userId) {
@@ -21737,6 +21954,14 @@ var _user$project$Commands$fetchUser = F2(
 			return _elm_lang$core$Platform_Cmd$none;
 		}
 	});
+
+var _user$project$Categories_Commands$categoryListUrl = A2(_elm_lang$core$Basics_ops['++'], _user$project$Commands$baseUrl, 'categories');
+var _user$project$Categories_Commands$fetchCategories = function (jwt) {
+	return A2(
+		_simonh1000$elm_jwt$Jwt$send,
+		_user$project$Msgs$OnLoadCategories,
+		A3(_simonh1000$elm_jwt$Jwt$get, jwt, _user$project$Categories_Commands$categoryListUrl, _user$project$Categories_Decoder$categoryListDecoder));
+};
 
 var _user$project$Page_LoginForm$loginInfoDecoder = A3(
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
@@ -22006,11 +22231,11 @@ var _user$project$Models$initialModel = F2(
 	function (flags, route) {
 		var initialUser = flags.user;
 		var tkn = flags.token;
-		return {mdl: _debois$elm_mdl$Material$model, route: route, user: initialUser, loginForm: _user$project$Page_LoginForm$initialLoginForm, jwt: tkn, errorMessage: ''};
+		return {mdl: _debois$elm_mdl$Material$model, route: route, user: initialUser, categories: _elm_lang$core$Maybe$Nothing, loginForm: _user$project$Page_LoginForm$initialLoginForm, jwt: tkn, errorMessage: ''};
 	});
-var _user$project$Models$Model = F6(
-	function (a, b, c, d, e, f) {
-		return {mdl: a, user: b, route: c, loginForm: d, jwt: e, errorMessage: f};
+var _user$project$Models$Model = F7(
+	function (a, b, c, d, e, f, g) {
+		return {mdl: a, user: b, categories: c, route: d, loginForm: e, jwt: f, errorMessage: g};
 	});
 var _user$project$Models$NotFoundRoute = {ctor: 'NotFoundRoute'};
 var _user$project$Models$HomeRoute = {ctor: 'HomeRoute'};
@@ -22155,11 +22380,17 @@ var _user$project$Page_Home$renderLoginForm = F3(
 				{ctor: '[]'});
 		}
 	});
-var _user$project$Page_Home$renderLogoutButton = F2(
-	function (maybeToken, mdl) {
-		var _p2 = maybeToken;
-		if (_p2.ctor === 'Just') {
-			return A2(
+var _user$project$Page_Home$view = function (model) {
+	return A2(
+		_debois$elm_mdl$Material_Grid$grid,
+		{
+			ctor: '::',
+			_0: _debois$elm_mdl$Material_Grid$align(_debois$elm_mdl$Material_Grid$Middle),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
 				_debois$elm_mdl$Material_Grid$cell,
 				{
 					ctor: '::',
@@ -22172,91 +22403,23 @@ var _user$project$Page_Home$renderLogoutButton = F2(
 				},
 				{
 					ctor: '::',
-					_0: A5(
-						_debois$elm_mdl$Material_Button$render,
-						_user$project$Msgs$Mdl,
+					_0: A2(
+						_elm_lang$html$Html$h1,
+						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: 1,
-							_1: {ctor: '[]'}
-						},
-						mdl,
-						{
-							ctor: '::',
-							_0: _debois$elm_mdl$Material_Button$raised,
-							_1: {
-								ctor: '::',
-								_0: A2(_debois$elm_mdl$Material_Options$css, 'color', 'white'),
-								_1: {
-									ctor: '::',
-									_0: A2(_debois$elm_mdl$Material_Options$css, 'background-color', 'red'),
-									_1: {
-										ctor: '::',
-										_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$Logout),
-										_1: {ctor: '[]'}
-									}
-								}
-							}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text('Logout'),
+							_0: _user$project$Page_Home$welcomeMessage(model.user),
 							_1: {ctor: '[]'}
 						}),
 					_1: {ctor: '[]'}
-				});
-		} else {
-			return A2(
-				_debois$elm_mdl$Material_Grid$cell,
-				{ctor: '[]'},
-				{ctor: '[]'});
-		}
-	});
-var _user$project$Page_Home$view = F4(
-	function (user, form_, maybeToken, mdl) {
-		return A2(
-			_debois$elm_mdl$Material_Grid$grid,
-			{
+				}),
+			_1: {
 				ctor: '::',
-				_0: _debois$elm_mdl$Material_Grid$align(_debois$elm_mdl$Material_Grid$Middle),
+				_0: A3(_user$project$Page_Home$renderLoginForm, model.jwt, model.loginForm, model.mdl),
 				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: A2(
-					_debois$elm_mdl$Material_Grid$cell,
-					{
-						ctor: '::',
-						_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 12),
-						_1: {
-							ctor: '::',
-							_0: _debois$elm_mdl$Material_Typography$center,
-							_1: {ctor: '[]'}
-						}
-					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$h1,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: _user$project$Page_Home$welcomeMessage(user),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A3(_user$project$Page_Home$renderLoginForm, maybeToken, form_, mdl),
-					_1: {
-						ctor: '::',
-						_0: A2(_user$project$Page_Home$renderLogoutButton, maybeToken, mdl),
-						_1: {ctor: '[]'}
-					}
-				}
-			});
-	});
+			}
+		});
+};
 
 var _user$project$Page_Body$notFoundView = A2(
 	_elm_lang$html$Html$div,
@@ -22269,7 +22432,7 @@ var _user$project$Page_Body$notFoundView = A2(
 var _user$project$Page_Body$page = function (model) {
 	var _p0 = model.route;
 	if (_p0.ctor === 'HomeRoute') {
-		return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt, model.mdl);
+		return _user$project$Page_Home$view(model);
 	} else {
 		return _user$project$Page_Body$notFoundView;
 	}
@@ -22312,7 +22475,7 @@ var _user$project$Page_Layout$layout = function (model) {
 var _user$project$View$page = function (model) {
 	var _p0 = model.route;
 	if (_p0.ctor === 'HomeRoute') {
-		return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt, model.mdl);
+		return _user$project$Page_Home$view(model);
 	} else {
 		return A2(
 			_elm_lang$html$Html$div,
@@ -22448,6 +22611,18 @@ var _user$project$Update$update = F2(
 						{route: newRoute}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'OnLoadCategories':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(
+						_elm_lang$core$Debug$log,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'Got result: ',
+							_elm_lang$core$Basics$toString(_p0._0)),
+						_elm_lang$core$Platform_Cmd$none)
+				};
 			case 'Mdl':
 				return A3(_debois$elm_mdl$Material$update, _user$project$Msgs$Mdl, _p0._0, model);
 			case 'SetUser':
@@ -22487,6 +22662,15 @@ var _user$project$Update$update = F2(
 
 var _user$project$Main$init = F2(
 	function (flags, location) {
+		var jwt = function () {
+			var _p0 = flags.token;
+			if (_p0.ctor === 'Nothing') {
+				return '';
+			} else {
+				return _p0._0;
+			}
+		}();
+		var cmd = _elm_lang$core$Native_Utils.eq(flags.user, _elm_lang$core$Maybe$Nothing) ? _elm_lang$core$Platform_Cmd$none : _user$project$Categories_Commands$fetchCategories(jwt);
 		var currentLocation = _user$project$Routing$parseLocation(location);
 		return {
 			ctor: '_Tuple2',
@@ -22495,7 +22679,11 @@ var _user$project$Main$init = F2(
 				{
 					ctor: '::',
 					_0: _debois$elm_mdl$Material_Layout$sub0(_user$project$Msgs$Mdl),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: cmd,
+						_1: {ctor: '[]'}
+					}
 				})
 		};
 	});
@@ -22579,7 +22767,7 @@ var _user$project$Main$main = A2(
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {
-    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Jwt.JwtError":{"args":[],"tags":{"TokenDecodeError":["String"],"TokenExpired":[],"Unauthorized":[],"HttpError":["Http.Error"],"TokenProcessingError":["String"],"TokenNotExpired":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"SetUser":["String"],"SubmitCredentials":[],"LoginResult":["Result.Result Http.Error Flags.LoginInfo"],"Mdl":["Material.Msg Msgs.Msg"],"SetPass":["String"],"OnLoadUser":["Result.Result Jwt.JwtError Users.User.User"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Flags.LoginInfo":{"args":[],"type":"{ jwt : Maybe.Maybe String, userId : Maybe.Maybe String }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Users.User.User":{"args":[],"type":"{ id : Int, username : String, name : String, email : String }"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
+    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Jwt.JwtError":{"args":[],"tags":{"TokenDecodeError":["String"],"TokenExpired":[],"Unauthorized":[],"HttpError":["Http.Error"],"TokenProcessingError":["String"],"TokenNotExpired":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"SetUser":["String"],"SubmitCredentials":[],"LoginResult":["Result.Result Http.Error Flags.LoginInfo"],"Mdl":["Material.Msg Msgs.Msg"],"SetPass":["String"],"OnLoadUser":["Result.Result Jwt.JwtError Users.User.User"],"OnLoadCategories":["Result.Result Jwt.JwtError (List Categories.Category.Category)"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Flags.LoginInfo":{"args":[],"type":"{ jwt : Maybe.Maybe String, userId : Maybe.Maybe String }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Categories.Category.Category":{"args":[],"type":"{ name : String , id : Int , subcategories : Maybe.Maybe (List Categories.Category.Subcategory) }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Categories.Category.Topic":{"args":[],"type":"{ title : String , id : Int , exercises : Maybe.Maybe (List Exercises.Exercise.Exercise) }"},"Users.User.User":{"args":[],"type":"{ id : Int, username : String, name : String, email : String }"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Categories.Category.Subcategory":{"args":[],"type":"{ name : String , id : Int , topics : Maybe.Maybe (List Categories.Category.Topic) }"},"Exercises.Exercise.Exercise":{"args":[],"type":"{ type_ : String , task : String , answer : String , reviews : Int , successes : Int , failures : Int , isDue : Bool , lastReview : String , nextReview : String , source : String , mastered : Bool }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

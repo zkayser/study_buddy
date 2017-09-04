@@ -3,6 +3,7 @@ module Page.Home exposing (..)
 import Users.User as User exposing (..)
 import Msgs exposing (Msg(..))
 import Page.LoginForm as LoginForm
+import Models exposing (Model)
 import Html exposing (..)
 import Utils exposing (onClickPreventDefault)
 import Material
@@ -12,31 +13,16 @@ import Material.Color as Color
 import Material.Grid as Grid
 import Material.Typography as Typography
 
-view : Maybe User -> LoginForm.Form -> Maybe String -> Material.Model -> Html Msg
-view user form_ maybeToken mdl =  
+view : Model -> Html Msg
+view model =  
   Grid.grid [ Grid.align Grid.Middle ]
     [ Grid.cell
       [ Grid.size Grid.All 12, Typography.center ]
-      [ Html.h1 [] [ welcomeMessage user ] ]
-    , (renderLoginForm maybeToken form_ mdl )
-    , renderLogoutButton maybeToken mdl
+      [ Html.h1 [] [ welcomeMessage model.user ] ]
+    , (renderLoginForm model.jwt model.loginForm model.mdl )
     ]
 
-renderLogoutButton : Maybe String -> Material.Model -> Grid.Cell Msg
-renderLogoutButton maybeToken mdl =
-  case maybeToken of
-    Just token ->
-      Grid.cell
-       [ Grid.size Grid.All 12, Typography.center ]
-       [ Button.render Msgs.Mdl [1] mdl
-        [ Button.raised
-        , Options.css "color" "white"
-        , Options.css "background-color" "red"
-        , Options.onClick Msgs.Logout
-        ]
-        [ text "Logout" ]
-       ]
-    Nothing -> Grid.cell [] []
+
 
 renderLoginForm : Maybe String -> LoginForm.Form -> Material.Model -> Grid.Cell Msg
 renderLoginForm maybeToken form_ mdl =

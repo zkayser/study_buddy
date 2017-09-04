@@ -1,7 +1,7 @@
 module Users.User exposing (..)
 
 import Json.Decode as Decode
-import Json.Decode.Pipeline exposing (decode, required)
+import Json.Decode.Pipeline exposing (decode, required, optional)
 import Json.Encode as Encode
 
 type alias User =

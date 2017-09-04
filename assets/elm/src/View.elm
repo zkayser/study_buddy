@@ -14,6 +14,6 @@ page : Model -> Html Msg
 page model =
       case model.route of
         Models.HomeRoute ->
-          Page.Home.view model.user model.loginForm model.jwt model.mdl 
+          Page.Home.view model
         Models.NotFoundRoute ->
           div [] [ text "Not found..." ]

@@ -1,5 +1,14 @@
 var _user$project$Main$init = F2(
 	function (flags, location) {
+		var jwt = function () {
+			var _p0 = flags.token;
+			if (_p0.ctor === 'Nothing') {
+				return '';
+			} else {
+				return _p0._0;
+			}
+		}();
+		var cmd = _elm_lang$core$Native_Utils.eq(flags.user, _elm_lang$core$Maybe$Nothing) ? _elm_lang$core$Platform_Cmd$none : _user$project$Categories_Commands$fetchCategories(jwt);
 		var currentLocation = _user$project$Routing$parseLocation(location);
 		return {
 			ctor: '_Tuple2',
@@ -8,7 +17,11 @@ var _user$project$Main$init = F2(
 				{
 					ctor: '::',
 					_0: _debois$elm_mdl$Material_Layout$sub0(_user$project$Msgs$Mdl),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: cmd,
+						_1: {ctor: '[]'}
+					}
 				})
 		};
 	});

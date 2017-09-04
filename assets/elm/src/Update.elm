@@ -2,7 +2,7 @@ module Update exposing (..)
 
 import Msgs exposing (Msg(..))
 import Models exposing (Model)
-import Users.User as User exposing (encodeUser)
+import Users.User as User
 import Page.LoginForm as Login exposing (submitCredentials, submitCredentialsCmd)
 import Page.LoginFormHelpers as LoginHelpers exposing (LoginAttribute(..))
 import Flags exposing (storeToken, logout, storeUser)
@@ -23,6 +23,8 @@ update msg model =
               parseLocation location
           in
             ( { model | route = newRoute }, Cmd.none )
+      Msgs.OnLoadCategories result ->
+        ( model, Debug.log ("Got result: " ++ (toString result)) Cmd.none )
       Msgs.Mdl msg_ ->
           Material.update Mdl msg_ model
       Msgs.SetUser username ->

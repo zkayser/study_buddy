@@ -1,3 +1,6 @@
+var _user$project$Msgs$OnLoadCategories = function (a) {
+	return {ctor: 'OnLoadCategories', _0: a};
+};
 var _user$project$Msgs$OnLoadUser = function (a) {
 	return {ctor: 'OnLoadUser', _0: a};
 };

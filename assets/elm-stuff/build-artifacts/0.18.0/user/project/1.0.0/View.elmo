@@ -1,7 +1,7 @@
 var _user$project$View$page = function (model) {
 	var _p0 = model.route;
 	if (_p0.ctor === 'HomeRoute') {
-		return A4(_user$project$Page_Home$view, model.user, model.loginForm, model.jwt, model.mdl);
+		return _user$project$Page_Home$view(model);
 	} else {
 		return A2(
 			_elm_lang$html$Html$div,
