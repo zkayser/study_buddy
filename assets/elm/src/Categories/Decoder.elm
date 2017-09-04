@@ -15,6 +15,7 @@ categoryDecoder =
     |> required "name" Decode.string
     |> required "id" Decode.int
     |> optional "subcategories" (Decode.maybe <| Decode.list subcategoryDecoder) Nothing
+    |> hardcoded False
 
 subcategoryDecoder : Decoder Subcategory
 subcategoryDecoder =
@@ -22,6 +23,7 @@ subcategoryDecoder =
     |> required "name" Decode.string
     |> required "id" Decode.int
     |> optional "topics" (Decode.maybe <| Decode.list topicDecoder) Nothing
+    |> hardcoded False
 
 topicDecoder : Decoder Topic
 topicDecoder =
@@ -29,3 +31,4 @@ topicDecoder =
     |> required "title" Decode.string
     |> required "id" Decode.int
     |> optional "exercises" (Decode.maybe <| Decode.list exerciseDecoder) Nothing
+    |> hardcoded False

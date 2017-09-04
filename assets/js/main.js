@@ -21649,17 +21649,17 @@ var _user$project$Exercises_Exercise$exerciseDecoder = A4(
 											_elm_lang$core$Json_Decode$string,
 											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Exercises_Exercise$Exercise))))))))))));
 
-var _user$project$Categories_Category$Category = F3(
-	function (a, b, c) {
-		return {name: a, id: b, subcategories: c};
+var _user$project$Categories_Category$Category = F4(
+	function (a, b, c, d) {
+		return {name: a, id: b, subcategories: c, childrenRendered: d};
 	});
-var _user$project$Categories_Category$Subcategory = F3(
-	function (a, b, c) {
-		return {name: a, id: b, topics: c};
+var _user$project$Categories_Category$Subcategory = F4(
+	function (a, b, c, d) {
+		return {name: a, id: b, topics: c, childrenRendered: d};
 	});
-var _user$project$Categories_Category$Topic = F3(
-	function (a, b, c) {
-		return {title: a, id: b, exercises: c};
+var _user$project$Categories_Category$Topic = F4(
+	function (a, b, c, d) {
+		return {title: a, id: b, exercises: c, childrenRendered: d};
 	});
 
 var _user$project$Page_LoginMsgs$SetPassword = function (a) {
@@ -21845,51 +21845,60 @@ var _user$project$Msgs$OnLocationChange = function (a) {
 	return {ctor: 'OnLocationChange', _0: a};
 };
 
-var _user$project$Categories_Decoder$topicDecoder = A4(
-	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-	'exercises',
-	_elm_lang$core$Json_Decode$maybe(
-		_elm_lang$core$Json_Decode$list(_user$project$Exercises_Exercise$exerciseDecoder)),
-	_elm_lang$core$Maybe$Nothing,
-	A3(
-		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-		'id',
-		_elm_lang$core$Json_Decode$int,
+var _user$project$Categories_Decoder$topicDecoder = A2(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$hardcoded,
+	false,
+	A4(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+		'exercises',
+		_elm_lang$core$Json_Decode$maybe(
+			_elm_lang$core$Json_Decode$list(_user$project$Exercises_Exercise$exerciseDecoder)),
+		_elm_lang$core$Maybe$Nothing,
 		A3(
 			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-			'title',
-			_elm_lang$core$Json_Decode$string,
-			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Categories_Category$Topic))));
-var _user$project$Categories_Decoder$subcategoryDecoder = A4(
-	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-	'topics',
-	_elm_lang$core$Json_Decode$maybe(
-		_elm_lang$core$Json_Decode$list(_user$project$Categories_Decoder$topicDecoder)),
-	_elm_lang$core$Maybe$Nothing,
-	A3(
-		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-		'id',
-		_elm_lang$core$Json_Decode$int,
+			'id',
+			_elm_lang$core$Json_Decode$int,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+				'title',
+				_elm_lang$core$Json_Decode$string,
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Categories_Category$Topic)))));
+var _user$project$Categories_Decoder$subcategoryDecoder = A2(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$hardcoded,
+	false,
+	A4(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+		'topics',
+		_elm_lang$core$Json_Decode$maybe(
+			_elm_lang$core$Json_Decode$list(_user$project$Categories_Decoder$topicDecoder)),
+		_elm_lang$core$Maybe$Nothing,
 		A3(
 			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-			'name',
-			_elm_lang$core$Json_Decode$string,
-			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Categories_Category$Subcategory))));
-var _user$project$Categories_Decoder$categoryDecoder = A4(
-	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
-	'subcategories',
-	_elm_lang$core$Json_Decode$maybe(
-		_elm_lang$core$Json_Decode$list(_user$project$Categories_Decoder$subcategoryDecoder)),
-	_elm_lang$core$Maybe$Nothing,
-	A3(
-		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-		'id',
-		_elm_lang$core$Json_Decode$int,
+			'id',
+			_elm_lang$core$Json_Decode$int,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+				'name',
+				_elm_lang$core$Json_Decode$string,
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Categories_Category$Subcategory)))));
+var _user$project$Categories_Decoder$categoryDecoder = A2(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$hardcoded,
+	false,
+	A4(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$optional,
+		'subcategories',
+		_elm_lang$core$Json_Decode$maybe(
+			_elm_lang$core$Json_Decode$list(_user$project$Categories_Decoder$subcategoryDecoder)),
+		_elm_lang$core$Maybe$Nothing,
 		A3(
 			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-			'name',
-			_elm_lang$core$Json_Decode$string,
-			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Categories_Category$Category))));
+			'id',
+			_elm_lang$core$Json_Decode$int,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+				'name',
+				_elm_lang$core$Json_Decode$string,
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Categories_Category$Category)))));
 var _user$project$Categories_Decoder$categoryListDecoder = A2(
 	_elm_lang$core$Json_Decode$at,
 	{
@@ -22763,7 +22772,7 @@ var _user$project$Main$main = A2(
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {
-    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Jwt.JwtError":{"args":[],"tags":{"TokenDecodeError":["String"],"TokenExpired":[],"Unauthorized":[],"HttpError":["Http.Error"],"TokenProcessingError":["String"],"TokenNotExpired":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"SetUser":["String"],"SubmitCredentials":[],"LoginResult":["Result.Result Http.Error Flags.LoginInfo"],"Mdl":["Material.Msg Msgs.Msg"],"SetPass":["String"],"OnLoadUser":["Result.Result Jwt.JwtError Users.User.User"],"OnLoadCategories":["Result.Result Jwt.JwtError (List Categories.Category.Category)"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Flags.LoginInfo":{"args":[],"type":"{ jwt : Maybe.Maybe String, userId : Maybe.Maybe String }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Categories.Category.Category":{"args":[],"type":"{ name : String , id : Int , subcategories : Maybe.Maybe (List Categories.Category.Subcategory) }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Categories.Category.Topic":{"args":[],"type":"{ title : String , id : Int , exercises : Maybe.Maybe (List Exercises.Exercise.Exercise) }"},"Users.User.User":{"args":[],"type":"{ id : Int, username : String, name : String, email : String }"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Categories.Category.Subcategory":{"args":[],"type":"{ name : String , id : Int , topics : Maybe.Maybe (List Categories.Category.Topic) }"},"Exercises.Exercise.Exercise":{"args":[],"type":"{ type_ : String , task : String , answer : String , reviews : Int , successes : Int , failures : Int , isDue : Bool , lastReview : String , nextReview : String , source : String , mastered : Bool }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
+    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Jwt.JwtError":{"args":[],"tags":{"TokenDecodeError":["String"],"TokenExpired":[],"Unauthorized":[],"HttpError":["Http.Error"],"TokenProcessingError":["String"],"TokenNotExpired":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"SetUser":["String"],"SubmitCredentials":[],"LoginResult":["Result.Result Http.Error Flags.LoginInfo"],"Mdl":["Material.Msg Msgs.Msg"],"SetPass":["String"],"OnLoadUser":["Result.Result Jwt.JwtError Users.User.User"],"OnLoadCategories":["Result.Result Jwt.JwtError (List Categories.Category.Category)"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Flags.LoginInfo":{"args":[],"type":"{ jwt : Maybe.Maybe String, userId : Maybe.Maybe String }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Categories.Category.Category":{"args":[],"type":"{ name : String , id : Int , subcategories : Maybe.Maybe (List Categories.Category.Subcategory) , childrenRendered : Bool }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Categories.Category.Topic":{"args":[],"type":"{ title : String , id : Int , exercises : Maybe.Maybe (List Exercises.Exercise.Exercise) , childrenRendered : Bool }"},"Users.User.User":{"args":[],"type":"{ id : Int, username : String, name : String, email : String }"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Categories.Category.Subcategory":{"args":[],"type":"{ name : String , id : Int , topics : Maybe.Maybe (List Categories.Category.Topic) , childrenRendered : Bool }"},"Exercises.Exercise.Exercise":{"args":[],"type":"{ type_ : String , task : String , answer : String , reviews : Int , successes : Int , failures : Int , isDue : Bool , lastReview : String , nextReview : String , source : String , mastered : Bool }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])
