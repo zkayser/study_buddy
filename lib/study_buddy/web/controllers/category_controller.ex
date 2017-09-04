@@ -20,7 +20,7 @@ defmodule StudyBuddyWeb.CategoryController do
 
   def create(conn, %{"category" => category_params}) do
     user_id = Guardian.Plug.current_resource(conn).id
-    with {:ok, %Category{} = category, %User{} = user} <- Categories.create_category(category_params, user_id) do
+    with {:ok, %Category{} = category, %User{}} <- Categories.create_category(category_params, user_id) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", category_path(conn, :show, category))
