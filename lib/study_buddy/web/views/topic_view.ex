@@ -12,6 +12,7 @@ defmodule StudyBuddyWeb.TopicView do
 
   def render("topic.json", %{topic: topic}) do
     %{id: topic.id,
-      title: topic.title}
+      title: topic.title
+     }
   end
 end
