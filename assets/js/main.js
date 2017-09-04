@@ -21895,11 +21895,7 @@ var _user$project$Categories_Decoder$categoryListDecoder = A2(
 	{
 		ctor: '::',
 		_0: 'data',
-		_1: {
-			ctor: '::',
-			_0: 'categories',
-			_1: {ctor: '[]'}
-		}
+		_1: {ctor: '[]'}
 	},
 	_elm_lang$core$Json_Decode$list(_user$project$Categories_Decoder$categoryDecoder));
 

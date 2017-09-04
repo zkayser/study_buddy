@@ -21,7 +21,17 @@ defmodule StudyBuddy.Categories do
 
   """
   def list_categories(user_id) do
-    Repo.all(from c in Category, where: c.user_id == ^user_id)
+    user_id
+    |> categories_subcats_and_topics_query()
+    |> Repo.all()
+  end
+
+  defp categories_subcats_and_topics_query(user_id) do
+    from c in Category,
+      where: c.user_id == ^user_id,
+      left_join: subcats in assoc(c, :subcategories),
+      left_join: topics in assoc(subcats, :topics),
+      preload: [subcategories: {subcats, topics: topics}]
   end
 
   @doc """

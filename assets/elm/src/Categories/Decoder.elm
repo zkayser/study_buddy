@@ -7,7 +7,7 @@ import Json.Decode as Decode exposing (Decoder)
 
 categoryListDecoder : Decoder (List Category)
 categoryListDecoder =
-    Decode.at [ "data", "categories" ] (Decode.list categoryDecoder)
+    Decode.at [ "data" ] (Decode.list categoryDecoder)
 
 categoryDecoder : Decoder Category
 categoryDecoder =
