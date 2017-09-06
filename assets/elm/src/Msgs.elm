@@ -2,7 +2,7 @@ module Msgs exposing (..)
 
 import Page.LoginMsgs exposing (LoginMsg(..))
 import Users.User exposing (User)
-import Categories.Category exposing (Category)
+import Categories.Category exposing (Category, Subcategory)
 import Http
 import Jwt
 import Flags exposing (LoginInfo)
@@ -20,6 +20,8 @@ type Msg
   | Logout
   | OnLoadUser (Result Jwt.JwtError User)
   | OnLoadCategories (Result Jwt.JwtError (List Category))
+  | ToggleSubcategories Category
+  | ToggleTopics Subcategory
 
 type alias Mdl =
         Material.Model

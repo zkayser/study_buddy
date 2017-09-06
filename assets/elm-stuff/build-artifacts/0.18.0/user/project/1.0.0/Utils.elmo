@@ -1,3 +1,20 @@
+var _user$project$Utils$jwtErrorMessage = function (error) {
+	var _p0 = error;
+	switch (_p0.ctor) {
+		case 'HttpError':
+			return A2(_elm_lang$core$Basics_ops['++'], 'An error occurred during the request to the server. The server may be', 'down or under maintenance. Please try again.');
+		case 'Unauthorized':
+			return 'Sorry, but you cannot access the resource you are attempting to access.';
+		case 'TokenExpired':
+			return 'Your access token has grown stale! Please logout and log in again to reset.';
+		case 'TokenNotExpired':
+			return 'The token is not expired... Not sure what is happening with this error.';
+		case 'TokenProcessingError':
+			return _p0._0;
+		default:
+			return _p0._0;
+	}
+};
 var _user$project$Utils$onClickPreventDefault = function (msg) {
 	return A3(
 		_elm_lang$html$Html_Events$onWithOptions,

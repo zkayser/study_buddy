@@ -5,6 +5,7 @@ import Models exposing (Model)
 import Users.User as User
 import Page.LoginForm as Login exposing (submitCredentials, submitCredentialsCmd)
 import Page.LoginFormHelpers as LoginHelpers exposing (LoginAttribute(..))
+import Categories.Utils as CategoryUtils
 import Flags exposing (storeToken, logout, storeUser)
 import Material
 import Routing exposing (parseLocation)
@@ -24,7 +25,7 @@ update msg model =
           in
             ( { model | route = newRoute }, Cmd.none )
       Msgs.OnLoadCategories result ->
-        ( model, Debug.log ("Got result: " ++ (toString result)) Cmd.none )
+          ( CategoryUtils.handleCategoryLoad model result, Cmd.none )
       Msgs.Mdl msg_ ->
           Material.update Mdl msg_ model
       Msgs.SetUser username ->
@@ -37,4 +38,8 @@ update msg model =
           LoginHelpers.handleLoginResult model result
       Msgs.Logout ->
           ( { model | jwt = Nothing, user = Nothing }, logout Nothing ) 
+      Msgs.ToggleSubcategories category ->
+          ( CategoryUtils.toggleDropdown model category, Cmd.none )
+      Msgs.ToggleTopics subcategory ->
+          ( model, Cmd.none )
         

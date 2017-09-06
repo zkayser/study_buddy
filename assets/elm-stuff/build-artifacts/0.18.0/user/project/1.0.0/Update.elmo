@@ -39,14 +39,8 @@ var _user$project$Update$update = F2(
 			case 'OnLoadCategories':
 				return {
 					ctor: '_Tuple2',
-					_0: model,
-					_1: A2(
-						_elm_lang$core$Debug$log,
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'Got result: ',
-							_elm_lang$core$Basics$toString(_p0._0)),
-						_elm_lang$core$Platform_Cmd$none)
+					_0: A2(_user$project$Categories_Utils$handleCategoryLoad, model, _p0._0),
+					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'Mdl':
 				return A3(_debois$elm_mdl$Material$update, _user$project$Msgs$Mdl, _p0._0, model);
@@ -74,7 +68,7 @@ var _user$project$Update$update = F2(
 				return _user$project$Page_LoginFormHelpers$login(model);
 			case 'LoginResult':
 				return A2(_user$project$Page_LoginFormHelpers$handleLoginResult, model, _p0._0);
-			default:
+			case 'Logout':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -82,5 +76,13 @@ var _user$project$Update$update = F2(
 						{jwt: _elm_lang$core$Maybe$Nothing, user: _elm_lang$core$Maybe$Nothing}),
 					_1: _user$project$Flags$logout(_elm_lang$core$Maybe$Nothing)
 				};
+			case 'ToggleSubcategories':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$Categories_Utils$toggleDropdown, model, _p0._0),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 		}
 	});

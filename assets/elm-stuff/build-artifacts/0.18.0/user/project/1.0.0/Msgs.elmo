@@ -1,3 +1,9 @@
+var _user$project$Msgs$ToggleTopics = function (a) {
+	return {ctor: 'ToggleTopics', _0: a};
+};
+var _user$project$Msgs$ToggleSubcategories = function (a) {
+	return {ctor: 'ToggleSubcategories', _0: a};
+};
 var _user$project$Msgs$OnLoadCategories = function (a) {
 	return {ctor: 'OnLoadCategories', _0: a};
 };

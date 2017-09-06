@@ -21,6 +21,7 @@ view model =
       [ Grid.size Grid.All 12, Typography.center ]
       [ Html.h1 [] [ welcomeMessage model.user ] ]
     , (renderLoginForm model.jwt model.loginForm model.mdl )
+    , (maybeRenderCategories model)
     ]
 
 
@@ -29,7 +30,7 @@ renderLoginForm : Maybe String -> LoginForm.Form -> Material.Model -> Grid.Cell 
 renderLoginForm maybeToken form_ mdl =
   case maybeToken of
     Nothing -> LoginForm.view form_ mdl
-    Just token -> Grid.cell [] []
+    Just token -> Grid.cell [Options.css "display" "none" ] []
 
 welcomeMessage : Maybe User -> Html Msg
 welcomeMessage maybeUser =
@@ -42,5 +43,5 @@ welcomeMessage maybeUser =
 maybeRenderCategories : Model -> Grid.Cell Msg
 maybeRenderCategories model =
   case model.categories of
-    Nothing -> Grid.cell [Grid.size Grid.All 0] []
+    Nothing -> Grid.cell [Options.css "display" "none" ] []
     Just _ -> CategoryView.view model
