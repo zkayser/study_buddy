@@ -2,7 +2,7 @@ module Models exposing (..)
 
 import Flags exposing (Flags)
 import Users.User as User exposing (..)
-import Categories.Category exposing (Category)
+import Categories.Category exposing (Categories, initialCategories)
 import Page.LoginForm as LoginForm
 import Json.Decode as Decode
 import Commands
@@ -11,7 +11,7 @@ import Material
 type alias Model =
         { mdl : Material.Model
         , user :  Maybe User
-        , categories : Maybe (List Category)
+        , categories : Categories
         , route : Route
         , loginForm : LoginForm.Form
         , jwt : Maybe String 
@@ -27,7 +27,7 @@ initialModel flags route =
     { mdl = Material.model
     , route = route
     , user = initialUser
-    , categories = Nothing
+    , categories = initialCategories
     , loginForm = LoginForm.initialLoginForm
     , jwt = tkn
     , errorMessage = ""

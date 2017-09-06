@@ -1,5 +1,5 @@
 var _user$project$Page_Home$maybeRenderCategories = function (model) {
-	var _p0 = model.categories;
+	var _p0 = model.categories.categories;
 	if (_p0.ctor === 'Nothing') {
 		return A2(
 			_debois$elm_mdl$Material_Grid$cell,

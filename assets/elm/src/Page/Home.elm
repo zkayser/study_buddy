@@ -42,6 +42,6 @@ welcomeMessage maybeUser =
 
 maybeRenderCategories : Model -> Grid.Cell Msg
 maybeRenderCategories model =
-  case model.categories of
+  case model.categories.categories of
     Nothing -> Grid.cell [Options.css "display" "none" ] []
     Just _ -> CategoryView.view model

@@ -21,4 +21,17 @@ type alias Topic =
   , id : Int
   , exercises : Maybe (List Exercise)
   , childrenRendered : Bool
-  }   
+  } 
+
+type alias Categories =
+  { categories : Maybe (List Category)
+  , selectedCategory : Maybe Category
+  , selectedSubcategory : Maybe Subcategory
+  }
+
+initialCategories : Categories
+initialCategories =
+  { categories = Nothing
+  , selectedCategory = Nothing
+  , selectedSubcategory = Nothing
+  }

@@ -41,5 +41,5 @@ update msg model =
       Msgs.ToggleSubcategories category ->
           ( CategoryUtils.toggleDropdown model category, Cmd.none )
       Msgs.ToggleTopics subcategory ->
-          ( model, Cmd.none )
+          ( CategoryUtils.toggleSubcatDropdown model subcategory, Cmd.none )
         

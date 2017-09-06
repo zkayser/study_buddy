@@ -83,6 +83,10 @@ var _user$project$Update$update = F2(
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
-				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$Categories_Utils$toggleSubcatDropdown, model, _p0._0),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 		}
 	});

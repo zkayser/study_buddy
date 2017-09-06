@@ -21761,6 +21761,7 @@ var _user$project$Exercises_Exercise$exerciseDecoder = A4(
 											_elm_lang$core$Json_Decode$string,
 											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Exercises_Exercise$Exercise))))))))))));
 
+var _user$project$Categories_Category$initialCategories = {categories: _elm_lang$core$Maybe$Nothing, selectedCategory: _elm_lang$core$Maybe$Nothing, selectedSubcategory: _elm_lang$core$Maybe$Nothing};
 var _user$project$Categories_Category$Category = F4(
 	function (a, b, c, d) {
 		return {name: a, id: b, subcategories: c, childrenRendered: d};
@@ -21772,6 +21773,10 @@ var _user$project$Categories_Category$Subcategory = F4(
 var _user$project$Categories_Category$Topic = F4(
 	function (a, b, c, d) {
 		return {title: a, id: b, exercises: c, childrenRendered: d};
+	});
+var _user$project$Categories_Category$Categories = F3(
+	function (a, b, c) {
+		return {categories: a, selectedCategory: b, selectedSubcategory: c};
 	});
 
 var _user$project$Page_LoginMsgs$SetPassword = function (a) {
@@ -22354,7 +22359,7 @@ var _user$project$Models$initialModel = F2(
 	function (flags, route) {
 		var initialUser = flags.user;
 		var tkn = flags.token;
-		return {mdl: _debois$elm_mdl$Material$model, route: route, user: initialUser, categories: _elm_lang$core$Maybe$Nothing, loginForm: _user$project$Page_LoginForm$initialLoginForm, jwt: tkn, errorMessage: ''};
+		return {mdl: _debois$elm_mdl$Material$model, route: route, user: initialUser, categories: _user$project$Categories_Category$initialCategories, loginForm: _user$project$Page_LoginForm$initialLoginForm, jwt: tkn, errorMessage: ''};
 	});
 var _user$project$Models$Model = F7(
 	function (a, b, c, d, e, f, g) {
@@ -22388,55 +22393,60 @@ var _user$project$Utils$onClickPreventDefault = function (msg) {
 		_elm_lang$core$Json_Decode$succeed(msg));
 };
 
-var _user$project$Categories_Utils$findAndUpdateCategories = F2(
-	function (maybeCategories, category) {
-		var _p0 = maybeCategories;
-		if (_p0.ctor === 'Nothing') {
-			return _elm_lang$core$Maybe$Nothing;
-		} else {
-			var theUpdatedCategory = _elm_lang$core$Native_Utils.update(
-				category,
-				{childrenRendered: !category.childrenRendered});
-			var theNewCategories = {
-				ctor: '::',
-				_0: theUpdatedCategory,
-				_1: A2(
-					_elm_lang$core$List$filter,
-					function (cat) {
-						return !_elm_lang$core$Native_Utils.eq(cat.id, category.id);
-					},
-					_p0._0)
-			};
-			return _elm_lang$core$Maybe$Just(
-				A2(
-					_elm_lang$core$List$sortBy,
-					function (_) {
-						return _.id;
-					},
-					theNewCategories));
-		}
-	});
-var _user$project$Categories_Utils$toggleDropdown = F2(
-	function (model, category) {
-		var newCategories = A2(_user$project$Categories_Utils$findAndUpdateCategories, model.categories, category);
+var _user$project$Categories_Utils$toggleSubcatChildren = function (subcat) {
+	return _elm_lang$core$Native_Utils.update(
+		subcat,
+		{childrenRendered: !subcat.childrenRendered});
+};
+var _user$project$Categories_Utils$toggleSubcatDropdown = F2(
+	function (model, subcat) {
+		var categories = model.categories;
+		var updatedCategories = _elm_lang$core$Native_Utils.update(
+			categories,
+			{
+				selectedSubcategory: _elm_lang$core$Maybe$Just(
+					_user$project$Categories_Utils$toggleSubcatChildren(subcat))
+			});
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{categories: newCategories});
+			{categories: updatedCategories});
+	});
+var _user$project$Categories_Utils$toggleChildren = function (category) {
+	return _elm_lang$core$Native_Utils.update(
+		category,
+		{childrenRendered: !category.childrenRendered});
+};
+var _user$project$Categories_Utils$toggleDropdown = F2(
+	function (model, category) {
+		var categories = model.categories;
+		var updatedCategories = _elm_lang$core$Native_Utils.update(
+			categories,
+			{
+				selectedCategory: _elm_lang$core$Maybe$Just(
+					_user$project$Categories_Utils$toggleChildren(category))
+			});
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{categories: updatedCategories});
 	});
 var _user$project$Categories_Utils$handleCategoryLoad = F2(
 	function (model, result) {
-		var _p1 = result;
-		if (_p1.ctor === 'Ok') {
+		var _p0 = result;
+		if (_p0.ctor === 'Ok') {
+			var initialCats = model.categories;
+			var updatedCategories = _elm_lang$core$Native_Utils.update(
+				initialCats,
+				{
+					categories: _elm_lang$core$Maybe$Just(_p0._0)
+				});
 			return _elm_lang$core$Native_Utils.update(
 				model,
-				{
-					categories: _elm_lang$core$Maybe$Just(_p1._0)
-				});
+				{categories: updatedCategories});
 		} else {
 			return _elm_lang$core$Native_Utils.update(
 				model,
 				{
-					errorMessage: _user$project$Utils$jwtErrorMessage(_p1._0)
+					errorMessage: _user$project$Utils$jwtErrorMessage(_p0._0)
 				});
 		}
 	});
@@ -22462,13 +22472,35 @@ var _user$project$Categories_Utils$addCategory = F2(
 	});
 var _user$project$Categories_Utils$loadCategories = F2(
 	function (model, categoryList) {
-		return _elm_lang$core$Native_Utils.update(
-			model,
+		var categories = model.categories;
+		var updatedCategories = _elm_lang$core$Native_Utils.update(
+			categories,
 			{
 				categories: _elm_lang$core$Maybe$Just(categoryList)
 			});
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{categories: updatedCategories});
 	});
 
+var _user$project$Categories_View$subcatChildrenShouldBeRendered = F2(
+	function (subcat, categories) {
+		var _p0 = categories.selectedSubcategory;
+		if (_p0.ctor === 'Nothing') {
+			return false;
+		} else {
+			return _elm_lang$core$Native_Utils.eq(_p0._0.id, subcat.id);
+		}
+	});
+var _user$project$Categories_View$categoryShouldBeRendered = F2(
+	function (category, categories) {
+		var _p1 = categories.selectedCategory;
+		if (_p1.ctor === 'Nothing') {
+			return false;
+		} else {
+			return _elm_lang$core$Native_Utils.eq(_p1._0.id, category.id);
+		}
+	});
 var _user$project$Categories_View$viewTopic = function (topic) {
 	return A2(
 		_debois$elm_mdl$Material_List$li,
@@ -22520,165 +22552,171 @@ var _user$project$Categories_View$viewTopic = function (topic) {
 		});
 };
 var _user$project$Categories_View$viewTopics = function (maybeTopics) {
-	var _p0 = maybeTopics;
-	if (_p0.ctor === 'Nothing') {
-		return {
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(''),
-			_1: {ctor: '[]'}
-		};
-	} else {
-		return A2(_elm_lang$core$List$map, _user$project$Categories_View$viewTopic, _p0._0);
-	}
-};
-var _user$project$Categories_View$viewSubcategory = function (subcategory) {
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		{
-			ctor: '::',
-			_0: A2(
-				_debois$elm_mdl$Material_List$li,
-				{
-					ctor: '::',
-					_0: _debois$elm_mdl$Material_Options$cs('category-list-item'),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: A2(
-						_debois$elm_mdl$Material_List$content,
-						{
-							ctor: '::',
-							_0: _debois$elm_mdl$Material_Options$onClick(
-								_user$project$Msgs$ToggleTopics(subcategory)),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(subcategory.name),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_debois$elm_mdl$Material_List$content2,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: A2(
-									_debois$elm_mdl$Material_List$info2,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('New'),
-										_1: {ctor: '[]'}
-									}),
-								_1: {
-									ctor: '::',
-									_0: A2(
-										_debois$elm_mdl$Material_Icon$view,
-										'info',
-										{
-											ctor: '::',
-											_0: _debois$elm_mdl$Material_Color$text(_debois$elm_mdl$Material_Color$primary),
-											_1: {ctor: '[]'}
-										}),
-									_1: {ctor: '[]'}
-								}
-							}),
-						_1: {ctor: '[]'}
-					}
-				}),
-			_1: {ctor: '[]'}
-		},
-		_elm_lang$core$Native_Utils.eq(subcategory.childrenRendered, true) ? _user$project$Categories_View$viewTopics(subcategory.topics) : {
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(''),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Categories_View$viewSubcategories = function (maybeSubcategories) {
-	var _p1 = maybeSubcategories;
-	if (_p1.ctor === 'Nothing') {
-		return {
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(''),
-			_1: {ctor: '[]'}
-		};
-	} else {
-		return _elm_lang$core$List$concat(
-			A2(_elm_lang$core$List$map, _user$project$Categories_View$viewSubcategory, _p1._0));
-	}
-};
-var _user$project$Categories_View$viewCategory = function (category) {
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		{
-			ctor: '::',
-			_0: A2(
-				_debois$elm_mdl$Material_List$li,
-				{
-					ctor: '::',
-					_0: _debois$elm_mdl$Material_Options$cs('category-list-item'),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: A2(
-						_debois$elm_mdl$Material_List$content,
-						{
-							ctor: '::',
-							_0: _debois$elm_mdl$Material_Options$onClick(
-								_user$project$Msgs$ToggleSubcategories(category)),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(category.name),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_debois$elm_mdl$Material_List$content2,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: A2(
-									_debois$elm_mdl$Material_List$info2,
-									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('New'),
-										_1: {ctor: '[]'}
-									}),
-								_1: {
-									ctor: '::',
-									_0: A2(
-										_debois$elm_mdl$Material_Icon$view,
-										'info',
-										{
-											ctor: '::',
-											_0: _debois$elm_mdl$Material_Color$text(_debois$elm_mdl$Material_Color$primary),
-											_1: {ctor: '[]'}
-										}),
-									_1: {ctor: '[]'}
-								}
-							}),
-						_1: {ctor: '[]'}
-					}
-				}),
-			_1: {ctor: '[]'}
-		},
-		_elm_lang$core$Native_Utils.eq(category.childrenRendered, true) ? _user$project$Categories_View$viewSubcategories(category.subcategories) : {
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(''),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Categories_View$viewCategories = function (categories) {
-	var _p2 = categories;
+	var _p2 = maybeTopics;
 	if (_p2.ctor === 'Nothing') {
+		return {
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(''),
+			_1: {ctor: '[]'}
+		};
+	} else {
+		return A2(_elm_lang$core$List$map, _user$project$Categories_View$viewTopic, _p2._0);
+	}
+};
+var _user$project$Categories_View$viewSubcategory = F2(
+	function (categories, subcategory) {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			{
+				ctor: '::',
+				_0: A2(
+					_debois$elm_mdl$Material_List$li,
+					{
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Options$cs('category-list-item'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_List$content,
+							{
+								ctor: '::',
+								_0: _debois$elm_mdl$Material_Options$onClick(
+									_user$project$Msgs$ToggleTopics(subcategory)),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(subcategory.name),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_List$content2,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_List$info2,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('New'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Icon$view,
+											'info',
+											{
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Color$text(_debois$elm_mdl$Material_Color$primary),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			},
+			A2(_user$project$Categories_View$subcatChildrenShouldBeRendered, subcategory, categories) ? _user$project$Categories_View$viewTopics(subcategory.topics) : {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(''),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$Categories_View$viewSubcategories = F2(
+	function (maybeSubcategories, categories) {
+		var _p3 = maybeSubcategories;
+		if (_p3.ctor === 'Nothing') {
+			return {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(''),
+				_1: {ctor: '[]'}
+			};
+		} else {
+			return _elm_lang$core$List$concat(
+				A2(
+					_elm_lang$core$List$map,
+					_user$project$Categories_View$viewSubcategory(categories),
+					_p3._0));
+		}
+	});
+var _user$project$Categories_View$viewCategory = F2(
+	function (categories, category) {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			{
+				ctor: '::',
+				_0: A2(
+					_debois$elm_mdl$Material_List$li,
+					{
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Options$cs('category-list-item'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_debois$elm_mdl$Material_List$content,
+							{
+								ctor: '::',
+								_0: _debois$elm_mdl$Material_Options$onClick(
+									_user$project$Msgs$ToggleSubcategories(category)),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text(category.name),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_List$content2,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: A2(
+										_debois$elm_mdl$Material_List$info2,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('New'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_debois$elm_mdl$Material_Icon$view,
+											'info',
+											{
+												ctor: '::',
+												_0: _debois$elm_mdl$Material_Color$text(_debois$elm_mdl$Material_Color$primary),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			},
+			A2(_user$project$Categories_View$categoryShouldBeRendered, category, categories) ? A2(_user$project$Categories_View$viewSubcategories, category.subcategories, categories) : {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(''),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$Categories_View$viewCategories = function (categories) {
+	var _p4 = categories.categories;
+	if (_p4.ctor === 'Nothing') {
 		return {
 			ctor: '::',
 			_0: _elm_lang$html$Html$text(''),
@@ -22695,7 +22733,10 @@ var _user$project$Categories_View$viewCategories = function (categories) {
 					_1: {ctor: '[]'}
 				},
 				_elm_lang$core$List$concat(
-					A2(_elm_lang$core$List$map, _user$project$Categories_View$viewCategory, _p2._0))),
+					A2(
+						_elm_lang$core$List$map,
+						_user$project$Categories_View$viewCategory(categories),
+						_p4._0))),
 			_1: {ctor: '[]'}
 		};
 	}
@@ -22836,7 +22877,7 @@ var _user$project$Page_Drawer$drawer = function (model) {
 };
 
 var _user$project$Page_Home$maybeRenderCategories = function (model) {
-	var _p0 = model.categories;
+	var _p0 = model.categories.categories;
 	if (_p0.ctor === 'Nothing') {
 		return A2(
 			_debois$elm_mdl$Material_Grid$cell,
@@ -23160,7 +23201,11 @@ var _user$project$Update$update = F2(
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
-				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$Categories_Utils$toggleSubcatDropdown, model, _p0._0),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 		}
 	});
 

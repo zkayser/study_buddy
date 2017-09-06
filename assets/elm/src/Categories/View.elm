@@ -1,6 +1,6 @@
 module Categories.View exposing (..)
 
-import Categories.Category exposing (Category, Subcategory, Topic)
+import Categories.Category exposing (Category, Subcategory, Topic, Categories)
 import Models exposing (Model)
 import Msgs exposing (Msg(..))
 import Html exposing (Html)
@@ -24,16 +24,16 @@ view model =
         ]
         (viewCategories model.categories)
 
-viewCategories : Maybe (List Category) -> List (Html Msg)
+viewCategories : Categories -> List (Html Msg)
 viewCategories categories =
-    case categories of
+    case categories.categories of
         Nothing -> [ Html.text "" ]
-        Just categories ->
+        Just categoryList ->
             [ MaterialList.ul [ Options.cs "category-list" ]
-               ( List.concat <| (List.map viewCategory categories)) ]
+               ( List.concat <| (List.map (viewCategory categories) categoryList)) ]
 
-viewCategory : Category -> List (Html Msg)
-viewCategory category =
+viewCategory : Categories -> Category -> List (Html Msg)
+viewCategory categories category =
     ([ MaterialList.li [ Options.cs "category-list-item"]
         [ MaterialList.content [ Options.onClick <| Msgs.ToggleSubcategories category ] 
             [ Html.text category.name ] 
@@ -44,20 +44,20 @@ viewCategory category =
         ]
     ])
     ++ 
-        if category.childrenRendered == True then
-            viewSubcategories category.subcategories
+        if (categoryShouldBeRendered category categories) then
+            (viewSubcategories category.subcategories categories)
         else 
             [ Html.text "" ] 
 
-viewSubcategories : Maybe (List Subcategory) -> List (Html Msg)
-viewSubcategories maybeSubcategories =
+viewSubcategories : Maybe (List Subcategory) -> Categories -> List (Html Msg)
+viewSubcategories maybeSubcategories categories =
     case maybeSubcategories of
         Nothing -> [ Html.text ""]
         Just subcategories -> 
-            ( List.concat <| List.map viewSubcategory subcategories )
+            ( List.concat <| List.map (viewSubcategory categories) subcategories )
 
-viewSubcategory : Subcategory -> List (Html Msg)
-viewSubcategory subcategory =
+viewSubcategory : Categories -> Subcategory -> List (Html Msg)
+viewSubcategory categories subcategory =
     ([ MaterialList.li [ Options.cs "category-list-item" ]
         [ MaterialList.content [ Options.onClick <| Msgs.ToggleTopics subcategory ]
             [ Html.text subcategory.name ]
@@ -68,7 +68,7 @@ viewSubcategory subcategory =
         ] 
     ])
     ++
-        if subcategory.childrenRendered == True then
+        if (subcatChildrenShouldBeRendered subcategory categories) then
             viewTopics subcategory.topics
         else 
             [ Html.text "" ]
@@ -90,18 +90,19 @@ viewTopic topic =
             [ MaterialList.info2 [] [ Html.text "New" ] 
             , Icon.view "info" [ Color.text Color.primary ]
             ]
-        ]
+        ] 
 
-{-
-  <ul>Container
-    <li>Parent Category
-     --> Add this:
-        <ul>Subcategory Container
-            <li>Subcat1</li>
-            <li>Subcat2</li>
-        </ul>
-    </li>
-    <li>Another Parent Category</li>
-    <li>And another</li>
-  </ul>
--}    
+categoryShouldBeRendered : Category -> Categories -> Bool
+categoryShouldBeRendered category categories =
+    case categories.selectedCategory of
+        Nothing -> False
+        Just cat ->
+            cat.id == category.id
+
+subcatChildrenShouldBeRendered : Subcategory -> Categories -> Bool
+subcatChildrenShouldBeRendered subcat categories =
+    case categories.selectedSubcategory of
+        Nothing -> False
+        Just subcategory ->
+            subcategory.id == subcat.id
+            
