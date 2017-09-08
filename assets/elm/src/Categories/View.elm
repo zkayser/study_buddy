@@ -16,9 +16,7 @@ import Material.Typography as Typography
 view : Model -> Grid.Cell Msg
 view model =
     Grid.cell 
-        [ Grid.size Grid.Desktop 6
-        , Grid.size Grid.Tablet 6
-        , Grid.size Grid.Phone 12
+        [ Grid.size Grid.All 12
         , Options.center
         , Typography.left
         ]

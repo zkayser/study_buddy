@@ -6,6 +6,7 @@ import Page.LoginForm as LoginForm
 import Categories.View as CategoryView
 import Models exposing (Model)
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Utils exposing (onClickPreventDefault)
 import Material
 import Material.Button as Button
@@ -19,7 +20,7 @@ view model =
   Grid.grid [ Grid.align Grid.Middle ]
     [ Grid.cell
       [ Grid.size Grid.All 12, Typography.center ]
-      [ Html.h1 [] [ welcomeMessage model.user ] ]
+      [ Html.h1 [ Html.Attributes.style [("color", "rgb(0, 150, 136)")] ] [ welcomeMessage model.user ] ]
     , (renderLoginForm model.jwt model.loginForm model.mdl )
     , (maybeRenderCategories model)
     ]
@@ -36,7 +37,7 @@ welcomeMessage : Maybe User -> Html Msg
 welcomeMessage maybeUser =
   case maybeUser of
     Just user ->
-      text ("Welcome to Study Buddy, " ++ (User.firstName user))
+      text ("Categories")
     Nothing ->
       text "Welcome to Study Buddy"
 

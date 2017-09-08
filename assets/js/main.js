@@ -22770,22 +22770,14 @@ var _user$project$Categories_View$view = function (model) {
 		_debois$elm_mdl$Material_Grid$cell,
 		{
 			ctor: '::',
-			_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$Desktop, 6),
+			_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 12),
 			_1: {
 				ctor: '::',
-				_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$Tablet, 6),
+				_0: _debois$elm_mdl$Material_Options$center,
 				_1: {
 					ctor: '::',
-					_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$Phone, 12),
-					_1: {
-						ctor: '::',
-						_0: _debois$elm_mdl$Material_Options$center,
-						_1: {
-							ctor: '::',
-							_0: _debois$elm_mdl$Material_Typography$left,
-							_1: {ctor: '[]'}
-						}
-					}
+					_0: _debois$elm_mdl$Material_Typography$left,
+					_1: {ctor: '[]'}
 				}
 			}
 		},
@@ -22918,11 +22910,7 @@ var _user$project$Page_Home$maybeRenderCategories = function (model) {
 var _user$project$Page_Home$welcomeMessage = function (maybeUser) {
 	var _p1 = maybeUser;
 	if (_p1.ctor === 'Just') {
-		return _elm_lang$html$Html$text(
-			A2(
-				_elm_lang$core$Basics_ops['++'],
-				'Welcome to Study Buddy, ',
-				_user$project$Users_User$firstName(_p1._0)));
+		return _elm_lang$html$Html$text('Categories');
 	} else {
 		return _elm_lang$html$Html$text('Welcome to Study Buddy');
 	}
@@ -22968,7 +22956,16 @@ var _user$project$Page_Home$view = function (model) {
 					ctor: '::',
 					_0: A2(
 						_elm_lang$html$Html$h1,
-						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(
+								{
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'color', _1: 'rgb(0, 150, 136)'},
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						},
 						{
 							ctor: '::',
 							_0: _user$project$Page_Home$welcomeMessage(model.user),
