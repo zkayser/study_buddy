@@ -42,8 +42,10 @@ toggleDropdown model category =
     let 
         categories =
             model.categories
+        newSelected =
+            compareSelectedWithCurrent categories.selectedCategory category
         updatedCategories =
-            { categories | selectedCategory = Just (toggleChildren category) }
+            { categories | selectedCategory = Just (toggleChildren newSelected) }
     in
         { model | categories = updatedCategories }
 
@@ -56,11 +58,27 @@ toggleSubcatDropdown model subcat =
     let
         categories =
             model.categories
+        newSelected =
+            compareSelectedSubcatWithCurrent categories.selectedSubcategory subcat
         updatedCategories =
-            {categories | selectedSubcategory = Just (toggleSubcatChildren subcat) }
+            {categories | selectedSubcategory = Just (toggleSubcatChildren newSelected) }
     in
         { model | categories = updatedCategories }
 
 toggleSubcatChildren : Subcategory -> Subcategory
 toggleSubcatChildren subcat =
     { subcat | childrenRendered = not subcat.childrenRendered }
+
+compareSelectedWithCurrent : Maybe Category -> Category -> Category
+compareSelectedWithCurrent maybeCat cat =
+    case maybeCat of
+        Nothing -> cat
+        Just selected ->
+            if selected.id == cat.id then selected else cat
+
+compareSelectedSubcatWithCurrent : Maybe Subcategory -> Subcategory -> Subcategory
+compareSelectedSubcatWithCurrent maybeSubcat subcat =
+    case maybeSubcat of
+        Nothing -> subcat
+        Just selected ->
+            if selected.id == subcat.id then selected else subcat

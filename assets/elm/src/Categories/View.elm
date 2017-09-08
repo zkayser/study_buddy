@@ -97,12 +97,12 @@ categoryShouldBeRendered category categories =
     case categories.selectedCategory of
         Nothing -> False
         Just cat ->
-            cat.id == category.id
+            cat.id == category.id && cat.childrenRendered
 
 subcatChildrenShouldBeRendered : Subcategory -> Categories -> Bool
 subcatChildrenShouldBeRendered subcat categories =
     case categories.selectedSubcategory of
         Nothing -> False
         Just subcategory ->
-            subcategory.id == subcat.id
+            subcategory.id == subcat.id && subcategory.childrenRendered
             

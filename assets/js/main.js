@@ -22393,6 +22393,26 @@ var _user$project$Utils$onClickPreventDefault = function (msg) {
 		_elm_lang$core$Json_Decode$succeed(msg));
 };
 
+var _user$project$Categories_Utils$compareSelectedSubcatWithCurrent = F2(
+	function (maybeSubcat, subcat) {
+		var _p0 = maybeSubcat;
+		if (_p0.ctor === 'Nothing') {
+			return subcat;
+		} else {
+			var _p1 = _p0._0;
+			return _elm_lang$core$Native_Utils.eq(_p1.id, subcat.id) ? _p1 : subcat;
+		}
+	});
+var _user$project$Categories_Utils$compareSelectedWithCurrent = F2(
+	function (maybeCat, cat) {
+		var _p2 = maybeCat;
+		if (_p2.ctor === 'Nothing') {
+			return cat;
+		} else {
+			var _p3 = _p2._0;
+			return _elm_lang$core$Native_Utils.eq(_p3.id, cat.id) ? _p3 : cat;
+		}
+	});
 var _user$project$Categories_Utils$toggleSubcatChildren = function (subcat) {
 	return _elm_lang$core$Native_Utils.update(
 		subcat,
@@ -22401,11 +22421,12 @@ var _user$project$Categories_Utils$toggleSubcatChildren = function (subcat) {
 var _user$project$Categories_Utils$toggleSubcatDropdown = F2(
 	function (model, subcat) {
 		var categories = model.categories;
+		var newSelected = A2(_user$project$Categories_Utils$compareSelectedSubcatWithCurrent, categories.selectedSubcategory, subcat);
 		var updatedCategories = _elm_lang$core$Native_Utils.update(
 			categories,
 			{
 				selectedSubcategory: _elm_lang$core$Maybe$Just(
-					_user$project$Categories_Utils$toggleSubcatChildren(subcat))
+					_user$project$Categories_Utils$toggleSubcatChildren(newSelected))
 			});
 		return _elm_lang$core$Native_Utils.update(
 			model,
@@ -22419,11 +22440,12 @@ var _user$project$Categories_Utils$toggleChildren = function (category) {
 var _user$project$Categories_Utils$toggleDropdown = F2(
 	function (model, category) {
 		var categories = model.categories;
+		var newSelected = A2(_user$project$Categories_Utils$compareSelectedWithCurrent, categories.selectedCategory, category);
 		var updatedCategories = _elm_lang$core$Native_Utils.update(
 			categories,
 			{
 				selectedCategory: _elm_lang$core$Maybe$Just(
-					_user$project$Categories_Utils$toggleChildren(category))
+					_user$project$Categories_Utils$toggleChildren(newSelected))
 			});
 		return _elm_lang$core$Native_Utils.update(
 			model,
@@ -22431,13 +22453,13 @@ var _user$project$Categories_Utils$toggleDropdown = F2(
 	});
 var _user$project$Categories_Utils$handleCategoryLoad = F2(
 	function (model, result) {
-		var _p0 = result;
-		if (_p0.ctor === 'Ok') {
+		var _p4 = result;
+		if (_p4.ctor === 'Ok') {
 			var initialCats = model.categories;
 			var updatedCategories = _elm_lang$core$Native_Utils.update(
 				initialCats,
 				{
-					categories: _elm_lang$core$Maybe$Just(_p0._0)
+					categories: _elm_lang$core$Maybe$Just(_p4._0)
 				});
 			return _elm_lang$core$Native_Utils.update(
 				model,
@@ -22446,7 +22468,7 @@ var _user$project$Categories_Utils$handleCategoryLoad = F2(
 			return _elm_lang$core$Native_Utils.update(
 				model,
 				{
-					errorMessage: _user$project$Utils$jwtErrorMessage(_p0._0)
+					errorMessage: _user$project$Utils$jwtErrorMessage(_p4._0)
 				});
 		}
 	});
@@ -22489,16 +22511,18 @@ var _user$project$Categories_View$subcatChildrenShouldBeRendered = F2(
 		if (_p0.ctor === 'Nothing') {
 			return false;
 		} else {
-			return _elm_lang$core$Native_Utils.eq(_p0._0.id, subcat.id);
+			var _p1 = _p0._0;
+			return _elm_lang$core$Native_Utils.eq(_p1.id, subcat.id) && _p1.childrenRendered;
 		}
 	});
 var _user$project$Categories_View$categoryShouldBeRendered = F2(
 	function (category, categories) {
-		var _p1 = categories.selectedCategory;
-		if (_p1.ctor === 'Nothing') {
+		var _p2 = categories.selectedCategory;
+		if (_p2.ctor === 'Nothing') {
 			return false;
 		} else {
-			return _elm_lang$core$Native_Utils.eq(_p1._0.id, category.id);
+			var _p3 = _p2._0;
+			return _elm_lang$core$Native_Utils.eq(_p3.id, category.id) && _p3.childrenRendered;
 		}
 	});
 var _user$project$Categories_View$viewTopic = function (topic) {
@@ -22552,15 +22576,15 @@ var _user$project$Categories_View$viewTopic = function (topic) {
 		});
 };
 var _user$project$Categories_View$viewTopics = function (maybeTopics) {
-	var _p2 = maybeTopics;
-	if (_p2.ctor === 'Nothing') {
+	var _p4 = maybeTopics;
+	if (_p4.ctor === 'Nothing') {
 		return {
 			ctor: '::',
 			_0: _elm_lang$html$Html$text(''),
 			_1: {ctor: '[]'}
 		};
 	} else {
-		return A2(_elm_lang$core$List$map, _user$project$Categories_View$viewTopic, _p2._0);
+		return A2(_elm_lang$core$List$map, _user$project$Categories_View$viewTopic, _p4._0);
 	}
 };
 var _user$project$Categories_View$viewSubcategory = F2(
@@ -22632,8 +22656,8 @@ var _user$project$Categories_View$viewSubcategory = F2(
 	});
 var _user$project$Categories_View$viewSubcategories = F2(
 	function (maybeSubcategories, categories) {
-		var _p3 = maybeSubcategories;
-		if (_p3.ctor === 'Nothing') {
+		var _p5 = maybeSubcategories;
+		if (_p5.ctor === 'Nothing') {
 			return {
 				ctor: '::',
 				_0: _elm_lang$html$Html$text(''),
@@ -22644,7 +22668,7 @@ var _user$project$Categories_View$viewSubcategories = F2(
 				A2(
 					_elm_lang$core$List$map,
 					_user$project$Categories_View$viewSubcategory(categories),
-					_p3._0));
+					_p5._0));
 		}
 	});
 var _user$project$Categories_View$viewCategory = F2(
@@ -22715,8 +22739,8 @@ var _user$project$Categories_View$viewCategory = F2(
 			});
 	});
 var _user$project$Categories_View$viewCategories = function (categories) {
-	var _p4 = categories.categories;
-	if (_p4.ctor === 'Nothing') {
+	var _p6 = categories.categories;
+	if (_p6.ctor === 'Nothing') {
 		return {
 			ctor: '::',
 			_0: _elm_lang$html$Html$text(''),
@@ -22736,7 +22760,7 @@ var _user$project$Categories_View$viewCategories = function (categories) {
 					A2(
 						_elm_lang$core$List$map,
 						_user$project$Categories_View$viewCategory(categories),
-						_p4._0))),
+						_p6._0))),
 			_1: {ctor: '[]'}
 		};
 	}

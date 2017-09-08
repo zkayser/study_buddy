@@ -1,6 +1,7 @@
 defmodule StudyBuddyWeb.CategoryView do
   use StudyBuddyWeb, :view
   alias StudyBuddyWeb.CategoryView
+  alias StudyBuddyWeb.TopicView
 
   def render("index.json", %{categories: categories}) do
     %{data: render_many(categories, CategoryView, "category.json")}
