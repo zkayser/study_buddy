@@ -82,3 +82,10 @@ compareSelectedSubcatWithCurrent maybeSubcat subcat =
         Nothing -> subcat
         Just selected ->
             if selected.id == subcat.id then selected else subcat
+
+resetCategories : Categories
+resetCategories =
+    { categories = Nothing
+    , selectedCategory = Nothing
+    , selectedSubcategory = Nothing
+    }

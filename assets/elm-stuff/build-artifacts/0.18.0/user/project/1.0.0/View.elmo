@@ -1,16 +1,43 @@
 var _user$project$View$page = function (model) {
 	var _p0 = model.route;
-	if (_p0.ctor === 'HomeRoute') {
-		return _user$project$Page_Home$view(model);
-	} else {
-		return A2(
-			_elm_lang$html$Html$div,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Not found...'),
-				_1: {ctor: '[]'}
-			});
+	switch (_p0.ctor) {
+		case 'HomeRoute':
+			return _user$project$Page_Home$view(model);
+		case 'CategoriesRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'You are on the categories page. Category id: ',
+							_elm_lang$core$Basics$toString(_p0._0))),
+					_1: {ctor: '[]'}
+				});
+		case 'ExercisesRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'You are on the exercises page. Exercise id: ',
+							_elm_lang$core$Basics$toString(_p0._0))),
+					_1: {ctor: '[]'}
+				});
+		default:
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Not found...'),
+					_1: {ctor: '[]'}
+				});
 	}
 };
 var _user$project$View$view = function (model) {

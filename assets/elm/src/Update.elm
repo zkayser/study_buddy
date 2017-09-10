@@ -37,7 +37,7 @@ update msg model =
       Msgs.LoginResult result ->
           LoginHelpers.handleLoginResult model result
       Msgs.Logout ->
-          ( { model | jwt = Nothing, user = Nothing }, logout Nothing ) 
+          ( { model | categories = CategoryUtils.resetCategories, jwt = Nothing, user = Nothing }, logout Nothing ) 
       Msgs.ToggleSubcategories category ->
           ( CategoryUtils.toggleDropdown model category, Cmd.none )
       Msgs.ToggleTopics subcategory ->

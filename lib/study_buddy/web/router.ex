@@ -31,7 +31,7 @@ defmodule StudyBuddyWeb.Router do
   scope "/", StudyBuddyWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/*path", PageController, :index
   end
 
   scope "/users/:id/" do

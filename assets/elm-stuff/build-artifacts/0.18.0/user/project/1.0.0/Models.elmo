@@ -9,4 +9,10 @@ var _user$project$Models$Model = F7(
 		return {mdl: a, user: b, categories: c, route: d, loginForm: e, jwt: f, errorMessage: g};
 	});
 var _user$project$Models$NotFoundRoute = {ctor: 'NotFoundRoute'};
+var _user$project$Models$ExercisesRoute = function (a) {
+	return {ctor: 'ExercisesRoute', _0: a};
+};
+var _user$project$Models$CategoriesRoute = function (a) {
+	return {ctor: 'CategoriesRoute', _0: a};
+};
 var _user$project$Models$HomeRoute = {ctor: 'HomeRoute'};

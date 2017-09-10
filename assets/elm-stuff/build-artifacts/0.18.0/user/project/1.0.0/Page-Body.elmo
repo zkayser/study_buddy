@@ -8,9 +8,36 @@ var _user$project$Page_Body$notFoundView = A2(
 	});
 var _user$project$Page_Body$page = function (model) {
 	var _p0 = model.route;
-	if (_p0.ctor === 'HomeRoute') {
-		return _user$project$Page_Home$view(model);
-	} else {
-		return _user$project$Page_Body$notFoundView;
+	switch (_p0.ctor) {
+		case 'HomeRoute':
+			return _user$project$Page_Home$view(model);
+		case 'CategoriesRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'You are on the Categories Page. Category id:',
+							_elm_lang$core$Basics$toString(_p0._0))),
+					_1: {ctor: '[]'}
+				});
+		case 'ExercisesRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'You are on the Exercises Page. Exercise id: ',
+							_elm_lang$core$Basics$toString(_p0._0))),
+					_1: {ctor: '[]'}
+				});
+		default:
+			return _user$project$Page_Body$notFoundView;
 	}
 };

@@ -8,11 +8,13 @@ matchers : Parser (Route -> a) a
 matchers =
         oneOf
             [ UrlParser.map HomeRoute top
+            , UrlParser.map CategoriesRoute (s "categories" </> int)
+            , UrlParser.map ExercisesRoute (s "exercises" </> int)
             ]
 
 parseLocation : Location ->  Route
 parseLocation location =
-        case (UrlParser.parseHash matchers location) of
+        case (UrlParser.parsePath matchers location) of
                 Just route ->
                         route
                 Nothing ->

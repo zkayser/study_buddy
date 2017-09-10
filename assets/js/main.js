@@ -22366,6 +22366,12 @@ var _user$project$Models$Model = F7(
 		return {mdl: a, user: b, categories: c, route: d, loginForm: e, jwt: f, errorMessage: g};
 	});
 var _user$project$Models$NotFoundRoute = {ctor: 'NotFoundRoute'};
+var _user$project$Models$ExercisesRoute = function (a) {
+	return {ctor: 'ExercisesRoute', _0: a};
+};
+var _user$project$Models$CategoriesRoute = function (a) {
+	return {ctor: 'CategoriesRoute', _0: a};
+};
 var _user$project$Models$HomeRoute = {ctor: 'HomeRoute'};
 
 var _user$project$Utils$jwtErrorMessage = function (error) {
@@ -22393,6 +22399,7 @@ var _user$project$Utils$onClickPreventDefault = function (msg) {
 		_elm_lang$core$Json_Decode$succeed(msg));
 };
 
+var _user$project$Categories_Utils$resetCategories = {categories: _elm_lang$core$Maybe$Nothing, selectedCategory: _elm_lang$core$Maybe$Nothing, selectedSubcategory: _elm_lang$core$Maybe$Nothing};
 var _user$project$Categories_Utils$compareSelectedSubcatWithCurrent = F2(
 	function (maybeSubcat, subcat) {
 		var _p0 = maybeSubcat;
@@ -22995,10 +23002,37 @@ var _user$project$Page_Body$notFoundView = A2(
 	});
 var _user$project$Page_Body$page = function (model) {
 	var _p0 = model.route;
-	if (_p0.ctor === 'HomeRoute') {
-		return _user$project$Page_Home$view(model);
-	} else {
-		return _user$project$Page_Body$notFoundView;
+	switch (_p0.ctor) {
+		case 'HomeRoute':
+			return _user$project$Page_Home$view(model);
+		case 'CategoriesRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'You are on the Categories Page. Category id:',
+							_elm_lang$core$Basics$toString(_p0._0))),
+					_1: {ctor: '[]'}
+				});
+		case 'ExercisesRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'You are on the Exercises Page. Exercise id: ',
+							_elm_lang$core$Basics$toString(_p0._0))),
+					_1: {ctor: '[]'}
+				});
+		default:
+			return _user$project$Page_Body$notFoundView;
 	}
 };
 
@@ -23038,43 +23072,86 @@ var _user$project$Page_Layout$layout = function (model) {
 
 var _user$project$View$page = function (model) {
 	var _p0 = model.route;
-	if (_p0.ctor === 'HomeRoute') {
-		return _user$project$Page_Home$view(model);
-	} else {
-		return A2(
-			_elm_lang$html$Html$div,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Not found...'),
-				_1: {ctor: '[]'}
-			});
+	switch (_p0.ctor) {
+		case 'HomeRoute':
+			return _user$project$Page_Home$view(model);
+		case 'CategoriesRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'You are on the categories page. Category id: ',
+							_elm_lang$core$Basics$toString(_p0._0))),
+					_1: {ctor: '[]'}
+				});
+		case 'ExercisesRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'You are on the exercises page. Exercise id: ',
+							_elm_lang$core$Basics$toString(_p0._0))),
+					_1: {ctor: '[]'}
+				});
+		default:
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Not found...'),
+					_1: {ctor: '[]'}
+				});
 	}
 };
 var _user$project$View$view = function (model) {
 	return _user$project$Page_Layout$layout(model);
 };
 
+var _user$project$Page_LoginFormHelpers$loginCommands = function (loginInfo) {
+	var loginCommands = {
+		ctor: '::',
+		_0: _user$project$Flags$storeToken(loginInfo.jwt),
+		_1: {
+			ctor: '::',
+			_0: A2(_user$project$Commands$fetchUser, loginInfo.jwt, loginInfo.userId),
+			_1: {ctor: '[]'}
+		}
+	};
+	var _p0 = loginInfo.jwt;
+	if (_p0.ctor === 'Nothing') {
+		return loginCommands;
+	} else {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			loginCommands,
+			{
+				ctor: '::',
+				_0: _user$project$Categories_Commands$fetchCategories(_p0._0),
+				_1: {ctor: '[]'}
+			});
+	}
+};
 var _user$project$Page_LoginFormHelpers$handleLoginResult = F2(
 	function (model, result) {
-		var _p0 = result;
-		if (_p0.ctor === 'Ok') {
-			var _p1 = _p0._0;
+		var _p1 = result;
+		if (_p1.ctor === 'Ok') {
+			var _p2 = _p1._0;
 			return {
 				ctor: '_Tuple2',
 				_0: _elm_lang$core$Native_Utils.update(
 					model,
-					{jwt: _p1.jwt}),
+					{jwt: _p2.jwt}),
 				_1: _elm_lang$core$Platform_Cmd$batch(
-					{
-						ctor: '::',
-						_0: _user$project$Flags$storeToken(_p1.jwt),
-						_1: {
-							ctor: '::',
-							_0: A2(_user$project$Commands$fetchUser, _p1.jwt, _p1.userId),
-							_1: {ctor: '[]'}
-						}
-					})
+					_user$project$Page_LoginFormHelpers$loginCommands(_p2))
 			};
 		} else {
 			return {
@@ -23082,7 +23159,7 @@ var _user$project$Page_LoginFormHelpers$handleLoginResult = F2(
 				_0: _elm_lang$core$Native_Utils.update(
 					model,
 					{
-						errorMessage: _elm_lang$core$Basics$toString(_p0._0)
+						errorMessage: _elm_lang$core$Basics$toString(_p1._0)
 					}),
 				_1: _elm_lang$core$Platform_Cmd$none
 			};
@@ -23090,8 +23167,8 @@ var _user$project$Page_LoginFormHelpers$handleLoginResult = F2(
 	});
 var _user$project$Page_LoginFormHelpers$updateWith = F3(
 	function (attr, letter, loginForm) {
-		var _p2 = attr;
-		if (_p2.ctor === 'Username') {
+		var _p3 = attr;
+		if (_p3.ctor === 'Username') {
 			return _elm_lang$core$Native_Utils.update(
 				loginForm,
 				{username: letter});
@@ -23126,10 +23203,30 @@ var _user$project$Routing$matchers = _evancz$url_parser$UrlParser$oneOf(
 	{
 		ctor: '::',
 		_0: A2(_evancz$url_parser$UrlParser$map, _user$project$Models$HomeRoute, _evancz$url_parser$UrlParser$top),
-		_1: {ctor: '[]'}
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_evancz$url_parser$UrlParser$map,
+				_user$project$Models$CategoriesRoute,
+				A2(
+					_evancz$url_parser$UrlParser_ops['</>'],
+					_evancz$url_parser$UrlParser$s('categories'),
+					_evancz$url_parser$UrlParser$int)),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_evancz$url_parser$UrlParser$map,
+					_user$project$Models$ExercisesRoute,
+					A2(
+						_evancz$url_parser$UrlParser_ops['</>'],
+						_evancz$url_parser$UrlParser$s('exercises'),
+						_evancz$url_parser$UrlParser$int)),
+				_1: {ctor: '[]'}
+			}
+		}
 	});
 var _user$project$Routing$parseLocation = function (location) {
-	var _p0 = A2(_evancz$url_parser$UrlParser$parseHash, _user$project$Routing$matchers, location);
+	var _p0 = A2(_evancz$url_parser$UrlParser$parsePath, _user$project$Routing$matchers, location);
 	if (_p0.ctor === 'Just') {
 		return _p0._0;
 	} else {
@@ -23212,7 +23309,7 @@ var _user$project$Update$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{jwt: _elm_lang$core$Maybe$Nothing, user: _elm_lang$core$Maybe$Nothing}),
+						{categories: _user$project$Categories_Utils$resetCategories, jwt: _elm_lang$core$Maybe$Nothing, user: _elm_lang$core$Maybe$Nothing}),
 					_1: _user$project$Flags$logout(_elm_lang$core$Maybe$Nothing)
 				};
 			case 'ToggleSubcategories':

@@ -73,7 +73,7 @@ var _user$project$Update$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{jwt: _elm_lang$core$Maybe$Nothing, user: _elm_lang$core$Maybe$Nothing}),
+						{categories: _user$project$Categories_Utils$resetCategories, jwt: _elm_lang$core$Maybe$Nothing, user: _elm_lang$core$Maybe$Nothing}),
 					_1: _user$project$Flags$logout(_elm_lang$core$Maybe$Nothing)
 				};
 			case 'ToggleSubcategories':

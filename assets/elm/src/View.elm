@@ -14,6 +14,10 @@ page : Model -> Html Msg
 page model =
       case model.route of
         Models.HomeRoute ->
-          Page.Home.view model
+            Page.Home.view model
+        Models.CategoriesRoute id ->
+            div [] [ text ("You are on the categories page. Category id: " ++ (toString id)) ]
+        Models.ExercisesRoute id ->
+            div [] [ text ("You are on the exercises page. Exercise id: " ++ (toString id)) ]
         Models.NotFoundRoute ->
-          div [] [ text "Not found..." ]
+            div [] [ text "Not found..." ]
