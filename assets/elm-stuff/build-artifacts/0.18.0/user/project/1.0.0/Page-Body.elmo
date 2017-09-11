@@ -24,6 +24,19 @@ var _user$project$Page_Body$page = function (model) {
 							_elm_lang$core$Basics$toString(_p0._0))),
 					_1: {ctor: '[]'}
 				});
+		case 'TopicsRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'You are on the Topics Page. Topic id: ',
+							_elm_lang$core$Basics$toString(_p0._0))),
+					_1: {ctor: '[]'}
+				});
 		case 'ExercisesRoute':
 			return A2(
 				_elm_lang$html$Html$div,

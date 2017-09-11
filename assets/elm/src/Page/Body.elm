@@ -14,6 +14,8 @@ page model =
       Page.Home.view model
     Models.CategoriesRoute id ->
         Html.div [] [ Html.text ("You are on the Categories Page. Category id:" ++ (toString id)) ]
+    Models.TopicsRoute id ->
+        Html.div [] [ Html.text ("You are on the Topics Page. Topic id: " ++ (toString id))]
     Models.ExercisesRoute id ->
         Html.div [] [ Html.text ("You are on the Exercises Page. Exercise id: " ++ (toString id))]
     Models.NotFoundRoute ->

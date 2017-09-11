@@ -36,5 +36,6 @@ initialModel flags route =
 type Route
     = HomeRoute
     | CategoriesRoute Int
+    | TopicsRoute Int
     | ExercisesRoute Int
     | NotFoundRoute

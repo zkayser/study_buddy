@@ -1,7 +1,7 @@
 module Categories.View exposing (..)
 
 import Categories.Category exposing (Category, Subcategory, Topic, Categories)
-import Models exposing (Model)
+import Models exposing (Model, Route(..))
 import Msgs exposing (Msg(..))
 import Html exposing (Html)
 import Html.Attributes exposing (..)
@@ -11,6 +11,7 @@ import Material.Options as Options
 import Material.List as MaterialList
 import Material.Icon as Icon
 import Material.Color as Color
+import Material.Layout as Layout
 import Material.Typography as Typography
 
 view : Model -> Grid.Cell Msg
@@ -34,7 +35,7 @@ viewCategory : Categories -> Category -> List (Html Msg)
 viewCategory categories category =
     ([ MaterialList.li [ Options.cs "category-list-item"]
         [ MaterialList.content [ Options.onClick <| Msgs.ToggleSubcategories category ] 
-            [ Html.text category.name ] 
+            [ Html.a [ href ("categories/" ++ (toString category.id)) ] [ Html.text category.name ] ]
             , MaterialList.content2 []
             [ MaterialList.info2 [] [ Html.text "New" ] 
             , Icon.view "info" [ Color.text Color.primary ]
@@ -58,7 +59,7 @@ viewSubcategory : Categories -> Subcategory -> List (Html Msg)
 viewSubcategory categories subcategory =
     ([ MaterialList.li [ Options.cs "category-list-item" ]
         [ MaterialList.content [ Options.onClick <| Msgs.ToggleTopics subcategory ]
-            [ Html.text subcategory.name ]
+            [ Html.a [ href ("categories/" ++ (toString subcategory.id)) ] [ Html.text subcategory.name ] ]
             , MaterialList.content2 []
             [ MaterialList.info2 [] [ Html.text "New" ]
             , Icon.view "info" [ Color.text Color.primary ]
@@ -83,7 +84,7 @@ viewTopic : Topic -> Html Msg
 viewTopic topic =
     MaterialList.li [ Options.cs "category-list-item" ]
         [ MaterialList.content []
-            [ Html.text topic.title ]
+            [ Html.a [ href ("topics/" ++ (toString topic.id)) ] [ Html.text topic.title ] ]
             , MaterialList.content2 []
             [ MaterialList.info2 [] [ Html.text "New" ] 
             , Icon.view "info" [ Color.text Color.primary ]

@@ -26,6 +26,8 @@ defmodule StudyBuddyWeb.Router do
     pipe_through :api_auth
     resources "/users", UserController, except: [:new, :edit]
     resources "/categories", CategoryController, except: [:new, :edit]
+    resources "/topics", TopicController, except: [:new, :edit]
+    resources "/exercises", ExerciseController, except: [:new, :edit]
   end
 
   scope "/", StudyBuddyWeb do
@@ -33,20 +35,4 @@ defmodule StudyBuddyWeb.Router do
 
     get "/*path", PageController, :index
   end
-
-  scope "/users/:id/" do
-    resources "/categories", CategoryController
-    scope "/categories/:id" do
-      resources "/topics", TopicController
-      scope "/topics/:id" do
-        resources "/exercises", ExerciseController
-      end
-    end
-  end
-
-
-  # Other scopes may use custom stacks.
-  # scope "/api", StudyBuddyWeb do
-  #   pipe_through :api
-  # end
 end

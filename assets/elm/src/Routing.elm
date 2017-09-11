@@ -10,6 +10,7 @@ matchers =
             [ UrlParser.map HomeRoute top
             , UrlParser.map CategoriesRoute (s "categories" </> int)
             , UrlParser.map ExercisesRoute (s "exercises" </> int)
+            , UrlParser.map TopicsRoute (s "topics" </> int)
             ]
 
 parseLocation : Location ->  Route

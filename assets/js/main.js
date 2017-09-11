@@ -22369,6 +22369,9 @@ var _user$project$Models$NotFoundRoute = {ctor: 'NotFoundRoute'};
 var _user$project$Models$ExercisesRoute = function (a) {
 	return {ctor: 'ExercisesRoute', _0: a};
 };
+var _user$project$Models$TopicsRoute = function (a) {
+	return {ctor: 'TopicsRoute', _0: a};
+};
 var _user$project$Models$CategoriesRoute = function (a) {
 	return {ctor: 'CategoriesRoute', _0: a};
 };
@@ -22547,7 +22550,22 @@ var _user$project$Categories_View$viewTopic = function (topic) {
 				{ctor: '[]'},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text(topic.title),
+					_0: A2(
+						_elm_lang$html$Html$a,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$href(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'topics/',
+									_elm_lang$core$Basics$toString(topic.id))),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(topic.title),
+							_1: {ctor: '[]'}
+						}),
 					_1: {ctor: '[]'}
 				}),
 			_1: {
@@ -22619,7 +22637,22 @@ var _user$project$Categories_View$viewSubcategory = F2(
 							},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text(subcategory.name),
+								_0: A2(
+									_elm_lang$html$Html$a,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$href(
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'categories/',
+												_elm_lang$core$Basics$toString(subcategory.id))),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(subcategory.name),
+										_1: {ctor: '[]'}
+									}),
 								_1: {ctor: '[]'}
 							}),
 						_1: {
@@ -22703,7 +22736,22 @@ var _user$project$Categories_View$viewCategory = F2(
 							},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text(category.name),
+								_0: A2(
+									_elm_lang$html$Html$a,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$href(
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'categories/',
+												_elm_lang$core$Basics$toString(category.id))),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(category.name),
+										_1: {ctor: '[]'}
+									}),
 								_1: {ctor: '[]'}
 							}),
 						_1: {
@@ -23018,6 +23066,19 @@ var _user$project$Page_Body$page = function (model) {
 							_elm_lang$core$Basics$toString(_p0._0))),
 					_1: {ctor: '[]'}
 				});
+		case 'TopicsRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'You are on the Topics Page. Topic id: ',
+							_elm_lang$core$Basics$toString(_p0._0))),
+					_1: {ctor: '[]'}
+				});
 		case 'ExercisesRoute':
 			return A2(
 				_elm_lang$html$Html$div,
@@ -23085,6 +23146,19 @@ var _user$project$View$page = function (model) {
 						A2(
 							_elm_lang$core$Basics_ops['++'],
 							'You are on the categories page. Category id: ',
+							_elm_lang$core$Basics$toString(_p0._0))),
+					_1: {ctor: '[]'}
+				});
+		case 'TopicsRoute':
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'You are on the topics page. Topic id: ',
 							_elm_lang$core$Basics$toString(_p0._0))),
 					_1: {ctor: '[]'}
 				});
@@ -23221,7 +23295,17 @@ var _user$project$Routing$matchers = _evancz$url_parser$UrlParser$oneOf(
 						_evancz$url_parser$UrlParser_ops['</>'],
 						_evancz$url_parser$UrlParser$s('exercises'),
 						_evancz$url_parser$UrlParser$int)),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_evancz$url_parser$UrlParser$map,
+						_user$project$Models$TopicsRoute,
+						A2(
+							_evancz$url_parser$UrlParser_ops['</>'],
+							_evancz$url_parser$UrlParser$s('topics'),
+							_evancz$url_parser$UrlParser$int)),
+					_1: {ctor: '[]'}
+				}
 			}
 		}
 	});
