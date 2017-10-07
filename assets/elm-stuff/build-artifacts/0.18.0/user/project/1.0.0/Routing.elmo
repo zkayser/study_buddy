@@ -15,21 +15,31 @@ var _user$project$Routing$matchers = _evancz$url_parser$UrlParser$oneOf(
 				ctor: '::',
 				_0: A2(
 					_evancz$url_parser$UrlParser$map,
-					_user$project$Models$ExercisesRoute,
+					_user$project$Models$NewCategoryRoute,
 					A2(
 						_evancz$url_parser$UrlParser_ops['</>'],
-						_evancz$url_parser$UrlParser$s('exercises'),
-						_evancz$url_parser$UrlParser$int)),
+						_evancz$url_parser$UrlParser$s('categories'),
+						_evancz$url_parser$UrlParser$string)),
 				_1: {
 					ctor: '::',
 					_0: A2(
 						_evancz$url_parser$UrlParser$map,
-						_user$project$Models$TopicsRoute,
+						_user$project$Models$ExercisesRoute,
 						A2(
 							_evancz$url_parser$UrlParser_ops['</>'],
-							_evancz$url_parser$UrlParser$s('topics'),
+							_evancz$url_parser$UrlParser$s('exercises'),
 							_evancz$url_parser$UrlParser$int)),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_evancz$url_parser$UrlParser$map,
+							_user$project$Models$TopicsRoute,
+							A2(
+								_evancz$url_parser$UrlParser_ops['</>'],
+								_evancz$url_parser$UrlParser$s('topics'),
+								_evancz$url_parser$UrlParser$int)),
+						_1: {ctor: '[]'}
+					}
 				}
 			}
 		}

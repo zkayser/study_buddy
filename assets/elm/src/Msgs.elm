@@ -15,7 +15,9 @@ type Msg
   | Mdl (Material.Msg Msg)
   | SetUser String
   | SetPass String
+  | CategoryName String
   | SubmitCredentials
+  | SubmitCategory
   | LoginResult (Result Http.Error LoginInfo)
   | Logout
   | OnLoadUser (Result Jwt.JwtError User)

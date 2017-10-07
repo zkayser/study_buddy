@@ -29,9 +29,29 @@ type alias Categories =
   , selectedSubcategory : Maybe Subcategory
   }
 
+type CategoryFormState
+  = Empty
+  | Populated Category
+
 initialCategories : Categories
 initialCategories =
   { categories = Nothing
   , selectedCategory = Nothing
   , selectedSubcategory = Nothing
+  }
+
+emptyCategory : Category
+emptyCategory =
+  { name = ""
+  , id = 0
+  , subcategories = Nothing
+  , childrenRendered = False
+  }
+
+emptySubcategory : Subcategory
+emptySubcategory =
+  { name = ""
+  , id = 0
+  , topics = Nothing
+  , childrenRendered = False
   }

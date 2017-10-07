@@ -32,8 +32,12 @@ update msg model =
           ( { model | loginForm = LoginHelpers.updateWith Username username model.loginForm }, Cmd.none )
       Msgs.SetPass password ->
           ( { model | loginForm = LoginHelpers.updateWith Password password model.loginForm }, Cmd.none )
+      Msgs.CategoryName name ->
+          ( model, Debug.log ("Got an update to category name with: " ++ name) Cmd.none )
       Msgs.SubmitCredentials ->
           LoginHelpers.login model
+      Msgs.SubmitCategory ->
+          ( model, Debug.log "You just hit the submit categoty button." Cmd.none )
       Msgs.LoginResult result ->
           LoginHelpers.handleLoginResult model result
       Msgs.Logout ->

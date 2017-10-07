@@ -2,7 +2,21 @@ var _user$project$Models$initialModel = F2(
 	function (flags, route) {
 		var initialUser = flags.user;
 		var tkn = flags.token;
-		return {mdl: _debois$elm_mdl$Material$model, route: route, user: initialUser, categories: _user$project$Categories_Category$initialCategories, loginForm: _user$project$Page_LoginForm$initialLoginForm, jwt: tkn, errorMessage: ''};
+		return {
+			mdl: _debois$elm_mdl$Material$model,
+			route: A2(
+				_elm_lang$core$Debug$log,
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					'Route = ',
+					_elm_lang$core$Basics$toString(route)),
+				route),
+			user: initialUser,
+			categories: _user$project$Categories_Category$initialCategories,
+			loginForm: _user$project$Page_LoginForm$initialLoginForm,
+			jwt: tkn,
+			errorMessage: ''
+		};
 	});
 var _user$project$Models$Model = F7(
 	function (a, b, c, d, e, f, g) {
@@ -14,6 +28,9 @@ var _user$project$Models$ExercisesRoute = function (a) {
 };
 var _user$project$Models$TopicsRoute = function (a) {
 	return {ctor: 'TopicsRoute', _0: a};
+};
+var _user$project$Models$NewCategoryRoute = function (a) {
+	return {ctor: 'NewCategoryRoute', _0: a};
 };
 var _user$project$Models$CategoriesRoute = function (a) {
 	return {ctor: 'CategoriesRoute', _0: a};

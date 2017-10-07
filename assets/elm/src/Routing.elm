@@ -9,6 +9,7 @@ matchers =
         oneOf
             [ UrlParser.map HomeRoute top
             , UrlParser.map CategoriesRoute (s "categories" </> int)
+            , UrlParser.map NewCategoryRoute (s "categories" </> string)
             , UrlParser.map ExercisesRoute (s "exercises" </> int)
             , UrlParser.map TopicsRoute (s "topics" </> int)
             ]

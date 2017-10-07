@@ -25,7 +25,7 @@ initialModel flags route =
     initialUser = flags.user
   in
     { mdl = Material.model
-    , route = route
+    , route = Debug.log ("Route = " ++ (toString route))route
     , user = initialUser
     , categories = initialCategories
     , loginForm = LoginForm.initialLoginForm
@@ -36,6 +36,7 @@ initialModel flags route =
 type Route
     = HomeRoute
     | CategoriesRoute Int
+    | NewCategoryRoute String
     | TopicsRoute Int
     | ExercisesRoute Int
     | NotFoundRoute

@@ -1,6 +1,6 @@
 module Categories.View exposing (..)
 
-import Categories.Category exposing (Category, Subcategory, Topic, Categories)
+import Categories.Category exposing (Category, Subcategory, Topic, Categories, CategoryFormState(..))
 import Models exposing (Model, Route(..))
 import Msgs exposing (Msg(..))
 import Html exposing (Html)
@@ -9,6 +9,9 @@ import Material
 import Material.Grid as Grid
 import Material.Options as Options
 import Material.List as MaterialList
+import Material.Textfield as Textfield
+import Material.Button as Button
+import Material.Card as Card
 import Material.Icon as Icon
 import Material.Color as Color
 import Material.Layout as Layout
@@ -104,4 +107,85 @@ subcatChildrenShouldBeRendered subcat categories =
         Nothing -> False
         Just subcategory ->
             subcategory.id == subcat.id && subcategory.childrenRendered
-            
+
+categoryShowView : Model -> Html Msg
+categoryShowView model =
+    Grid.grid
+        [ Grid.size Grid.All 12 
+        , Options.center
+        , Typography.center
+        ]
+        [ (categoryForm model )]
+
+createCategoryView : Model -> Html Msg
+createCategoryView model =
+    Grid.grid 
+        [ Grid.size Grid.All 12
+        , Options.center
+        , Typography.center
+        ]
+        [ (categoryForm model Categories.Category.Empty) ]
+
+categoryForm : Model -> CategoryFormState -> Grid.Cell Msg
+categoryForm model state =
+    case state of
+        Categories.Category.Empty ->
+            Grid.cell
+                [ Grid.size Grid.All 12
+                , Typography.center
+                , Options.center
+                ]
+                [ Card.view cardOptions
+                    [ Card.title 
+                        [ Typography.center ]
+                        [ renderCardTitle
+                            [ Options.css "align-self" "center"
+                            , Options.css "color" "white"
+                            ]
+                            "New Category"
+                        , renderInputFieldFor "Category" [2] model.mdl Textfield.text_ Msgs.CategoryName
+                        , Html.br [] []
+                        , viewButton model.mdl [2, 0, 0, 0] "Create Category"
+                        ]
+                    ]
+                ]
+        Categories.Category.Populated category ->
+            Grid.cell [ Grid.size Grid.All 0 ] [ Html.text "" ]
+
+cardOptions : List (Options.Style Msg)
+cardOptions =
+  [ Options.css "border-radius" "1em"
+  , Grid.size Grid.Phone 12
+  , Grid.size Grid.Tablet 8
+  , Grid.size Grid.Desktop 4
+  , Color.background (Color.color Color.Cyan Color.S500)
+  , Options.css "display" "flex"
+  , Options.css "align-items" "center"
+  ]
+
+renderCardTitle : List (Options.Style Msg) -> String -> Html Msg
+renderCardTitle styling title =
+  Card.subhead styling
+    [ Html.h2 [] [ Html.text title ] ]
+
+renderInputFieldFor : String -> List Int -> Material.Model -> Textfield.Property Msg -> (String -> Msg) -> Html Msg
+renderInputFieldFor name mdlIndex mdl inputType msg =
+  Textfield.render Msgs.Mdl mdlIndex mdl
+    [ Textfield.label name
+    , Textfield.floatingLabel
+    , Options.onInput msg
+    , inputType
+    ]
+    []
+
+viewButton : Material.Model -> List Int -> String -> Html Msg
+viewButton mdl mdlIndex buttonTxt =
+  Button.render Msgs.Mdl mdlIndex mdl
+    [ Button.ripple
+    , Button.raised
+    , Button.colored
+    , Button.type_ "button"
+    , Options.css "align-self" "center"
+    , Options.onClick Msgs.SubmitCategory
+    ]
+    [ Html.text buttonTxt ]

@@ -21761,6 +21761,8 @@ var _user$project$Exercises_Exercise$exerciseDecoder = A4(
 											_elm_lang$core$Json_Decode$string,
 											_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Exercises_Exercise$Exercise))))))))))));
 
+var _user$project$Categories_Category$emptySubcategory = {name: '', id: 0, topics: _elm_lang$core$Maybe$Nothing, childrenRendered: false};
+var _user$project$Categories_Category$emptyCategory = {name: '', id: 0, subcategories: _elm_lang$core$Maybe$Nothing, childrenRendered: false};
 var _user$project$Categories_Category$initialCategories = {categories: _elm_lang$core$Maybe$Nothing, selectedCategory: _elm_lang$core$Maybe$Nothing, selectedSubcategory: _elm_lang$core$Maybe$Nothing};
 var _user$project$Categories_Category$Category = F4(
 	function (a, b, c, d) {
@@ -21778,6 +21780,10 @@ var _user$project$Categories_Category$Categories = F3(
 	function (a, b, c) {
 		return {categories: a, selectedCategory: b, selectedSubcategory: c};
 	});
+var _user$project$Categories_Category$Populated = function (a) {
+	return {ctor: 'Populated', _0: a};
+};
+var _user$project$Categories_Category$Empty = {ctor: 'Empty'};
 
 var _user$project$Page_LoginMsgs$SetPassword = function (a) {
 	return {ctor: 'SetPassword', _0: a};
@@ -21954,7 +21960,11 @@ var _user$project$Msgs$Logout = {ctor: 'Logout'};
 var _user$project$Msgs$LoginResult = function (a) {
 	return {ctor: 'LoginResult', _0: a};
 };
+var _user$project$Msgs$SubmitCategory = {ctor: 'SubmitCategory'};
 var _user$project$Msgs$SubmitCredentials = {ctor: 'SubmitCredentials'};
+var _user$project$Msgs$CategoryName = function (a) {
+	return {ctor: 'CategoryName', _0: a};
+};
 var _user$project$Msgs$SetPass = function (a) {
 	return {ctor: 'SetPass', _0: a};
 };
@@ -22359,7 +22369,21 @@ var _user$project$Models$initialModel = F2(
 	function (flags, route) {
 		var initialUser = flags.user;
 		var tkn = flags.token;
-		return {mdl: _debois$elm_mdl$Material$model, route: route, user: initialUser, categories: _user$project$Categories_Category$initialCategories, loginForm: _user$project$Page_LoginForm$initialLoginForm, jwt: tkn, errorMessage: ''};
+		return {
+			mdl: _debois$elm_mdl$Material$model,
+			route: A2(
+				_elm_lang$core$Debug$log,
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					'Route = ',
+					_elm_lang$core$Basics$toString(route)),
+				route),
+			user: initialUser,
+			categories: _user$project$Categories_Category$initialCategories,
+			loginForm: _user$project$Page_LoginForm$initialLoginForm,
+			jwt: tkn,
+			errorMessage: ''
+		};
 	});
 var _user$project$Models$Model = F7(
 	function (a, b, c, d, e, f, g) {
@@ -22371,6 +22395,9 @@ var _user$project$Models$ExercisesRoute = function (a) {
 };
 var _user$project$Models$TopicsRoute = function (a) {
 	return {ctor: 'TopicsRoute', _0: a};
+};
+var _user$project$Models$NewCategoryRoute = function (a) {
+	return {ctor: 'NewCategoryRoute', _0: a};
 };
 var _user$project$Models$CategoriesRoute = function (a) {
 	return {ctor: 'CategoriesRoute', _0: a};
@@ -22515,24 +22542,271 @@ var _user$project$Categories_Utils$loadCategories = F2(
 			{categories: updatedCategories});
 	});
 
+var _user$project$Categories_View$viewButton = F3(
+	function (mdl, mdlIndex, buttonTxt) {
+		return A5(
+			_debois$elm_mdl$Material_Button$render,
+			_user$project$Msgs$Mdl,
+			mdlIndex,
+			mdl,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Button$ripple,
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Button$raised,
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Button$colored,
+						_1: {
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Button$type_('button'),
+							_1: {
+								ctor: '::',
+								_0: A2(_debois$elm_mdl$Material_Options$css, 'align-self', 'center'),
+								_1: {
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Options$onClick(_user$project$Msgs$SubmitCategory),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(buttonTxt),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$Categories_View$renderInputFieldFor = F5(
+	function (name, mdlIndex, mdl, inputType, msg) {
+		return A5(
+			_debois$elm_mdl$Material_Textfield$render,
+			_user$project$Msgs$Mdl,
+			mdlIndex,
+			mdl,
+			{
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Textfield$label(name),
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Textfield$floatingLabel,
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Options$onInput(msg),
+						_1: {
+							ctor: '::',
+							_0: inputType,
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			},
+			{ctor: '[]'});
+	});
+var _user$project$Categories_View$renderCardTitle = F2(
+	function (styling, title) {
+		return A2(
+			_debois$elm_mdl$Material_Card$subhead,
+			styling,
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$h2,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(title),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$Categories_View$cardOptions = {
+	ctor: '::',
+	_0: A2(_debois$elm_mdl$Material_Options$css, 'border-radius', '1em'),
+	_1: {
+		ctor: '::',
+		_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$Phone, 12),
+		_1: {
+			ctor: '::',
+			_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$Tablet, 8),
+			_1: {
+				ctor: '::',
+				_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$Desktop, 4),
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Color$background(
+						A2(_debois$elm_mdl$Material_Color$color, _debois$elm_mdl$Material_Color$Cyan, _debois$elm_mdl$Material_Color$S500)),
+					_1: {
+						ctor: '::',
+						_0: A2(_debois$elm_mdl$Material_Options$css, 'display', 'flex'),
+						_1: {
+							ctor: '::',
+							_0: A2(_debois$elm_mdl$Material_Options$css, 'align-items', 'center'),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+var _user$project$Categories_View$categoryForm = F2(
+	function (model, state) {
+		var _p0 = state;
+		if (_p0.ctor === 'Empty') {
+			return A2(
+				_debois$elm_mdl$Material_Grid$cell,
+				{
+					ctor: '::',
+					_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 12),
+					_1: {
+						ctor: '::',
+						_0: _debois$elm_mdl$Material_Typography$center,
+						_1: {
+							ctor: '::',
+							_0: _debois$elm_mdl$Material_Options$center,
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_debois$elm_mdl$Material_Card$view,
+						_user$project$Categories_View$cardOptions,
+						{
+							ctor: '::',
+							_0: A2(
+								_debois$elm_mdl$Material_Card$title,
+								{
+									ctor: '::',
+									_0: _debois$elm_mdl$Material_Typography$center,
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_user$project$Categories_View$renderCardTitle,
+										{
+											ctor: '::',
+											_0: A2(_debois$elm_mdl$Material_Options$css, 'align-self', 'center'),
+											_1: {
+												ctor: '::',
+												_0: A2(_debois$elm_mdl$Material_Options$css, 'color', 'white'),
+												_1: {ctor: '[]'}
+											}
+										},
+										'New Category'),
+									_1: {
+										ctor: '::',
+										_0: A5(
+											_user$project$Categories_View$renderInputFieldFor,
+											'Category',
+											{
+												ctor: '::',
+												_0: 2,
+												_1: {ctor: '[]'}
+											},
+											model.mdl,
+											_debois$elm_mdl$Material_Textfield$text_,
+											_user$project$Msgs$CategoryName),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$br,
+												{ctor: '[]'},
+												{ctor: '[]'}),
+											_1: {
+												ctor: '::',
+												_0: A3(
+													_user$project$Categories_View$viewButton,
+													model.mdl,
+													{
+														ctor: '::',
+														_0: 2,
+														_1: {
+															ctor: '::',
+															_0: 0,
+															_1: {
+																ctor: '::',
+																_0: 0,
+																_1: {
+																	ctor: '::',
+																	_0: 0,
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													},
+													'Create Category'),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				});
+		} else {
+			return A2(
+				_debois$elm_mdl$Material_Grid$cell,
+				{
+					ctor: '::',
+					_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 0),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(''),
+					_1: {ctor: '[]'}
+				});
+		}
+	});
+var _user$project$Categories_View$createCategoryView = function (model) {
+	return A2(
+		_debois$elm_mdl$Material_Grid$grid,
+		{
+			ctor: '::',
+			_0: A2(_debois$elm_mdl$Material_Grid$size, _debois$elm_mdl$Material_Grid$All, 12),
+			_1: {
+				ctor: '::',
+				_0: _debois$elm_mdl$Material_Options$center,
+				_1: {
+					ctor: '::',
+					_0: _debois$elm_mdl$Material_Typography$center,
+					_1: {ctor: '[]'}
+				}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A2(_user$project$Categories_View$categoryForm, model, _user$project$Categories_Category$Empty),
+			_1: {ctor: '[]'}
+		});
+};
 var _user$project$Categories_View$subcatChildrenShouldBeRendered = F2(
 	function (subcat, categories) {
-		var _p0 = categories.selectedSubcategory;
-		if (_p0.ctor === 'Nothing') {
+		var _p1 = categories.selectedSubcategory;
+		if (_p1.ctor === 'Nothing') {
 			return false;
 		} else {
-			var _p1 = _p0._0;
-			return _elm_lang$core$Native_Utils.eq(_p1.id, subcat.id) && _p1.childrenRendered;
+			var _p2 = _p1._0;
+			return _elm_lang$core$Native_Utils.eq(_p2.id, subcat.id) && _p2.childrenRendered;
 		}
 	});
 var _user$project$Categories_View$categoryShouldBeRendered = F2(
 	function (category, categories) {
-		var _p2 = categories.selectedCategory;
-		if (_p2.ctor === 'Nothing') {
+		var _p3 = categories.selectedCategory;
+		if (_p3.ctor === 'Nothing') {
 			return false;
 		} else {
-			var _p3 = _p2._0;
-			return _elm_lang$core$Native_Utils.eq(_p3.id, category.id) && _p3.childrenRendered;
+			var _p4 = _p3._0;
+			return _elm_lang$core$Native_Utils.eq(_p4.id, category.id) && _p4.childrenRendered;
 		}
 	});
 var _user$project$Categories_View$viewTopic = function (topic) {
@@ -22601,15 +22875,15 @@ var _user$project$Categories_View$viewTopic = function (topic) {
 		});
 };
 var _user$project$Categories_View$viewTopics = function (maybeTopics) {
-	var _p4 = maybeTopics;
-	if (_p4.ctor === 'Nothing') {
+	var _p5 = maybeTopics;
+	if (_p5.ctor === 'Nothing') {
 		return {
 			ctor: '::',
 			_0: _elm_lang$html$Html$text(''),
 			_1: {ctor: '[]'}
 		};
 	} else {
-		return A2(_elm_lang$core$List$map, _user$project$Categories_View$viewTopic, _p4._0);
+		return A2(_elm_lang$core$List$map, _user$project$Categories_View$viewTopic, _p5._0);
 	}
 };
 var _user$project$Categories_View$viewSubcategory = F2(
@@ -22696,8 +22970,8 @@ var _user$project$Categories_View$viewSubcategory = F2(
 	});
 var _user$project$Categories_View$viewSubcategories = F2(
 	function (maybeSubcategories, categories) {
-		var _p5 = maybeSubcategories;
-		if (_p5.ctor === 'Nothing') {
+		var _p6 = maybeSubcategories;
+		if (_p6.ctor === 'Nothing') {
 			return {
 				ctor: '::',
 				_0: _elm_lang$html$Html$text(''),
@@ -22708,7 +22982,7 @@ var _user$project$Categories_View$viewSubcategories = F2(
 				A2(
 					_elm_lang$core$List$map,
 					_user$project$Categories_View$viewSubcategory(categories),
-					_p5._0));
+					_p6._0));
 		}
 	});
 var _user$project$Categories_View$viewCategory = F2(
@@ -22794,8 +23068,8 @@ var _user$project$Categories_View$viewCategory = F2(
 			});
 	});
 var _user$project$Categories_View$viewCategories = function (categories) {
-	var _p6 = categories.categories;
-	if (_p6.ctor === 'Nothing') {
+	var _p7 = categories.categories;
+	if (_p7.ctor === 'Nothing') {
 		return {
 			ctor: '::',
 			_0: _elm_lang$html$Html$text(''),
@@ -22815,7 +23089,7 @@ var _user$project$Categories_View$viewCategories = function (categories) {
 					A2(
 						_elm_lang$core$List$map,
 						_user$project$Categories_View$viewCategory(categories),
-						_p6._0))),
+						_p7._0))),
 			_1: {ctor: '[]'}
 		};
 	}
@@ -23066,6 +23340,13 @@ var _user$project$Page_Body$page = function (model) {
 							_elm_lang$core$Basics$toString(_p0._0))),
 					_1: {ctor: '[]'}
 				});
+		case 'NewCategoryRoute':
+			var _p1 = _p0._0;
+			if (_p1 === 'new') {
+				return _user$project$Categories_View$createCategoryView(model);
+			} else {
+				return _user$project$Page_Body$notFoundView;
+			}
 		case 'TopicsRoute':
 			return A2(
 				_elm_lang$html$Html$div,
@@ -23133,57 +23414,10 @@ var _user$project$Page_Layout$layout = function (model) {
 
 var _user$project$View$page = function (model) {
 	var _p0 = model.route;
-	switch (_p0.ctor) {
-		case 'HomeRoute':
-			return _user$project$Page_Home$view(model);
-		case 'CategoriesRoute':
-			return A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'You are on the categories page. Category id: ',
-							_elm_lang$core$Basics$toString(_p0._0))),
-					_1: {ctor: '[]'}
-				});
-		case 'TopicsRoute':
-			return A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'You are on the topics page. Topic id: ',
-							_elm_lang$core$Basics$toString(_p0._0))),
-					_1: {ctor: '[]'}
-				});
-		case 'ExercisesRoute':
-			return A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'You are on the exercises page. Exercise id: ',
-							_elm_lang$core$Basics$toString(_p0._0))),
-					_1: {ctor: '[]'}
-				});
-		default:
-			return A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Not found...'),
-					_1: {ctor: '[]'}
-				});
+	if (_p0.ctor === 'HomeRoute') {
+		return _user$project$Page_Home$view(model);
+	} else {
+		return _user$project$Page_Body$page(model);
 	}
 };
 var _user$project$View$view = function (model) {
@@ -23290,21 +23524,31 @@ var _user$project$Routing$matchers = _evancz$url_parser$UrlParser$oneOf(
 				ctor: '::',
 				_0: A2(
 					_evancz$url_parser$UrlParser$map,
-					_user$project$Models$ExercisesRoute,
+					_user$project$Models$NewCategoryRoute,
 					A2(
 						_evancz$url_parser$UrlParser_ops['</>'],
-						_evancz$url_parser$UrlParser$s('exercises'),
-						_evancz$url_parser$UrlParser$int)),
+						_evancz$url_parser$UrlParser$s('categories'),
+						_evancz$url_parser$UrlParser$string)),
 				_1: {
 					ctor: '::',
 					_0: A2(
 						_evancz$url_parser$UrlParser$map,
-						_user$project$Models$TopicsRoute,
+						_user$project$Models$ExercisesRoute,
 						A2(
 							_evancz$url_parser$UrlParser_ops['</>'],
-							_evancz$url_parser$UrlParser$s('topics'),
+							_evancz$url_parser$UrlParser$s('exercises'),
 							_evancz$url_parser$UrlParser$int)),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_evancz$url_parser$UrlParser$map,
+							_user$project$Models$TopicsRoute,
+							A2(
+								_evancz$url_parser$UrlParser_ops['</>'],
+								_evancz$url_parser$UrlParser$s('topics'),
+								_evancz$url_parser$UrlParser$int)),
+						_1: {ctor: '[]'}
+					}
 				}
 			}
 		}
@@ -23384,8 +23628,23 @@ var _user$project$Update$update = F2(
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'CategoryName':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(
+						_elm_lang$core$Debug$log,
+						A2(_elm_lang$core$Basics_ops['++'], 'Got an update to category name with: ', _p0._0),
+						_elm_lang$core$Platform_Cmd$none)
+				};
 			case 'SubmitCredentials':
 				return _user$project$Page_LoginFormHelpers$login(model);
+			case 'SubmitCategory':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(_elm_lang$core$Debug$log, 'You just hit the submit categoty button.', _elm_lang$core$Platform_Cmd$none)
+				};
 			case 'LoginResult':
 				return A2(_user$project$Page_LoginFormHelpers$handleLoginResult, model, _p0._0);
 			case 'Logout':
@@ -23518,7 +23777,7 @@ var _user$project$Main$main = A2(
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {
-    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Jwt.JwtError":{"args":[],"tags":{"TokenDecodeError":["String"],"TokenExpired":[],"Unauthorized":[],"HttpError":["Http.Error"],"TokenProcessingError":["String"],"TokenNotExpired":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"ToggleTopics":["Categories.Category.Subcategory"],"SetUser":["String"],"SubmitCredentials":[],"LoginResult":["Result.Result Http.Error Flags.LoginInfo"],"Mdl":["Material.Msg Msgs.Msg"],"ToggleSubcategories":["Categories.Category.Category"],"SetPass":["String"],"OnLoadUser":["Result.Result Jwt.JwtError Users.User.User"],"OnLoadCategories":["Result.Result Jwt.JwtError (List Categories.Category.Category)"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Flags.LoginInfo":{"args":[],"type":"{ jwt : Maybe.Maybe String, userId : Maybe.Maybe String }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Categories.Category.Category":{"args":[],"type":"{ name : String , id : Int , subcategories : Maybe.Maybe (List Categories.Category.Subcategory) , childrenRendered : Bool }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Categories.Category.Topic":{"args":[],"type":"{ title : String , id : Int , exercises : Maybe.Maybe (List Exercises.Exercise.Exercise) , childrenRendered : Bool }"},"Users.User.User":{"args":[],"type":"{ id : Int, username : String, name : String, email : String }"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Categories.Category.Subcategory":{"args":[],"type":"{ name : String , id : Int , topics : Maybe.Maybe (List Categories.Category.Topic) , childrenRendered : Bool }"},"Exercises.Exercise.Exercise":{"args":[],"type":"{ type_ : String , task : String , answer : String , reviews : Int , successes : Int , failures : Int , isDue : Bool , lastReview : String , nextReview : String , source : String , mastered : Bool }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
+    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Dict.LeafColor":{"args":[],"tags":{"LBBlack":[],"LBlack":[]}},"Material.Component.Msg":{"args":["button","textfield","menu","layout","toggles","tooltip","tabs","dispatch"],"tags":{"TooltipMsg":["Material.Component.Index","tooltip"],"TogglesMsg":["Material.Component.Index","toggles"],"LayoutMsg":["layout"],"ButtonMsg":["Material.Component.Index","button"],"MenuMsg":["Material.Component.Index","menu"],"TabsMsg":["Material.Component.Index","tabs"],"Dispatch":["dispatch"],"TextfieldMsg":["Material.Component.Index","textfield"]}},"Material.Ripple.Msg":{"args":[],"tags":{"Down":["Material.Ripple.DOMState"],"Up":[],"Tick":[]}},"Dict.Dict":{"args":["k","v"],"tags":{"RBNode_elm_builtin":["Dict.NColor","k","v","Dict.Dict k v","Dict.Dict k v"],"RBEmpty_elm_builtin":["Dict.LeafColor"]}},"Jwt.JwtError":{"args":[],"tags":{"TokenDecodeError":["String"],"TokenExpired":[],"Unauthorized":[],"HttpError":["Http.Error"],"TokenProcessingError":["String"],"TokenNotExpired":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Material.Tooltip.Msg":{"args":[],"tags":{"Enter":["Material.Tooltip.DOMState"],"Leave":[]}},"Dict.NColor":{"args":[],"tags":{"BBlack":[],"Red":[],"NBlack":[],"Black":[]}},"Json.Decode.Decoder":{"args":["a"],"tags":{"Decoder":[]}},"Material.Textfield.Msg":{"args":[],"tags":{"Focus":[],"Input":["String"],"Blur":[]}},"Msgs.Msg":{"args":[],"tags":{"OnLocationChange":["Navigation.Location"],"Logout":[],"ToggleTopics":["Categories.Category.Subcategory"],"SetUser":["String"],"SubmitCategory":[],"SubmitCredentials":[],"CategoryName":["String"],"LoginResult":["Result.Result Http.Error Flags.LoginInfo"],"Mdl":["Material.Msg Msgs.Msg"],"ToggleSubcategories":["Categories.Category.Category"],"SetPass":["String"],"OnLoadUser":["Result.Result Jwt.JwtError Users.User.User"],"OnLoadCategories":["Result.Result Jwt.JwtError (List Categories.Category.Category)"]}},"Material.Layout.Msg":{"args":[],"tags":{"Resize":["Int"],"ToggleDrawer":[],"TransitionEnd":[],"ScrollPane":["Bool","Float"],"Ripple":["Int","Material.Ripple.Msg"],"ScrollTab":["Material.Layout.TabScrollState"],"TransitionHeader":["{ toCompact : Bool, fixedHeader : Bool }"],"NOP":[]}},"Material.Toggles.Msg":{"args":[],"tags":{"Ripple":["Material.Ripple.Msg"],"SetFocus":["Bool"]}},"VirtualDom.Property":{"args":["msg"],"tags":{"Property":[]}},"Http.Error":{"args":[],"tags":{"BadUrl":["String"],"NetworkError":[],"Timeout":[],"BadStatus":["Http.Response String"],"BadPayload":["String","Http.Response String"]}},"Result.Result":{"args":["error","value"],"tags":{"Ok":["value"],"Err":["error"]}},"Material.Tabs.Msg":{"args":[],"tags":{"Ripple":["Int","Material.Ripple.Msg"]}},"Material.Menu.Msg":{"args":["m"],"tags":{"Tick":[],"Close":[],"Open":["Material.Menu.Geometry.Geometry"],"Key":["List (Material.Options.Internal.Summary (Material.Menu.ItemConfig m) m)","Int"],"Ripple":["Int","Material.Ripple.Msg"],"Select":["Int","Maybe.Maybe m"],"Click":["Mouse.Position"]}},"Material.Dispatch.Config":{"args":["msg"],"tags":{"Config":["{ decoders : List ( String , ( Json.Decode.Decoder msg, Maybe.Maybe Html.Events.Options ) ) , lift : Maybe.Maybe (Json.Decode.Decoder (List msg) -> Json.Decode.Decoder msg) }"]}}},"aliases":{"Material.Button.Msg":{"args":[],"type":"Material.Ripple.Msg"},"Material.Layout.TabScrollState":{"args":[],"type":"{ canScrollLeft : Bool , canScrollRight : Bool , width : Maybe.Maybe Int }"},"Flags.LoginInfo":{"args":[],"type":"{ jwt : Maybe.Maybe String, userId : Maybe.Maybe String }"},"Material.Tooltip.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle, offsetWidth : Float, offsetHeight : Float }"},"Html.Attribute":{"args":["msg"],"type":"VirtualDom.Property msg"},"Material.Menu.ItemConfig":{"args":["m"],"type":"{ enabled : Bool, divider : Bool, onSelect : Maybe.Maybe m }"},"Material.Component.Index":{"args":[],"type":"List Int"},"Html.Events.Options":{"args":[],"type":"{ stopPropagation : Bool, preventDefault : Bool }"},"Http.Response":{"args":["body"],"type":"{ url : String , status : { code : Int, message : String } , headers : Dict.Dict String String , body : body }"},"Material.Ripple.DOMState":{"args":[],"type":"{ rect : DOM.Rectangle , clientX : Maybe.Maybe Float , clientY : Maybe.Maybe Float , touchX : Maybe.Maybe Float , touchY : Maybe.Maybe Float , type_ : String }"},"Mouse.Position":{"args":[],"type":"{ x : Int, y : Int }"},"Categories.Category.Category":{"args":[],"type":"{ name : String , id : Int , subcategories : Maybe.Maybe (List Categories.Category.Subcategory) , childrenRendered : Bool }"},"Material.Options.Internal.Summary":{"args":["c","m"],"type":"{ classes : List String , css : List ( String, String ) , attrs : List (Html.Attribute m) , internal : List (Html.Attribute m) , dispatch : Material.Dispatch.Config m , config : c }"},"Material.Msg":{"args":["m"],"type":"Material.Component.Msg Material.Button.Msg Material.Textfield.Msg (Material.Menu.Msg m) Material.Layout.Msg Material.Toggles.Msg Material.Tooltip.Msg Material.Tabs.Msg (List m)"},"Categories.Category.Topic":{"args":[],"type":"{ title : String , id : Int , exercises : Maybe.Maybe (List Exercises.Exercise.Exercise) , childrenRendered : Bool }"},"Users.User.User":{"args":[],"type":"{ id : Int, username : String, name : String, email : String }"},"Material.Menu.Geometry.Element":{"args":[],"type":"{ offsetTop : Float , offsetLeft : Float , offsetHeight : Float , bounds : DOM.Rectangle }"},"Categories.Category.Subcategory":{"args":[],"type":"{ name : String , id : Int , topics : Maybe.Maybe (List Categories.Category.Topic) , childrenRendered : Bool }"},"Exercises.Exercise.Exercise":{"args":[],"type":"{ type_ : String , task : String , answer : String , reviews : Int , successes : Int , failures : Int , isDue : Bool , lastReview : String , nextReview : String , source : String , mastered : Bool }"},"Material.Menu.Geometry.Geometry":{"args":[],"type":"{ button : Material.Menu.Geometry.Element , menu : Material.Menu.Geometry.Element , container : Material.Menu.Geometry.Element , offsetTops : List Float , offsetHeights : List Float }"},"Navigation.Location":{"args":[],"type":"{ href : String , host : String , hostname : String , protocol : String , origin : String , port_ : String , pathname : String , search : String , hash : String , username : String , password : String }"},"DOM.Rectangle":{"args":[],"type":"{ top : Float, left : Float, width : Float, height : Float }"}},"message":"Msgs.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])

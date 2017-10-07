@@ -64,8 +64,23 @@ var _user$project$Update$update = F2(
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'CategoryName':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(
+						_elm_lang$core$Debug$log,
+						A2(_elm_lang$core$Basics_ops['++'], 'Got an update to category name with: ', _p0._0),
+						_elm_lang$core$Platform_Cmd$none)
+				};
 			case 'SubmitCredentials':
 				return _user$project$Page_LoginFormHelpers$login(model);
+			case 'SubmitCategory':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(_elm_lang$core$Debug$log, 'You just hit the submit categoty button.', _elm_lang$core$Platform_Cmd$none)
+				};
 			case 'LoginResult':
 				return A2(_user$project$Page_LoginFormHelpers$handleLoginResult, model, _p0._0);
 			case 'Logout':

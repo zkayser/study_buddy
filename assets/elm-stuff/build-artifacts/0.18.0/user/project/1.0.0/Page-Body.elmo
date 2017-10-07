@@ -24,6 +24,13 @@ var _user$project$Page_Body$page = function (model) {
 							_elm_lang$core$Basics$toString(_p0._0))),
 					_1: {ctor: '[]'}
 				});
+		case 'NewCategoryRoute':
+			var _p1 = _p0._0;
+			if (_p1 === 'new') {
+				return _user$project$Categories_View$createCategoryView(model);
+			} else {
+				return _user$project$Page_Body$notFoundView;
+			}
 		case 'TopicsRoute':
 			return A2(
 				_elm_lang$html$Html$div,
